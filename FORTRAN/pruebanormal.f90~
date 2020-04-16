@@ -1,0 +1,11 @@
+program pruebanormal
+ 
+  USE normal_distribution
+  implicit none
+  real*8,dimension(4,4):: a
+  call r8mat_normal_01(4,4,1234,a)
+
+  call r8mat_print(4,4,a,'La recontraputa')
+  
+
+end program pruebanormal

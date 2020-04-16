@@ -1,0 +1,18 @@
+This directory contains Matlab code for the numerical examples in the following
+paper:
+
+Pavel Sakov and Laurent Bertino "Relation between two common localisation
+methods for the EnKF", submitted to Computational Geosciences.
+
+Figure # |   Command               | Output
+-------------------------------------------------------
+   1     | cl_example              | plot-cl.ps
+   2     | la_example              | plot-la.ps
+   3     | k                       | plot-k-r=1.ps
+   3     | k (set r = 1e-4 at l.3) | plot-k-r=0.0001.ps
+   4     | tsq                     | plot-tsq.ps
+   5     | t                       | plot-t-r=1.ps
+   5     | t (set r = 1e-2 at l.3) | plot-t-r=0.01.ps
+   5     | t (set r = 1e-4 at l.3) | plot-t-r=0.0001.ps
+   6     | tla                     | plot-tla-r=0.01.ps
+   7     | spectrum                | plot-spectrum-r=0.01.ps

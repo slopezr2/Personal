@@ -1,0 +1,176 @@
+!
+! Input descriptions for WRF meteo files.
+!
+! For each variable, specify  how to form a timeseries.
+! The following example specifies to read a sequence of
+! hourly records, and that (if requested) the intermediate times
+! should be formed by using linear interpolation.
+!
+!   myvar.tinterp  :  1 hour
+!
+! The input for this time series could consist of a sequence
+! of data sets, each of them valid for another time period.
+! The data sets might differ in path, filename, and resolution for example.
+! The sequenct consists of '|' seperated elememnts,
+! where each element has 3 comma-seperated keys that define
+! the start and end time and a file-description key:
+!
+!   myvar.input    :  t1, t2, key1 | t3, t4, key2 | ...
+!
+! A file-description key describes a collection of files from 
+! which in this example 'myvar' should be read.
+! In most simple form, file-description looks like:
+!
+!  key1.name          :  /data/wrfout_d03_%{yyyy}%{mm}%{dd}.nc
+!  key1.var           :  var_name=HGT
+!
+! This specifies a sequence of file names (with templates for date values)
+! and that the data is present in a variable named 'HGT'.
+!
+! Detailed settings:
+!
+!  key1.name          :  /data/wrfout_d03_%{yyyy}%{mm}%{dd}.nc
+!    Filename description. Time templates are replaced by actual values,
+!    for example:
+!       %{yyyy}, %{mm}, %{dd}, %{yyyymmdd}
+!
+!  key1.name_dtsec    :  0
+!    Offset for time used to form filename.
+!    If a file contains fields for (00:00,24:00], use name_dtsec=-1
+!
+!  key1.var   :  standard_name=name;long_name=name;var_name=name;units=kg
+!    List of variable descriptions, seperated by semi-colon.
+!    The elements could define to search for 'standard_name' attribute,
+!    a 'long_name' attribute, or to search for a variable with an
+!    explicitly defined name.
+!    Eventually specify units if the variable in the file does not
+!    have a 'units' attrribute or when it is empty.
+!
+!  key1.special    :  time_name=XTIME;constant=T
+!    Adhoc settings, for example to handle files that are not CF-compliant.
+!    For WRF files for example:
+!      time_name=XTIME
+!        Read time values from the specified variable;
+!        some files have time dimension 'Time', 
+!        but have stored time values in 'XTIME'.
+!      constant=T
+!        Enable this flag if a variable is constant but still has
+!        a time dimension in the file, for example the orography.
+!      swap_levels=F
+!        Necessary special setting for 3D fields, to let the model
+!        know whether levels need to be swapped to have them in
+!        surface-to-top direction.
+!      compute=uv_stag_to_center
+!        Specifies that a wind vector field should be composed from
+!        staggered u and v fields (defined on mid of u and v edges);
+!        the result is a vector field with (lon,lat) components
+!        defined on the cell centers.
+!
+
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! wrf meteo
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+! filenames:
+my.wrf.file.name       :  ${MODAS_ARCHIVE}/projects/StickstoffBW/wrf-data/d01/wrfout_d01_%{yyyy}-%{mm}-%{dd}_00:00:00
+! all files have 25 records for [00:00,24:00], where first record is sometimes invalid ;
+! therefore need to extract 00:00 from the previous day:
+my.wrf.file.name_dtsec :  -1
+
+! take orography, land sea mask, soiltype from 2D timeseries:
+#for VAR in orog lsm slt
+meteo.VAR.input              :  2000-01-01 00:00, 2020-01-01 00:00, meteo.VAR.file
+meteo.VAR.file.name          :  ${my.wrf.file.name}
+meteo.VAR.file.name_dtsec    :  ${my.wrf.file.name_dtsec}
+meteo.VAR.file.special       :  time_name=XTIME;constant=T
+#endfor
+meteo.orog.file.var          :  var_name=HGT
+meteo.lsm.file.var           :  var_name=LANDMASK;units=1
+meteo.slt.file.var           :  var_name=ISLTYP;units=1
+
+! surface fields, instant:
+#for VAR in blh sstk psurf tsurf wvmixsurf sd ssrd rmol ust sshf slhf sp
+meteo.VAR.tinterp            :  1 hour
+meteo.VAR.input              :  2000-01-01 00:00, 2020-01-01 00:00, meteo.VAR.file
+meteo.VAR.file.name          :  ${my.wrf.file.name}
+meteo.VAR.file.name_dtsec    :  ${my.wrf.file.name_dtsec}
+meteo.VAR.file.special       :  time_name=XTIME
+#endfor
+meteo.blh.file.var           :  var_name=PBLH
+meteo.sstk.file.var          :  var_name=SST
+meteo.psurf.file.var         :  var_name=PSFC
+meteo.tsurf.file.var         :  var_name=T2
+meteo.wvmixsurf.file.var     :  var_name=Q2
+meteo.sd.file.var            :  var_name=SNOWH
+meteo.ssrd.file.var          :  var_name=SWDOWN
+meteo.rmol.file.var          :  var_name=RMOL;units=1/m
+meteo.ust.file.var           :  var_name=UST
+meteo.sshf.file.var          :  var_name=HFX
+meteo.slhf.file.var          :  var_name=LH
+meteo.sp.file.var            :  var_name=PSFC
+
+! surface fields, accumulated:
+#for VAR in acc_lsp acc_scp acc_cp acc_sf
+meteo.VAR.tinterp            :  1 hour
+meteo.VAR.input              :  2000-01-01 00:00, 2020-01-01 00:00, meteo.VAR.file
+meteo.VAR.file.name          :  ${my.wrf.file.name}
+meteo.VAR.file.name_dtsec    :  ${my.wrf.file.name_dtsec}
+meteo.VAR.file.special       :  time_name=XTIME;start_time_attr=SIMULATION_START_DATE
+#endfor
+meteo.acc_lsp.file.var       :  var_name=RAINNC
+meteo.acc_cp.file.var        :  var_name=RAINC
+meteo.acc_scp.file.var       :  var_name=RAINSH
+meteo.acc_sf.file.var        :  var_name=SNOWNC
+!
+! 3D soil fields, no need to swap levels:
+#for VAR in swvl
+meteo.VAR.tinterp            :  1 hour
+meteo.VAR.input              :  2000-01-01 00:00, 2020-01-01 00:00, meteo.VAR.file
+meteo.VAR.file.name          :  ${my.wrf.file.name}
+meteo.VAR.file.name_dtsec    :  ${my.wrf.file.name_dtsec}
+meteo.VAR.file.special       :  time_name=XTIME;swap_levels=F
+#endfor
+meteo.swvl.file.var          :  var_name=SH2O
+!
+! define input files and variables for vectors:
+meteo.uv10.tinterp           :  1 hour
+meteo.uv10.input             :  2000-01-01 00:00, 2020-01-01 00:00, meteo.uv10.file
+meteo.uv10.file.u.name       :  ${my.wrf.file.name}
+meteo.uv10.file.v.name       :  ${my.wrf.file.name}
+meteo.uv10.file.u.name_dtsec :  ${my.wrf.file.name_dtsec}
+meteo.uv10.file.v.name_dtsec :  ${my.wrf.file.name_dtsec}
+meteo.uv10.file.u.var        :  var_name=U10
+meteo.uv10.file.v.var        :  var_name=V10
+meteo.uv10.file.special      :  time_name=XTIME
+
+! 3d staggered vertical grid
+#for VAR in gphbase gphpert tpot pbase ppert wvmix cc clwc ciwc
+meteo.VAR.tinterp             :  1 hour
+meteo.VAR.input               :  2000-01-01 00:00, 2020-01-01 00:00, meteo.VAR.file
+meteo.VAR.file.name           :  ${my.wrf.file.name}
+meteo.VAR.file.name_dtsec     :  ${my.wrf.file.name_dtsec}
+meteo.VAR.file.special        :  time_name=XTIME;swap_levels=F
+#endfor
+meteo.gphbase.file.var        :  var_name=PHB
+meteo.gphpert.file.var        :  var_name=PH
+meteo.tpot.file.var           :  var_name=T
+meteo.pbase.file.var          :  var_name=PB
+meteo.ppert.file.var          :  var_name=P
+meteo.wvmix.file.var          :  var_name=QVAPOR
+meteo.cc.file.var             :  var_name=CLDFRA;units=1
+meteo.clwc.file.var           :  var_name=QCLOUD
+meteo.ciwc.file.var           :  var_name=QICE
+
+! average staggered wind velocities to (lon,lat) vector in center of cell:
+meteo.uv.tinterp              :  1 hour
+meteo.uv.input                :  2000-01-01 00:00, 2020-01-01 00:00, meteo.uv.file
+meteo.uv.file.special         :  time_name=XTIME;swap_levels=F;compute=uv_stag_to_center
+meteo.uv.file.u.name          :  ${my.wrf.file.name}
+meteo.uv.file.v.name          :  ${my.wrf.file.name}
+meteo.uv.file.u.name_dtsec    :  ${my.wrf.file.name_dtsec}
+meteo.uv.file.v.name_dtsec    :  ${my.wrf.file.name_dtsec}
+meteo.uv.file.u.var           :  var_name=U
+meteo.uv.file.v.var           :  var_name=V
+

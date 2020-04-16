@@ -1,0 +1,1327 @@
+!
+! LOTOS-EUROS VARIABLES
+!
+!   Definition of data fields.
+!   Currently meteo and fields derived from meteo.
+!
+! VARIABLE SPECIFICATION
+!
+!  For each variable, the following [optional] settings should [could] be specified
+!
+!   long_name    :  name
+!                     # description
+!
+!   units        :  units
+!                     # units supported by UDUnits
+!
+!   range        :  minimum maximum 
+!                     # truncation, -Inf or Inf for no trunction
+!
+!   gridtype     :  cell | corner | u_edge | v_edge
+!                     # grid position, see "SPATIAL REPRESENTATION"
+!
+!  [gridmapping  :  interpol | nearest | area-aver] 
+!                     # default is interpol for corners, area-aver for cell
+!
+!   levels       :  sfc [meteo_][half]levels
+!                     # vertical position, either "sfc" (surface),
+!                     # "levels" (model levels), "halflevels" (model half levels),
+!                     # "input_levels" (meteo levels), or "input_halflevels"
+!
+!   type         :  field constant_field[_series] instant_field[_series]
+!                     # internal data type:
+!                     #  field                 : field without time attributes
+!                     #  constant_field        : field that is constant during interval
+!                     #  constant_field_series : sequence of constant intervals read from input
+!                     #  instant_field         : field that is valid for instant time
+!                     #  innstant_field_series : sequence of instant fields read from input
+!
+!  [const        :  F | T]
+!                     # default F(alse), if T(rue) no time dimension in output
+!
+!  [time         :  p | c | n]     
+!                     # moment within timestep for which this variable should be computed:
+!                     #   p=prev (start of step), c=current (mid), n=next (end)
+!                     # not used yet
+!
+!  [input        :  meteo.vname]
+!                     # input described by keys 'meteo.vname.*'
+!
+!  [call         :  MyRoutine( dep [...] )]
+!                     # routine called to compute the variable,
+!                     # see implementation in 'LE_Data_Variables.F90';
+!                     # arguments are names of variables on which this
+!                     # variable depends
+!
+!
+! SPATIAL REPRESENTATION
+!
+!  Data values could be valid for cells, corners of a cell, edges of a cell, etc.
+!  The following types are considered:
+!
+!        |     |
+!      --c--v--c--        *    grid cell value (no abbreviation)
+!        |     |          "c"  corner values
+!        u  *  u          "u"  edge in 'u' direction ('x' or 'longitude')
+!        |     |          "v"  edge in 'v' direction ('y' or 'latitude')
+!      --c--v--c--
+!        |     |
+!
+! 
+!
+
+
+! list with supported variables:
+data.vars              :  lon lat area unormal vnormal dxu dxv \
+                          oro_crnr \
+                          gphbase_crnr_met gphpert_crnr_met halt_crnr_met \
+                          tpot_crnr_met pbase_crnr_met ppert_crnr_met \
+                          t_crnr_met wvmix_crnr_met q_crnr_met  \
+                          psurf_crnr hp_crnr_met \
+                          hp_crnr halt_crnr ${my.blh_crnr} ${my.sp_crnr} \
+                          dh_crnr dh dhu dhv halt vol pvol nvol \
+                          psurf \
+                          tpot_met pbase_met ppert_met halt_met\
+                          oro lsm hp p h airm dens \
+                          uv_u_met uflux uv_v_met uv_met w_met vflux wflux \
+                          hp_met t_met t wvmix_met q_met q rh \
+                          cc_met clwc_met ciwc_met icc bcc occ tcc clwc ciwc iclwc iciwc praini raini \
+                          blh tsurf wvmixsurf qsurf srh uv10 wsurf sstk \
+                          sshf slhf \
+                          slt swvl_met swvl1 swvl2 swvl3 swvl1t2 swvl1t3 swg smi2 smi3 \
+                          acc_cp cp acc_scp scp acc_lsp lsp rain acc_sf sf sdphys sd \
+                          ssrd tsurf_ema ssrd_ema \
+                          lai_lu sai_lu z0m_lu z0m z0h_lu z0h zcanopy_lu z0dust_lu ustar \
+                          monin monin_inv dh_met sstar qstar \
+                          duudz uu_ifs Q0v dse kz_ifs ri_ifs kz \
+                          ${my.bound.vars}
+
+! cell centers (incl 1 shell of bound cells) ;
+! this version fills values from rcfile settings,
+! for other grids we will read them from a file                        
+data.lon.long_name             :  lon
+data.lon.units                 :  degrees_east
+data.lon.range                 :  -Inf Inf
+data.lon.gridtype              :  cell_bnds
+data.lon.levtype               :  sfc
+data.lon.datatype              :  field
+data.lon.const                 :  T
+data.lon.call                  :  FillLonFromRc()
+                          
+data.lat.long_name             :  lat
+data.lat.units                 :  degrees_north
+data.lat.range                 :  -Inf Inf
+data.lat.gridtype              :  cell_bnds
+data.lat.levtype               :  sfc
+data.lat.datatype              :  field
+data.lat.const                 :  T
+data.lat.call                  :  FillLatFromRc()
+                          
+data.area.long_name            :  area
+data.area.units                :  m2
+data.area.range                :  0.0 Inf
+data.area.gridtype             :  cell_bnds
+data.area.levtype              :  sfc
+data.area.datatype             :  field
+data.area.const                :  T
+data.area.call                 :  Area()
+
+! edgelength at u:        
+data.dxu.long_name             :  edgelength at u-edge
+data.dxu.units                 :  m
+data.dxu.range                 :  0.0 Inf
+data.dxu.gridtype              :  u-edge
+data.dxu.levtype               :  sfc
+data.dxu.datatype              :  field
+data.dxu.const                 :  T
+data.dxu.call                  :  EdgeLengthU()
+
+! edgelength at v:        
+data.dxv.long_name             :  edgelength at v-edge
+data.dxv.units                 :  m
+data.dxv.range                 :  0.0 Inf
+data.dxv.gridtype              :  v-edge
+data.dxv.levtype               :  sfc
+data.dxv.datatype              :  field
+data.dxv.const                 :  T
+data.dxv.call                  :  EdgeLengthV()
+                          
+data.unormal.long_name         :  normal vector at u-edge
+data.unormal.units             :  1
+data.unormal.range             :  -1.0 1.0
+data.unormal.gridtype          :  u-edge
+data.unormal.levtype           :  sfc
+data.unormal.datatype          :  vectorfield
+data.unormal.const             :  T
+data.unormal.call              :  UNormal()
+                          
+data.vnormal.long_name         :  normal vector at v-edge
+data.vnormal.units             :  1
+data.vnormal.range             :  -1.0 1.0
+data.vnormal.gridtype          :  v-edge
+data.vnormal.levtype           :  sfc
+data.vnormal.datatype          :  vectorfield
+data.vnormal.const             :  T
+data.vnormal.call              :  VNormal()
+
+data.oro_crnr.long_name        :  orograhpy at corners
+data.oro_crnr.units            :  m
+data.oro_crnr.range            :  0.0 Inf
+data.oro_crnr.gridtype         :  corner_bnds
+data.oro_crnr.levtype          :  sfc
+data.oro_crnr.datatype         :  constant_field_series
+data.oro_crnr.const            :  T
+data.oro_crnr.input            :  meteo.orog
+
+! WRF base geopotentatial:
+data.gphbase_crnr_met.long_name         :  base-state geopotential height
+data.gphbase_crnr_met.units             :  m2 s-2
+data.gphbase_crnr_met.range             :  0.0 Inf
+data.gphbase_crnr_met.gridtype          :  corner_bnds
+data.gphbase_crnr_met.levtype           :  input_halflevels
+data.gphbase_crnr_met.datatype          :  instant_field_series
+data.gphbase_crnr_met.input             :  meteo.gphbase
+
+! WRF perturbed geopotentatial:
+data.gphpert_crnr_met.long_name         :  perturbation geopotential height
+data.gphpert_crnr_met.units             :   m2 s-2
+data.gphpert_crnr_met.range             :   -Inf Inf
+data.gphpert_crnr_met.gridtype          :  corner_bnds
+data.gphpert_crnr_met.levtype           : input_halflevels
+data.gphpert_crnr_met.datatype          : instant_field_series
+data.gphpert_crnr_met.input             : meteo.gphpert
+
+! Add WRF geopotentials "base" and "pert" together,
+! convert from "m2/s2" to "m" through division by grav:
+data.halt_crnr_met.long_name          :  half-level altitude
+data.halt_crnr_met.units              :  m
+data.halt_crnr_met.range              :  0.0 Inf
+data.halt_crnr_met.gridtype           :  corner_bnds
+data.halt_crnr_met.levtype            :  input_halflevels
+data.halt_crnr_met.datatype           :  instant_field
+data.halt_crnr_met.call               :  HalflevelAltitudes_GPH( gphbase_crnr_met, gphpert_crnr_met )
+
+!WRF potential temperature
+data.tpot_crnr_met.long_name          :  perturbation potential temperature
+data.tpot_crnr_met.units              :  K
+data.tpot_crnr_met.range              :  -Inf Inf
+data.tpot_crnr_met.gridtype           :  corner_bnds
+data.tpot_crnr_met.levtype            :  input_levels
+data.tpot_crnr_met.datatype           :  instant_field_series
+data.tpot_crnr_met.input              :  meteo.tpot
+
+!WEF base pressure
+data.pbase_crnr_met.long_name         :  base state pressure
+data.pbase_crnr_met.units             :  Pa
+data.pbase_crnr_met.range             :  0.0 Inf
+data.pbase_crnr_met.gridtype          :  corner_bnds
+data.pbase_crnr_met.levtype           :  input_levels
+data.pbase_crnr_met.datatype          :  instant_field_series
+data.pbase_crnr_met.input             :  meteo.pbase
+
+!WRF perturbation pressure
+data.ppert_crnr_met.long_name         :  perturbation pressure
+data.ppert_crnr_met.units             :   Pa
+data.ppert_crnr_met.range             :   -Inf Inf
+data.ppert_crnr_met.gridtype          :  corner_bnds
+data.ppert_crnr_met.levtype           :  input_levels
+data.ppert_crnr_met.datatype          :  instant_field_series
+data.ppert_crnr_met.input             :  meteo.ppert
+
+
+data.t_crnr_met.long_name      :  temperature
+data.t_crnr_met.units          :  K
+data.t_crnr_met.range          :  0.0 Inf
+data.t_crnr_met.gridtype       :  corner_bnds
+data.t_crnr_met.levtype        :  input_levels
+data.t_crnr_met.datatype       :  instant_field_series
+data.t_crnr_met.call           :  T_from_potentialtemperature(tpot_crnr_met,pbase_crnr_met, ppert_crnr_met)
+
+
+!WRF q 
+! surface pressure at corners
+data.psurf_crnr.long_name         :  surface pressure
+data.psurf_crnr.units             :   Pa
+data.psurf_crnr.range             :   0.0 Inf
+data.psurf_crnr.gridtype          :  corner_bnds
+data.psurf_crnr.levtype           :  sfc
+data.psurf_crnr.datatype          :  instant_field_series
+data.psurf_crnr.input             :  meteo.psurf
+
+data.wvmix_crnr_met.long_name      :  wvmixingratio
+data.wvmix_crnr_met.units          :  kg/kg
+data.wvmix_crnr_met.range          :  0.0 1.0
+data.wvmix_crnr_met.gridtype       :  corner_bnds
+data.wvmix_crnr_met.levtype        :  input_levels
+data.wvmix_crnr_met.datatype       :  instant_field_series
+data.wvmix_crnr_met.input          :  meteo.wvmix
+
+data.q_crnr_met.long_name      :  specific humidity
+data.q_crnr_met.units          :  kg/kg
+data.q_crnr_met.range          :  0.0 1.0
+data.q_crnr_met.gridtype       :  corner_bnds
+data.q_crnr_met.levtype        :  input_levels
+data.q_crnr_met.datatype       :  instant_field_series
+data.q_crnr_met.call           :  SH_from_wvmixingratio(wvmix_crnr_met)
+
+data.hp_crnr_met.long_name     :  half-level pressure
+data.hp_crnr_met.units         :  Pa
+data.hp_crnr_met.range         :  0.0 Inf
+data.hp_crnr_met.gridtype      :  corner_bnds
+data.hp_crnr_met.levtype       :  input_halflevels
+data.hp_crnr_met.datatype      :  instant_field_series
+data.hp_crnr_met.call          :  HalflevelPressures( psurf_crnr, t_crnr_met,  q_crnr_met, halt_crnr_met)
+
+! define
+data.halt_met.long_name   :  half-level altitude
+data.halt_met.units       :  m
+data.halt_met.range       :  0.0 Inf
+data.halt_met.gridtype    :  cell_bnds
+data.halt_met.levtype     :  input_halflevels
+data.halt_met.datatype    :  instant_field
+data.halt_met.call        :  CornerAverage( halt_crnr_met )
+
+data.dh_met.long_name          :  layer thickness
+data.dh_met.units              :  m
+data.dh_met.range              :  0.0 Inf
+data.dh_met.gridtype           :  cell_bnds
+data.dh_met.levtype            :  input_levels
+data.dh_met.datatype           :  instant_field
+data.dh_met.call               :  Thickness( halt_met )
+
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! switch:
+#if "${levels.type}" == "mixlayer"
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+! defined by boundary layer height, no surface pressure needed:
+my.blh_crnr                    :  blh_crnr
+my.sp_crnr                     :  
+
+! define:
+data.blh_crnr.long_name        :  boundary layer height at corners
+data.blh_crnr.units            :  m
+data.blh_crnr.range            :  0.0 Inf
+data.blh_crnr.gridtype         :  corner_bnds
+data.blh_crnr.levtype          :  sfc
+data.blh_crnr.datatype         :  instant_field_series
+data.blh_crnr.input            :  meteo.blh
+
+! define:
+data.blh.long_name             :  boundary layer height
+data.blh.units                 :  m
+data.blh.range                 :  0.0 Inf
+data.blh.gridtype              :  cell_bnds
+data.blh.levtype               :  sfc
+data.blh.datatype              :  instant_field_series
+data.blh.call                  :  CornerAverage( blh_crnr )
+
+! define:
+data.hp_crnr.long_name         :  half-level pressure
+data.hp_crnr.units             :  Pa
+data.hp_crnr.range             :  0.0 Inf
+data.hp_crnr.gridtype          :  corner_bnds
+data.hp_crnr.levtype           :  halflevels_top
+data.hp_crnr.datatype          :  instant_field
+data.hp_crnr.call              :  LayerInterpol( halt_crnr_met, hp_crnr_met, halt_crnr )
+
+! define:
+data.halt_crnr.long_name       :  half-level altitude
+data.halt_crnr.units           :  m
+data.halt_crnr.range           :  0.0 Inf
+data.halt_crnr.gridtype        :  corner_bnds
+data.halt_crnr.levtype         :  halflevels_top
+data.halt_crnr.datatype        :  instant_field
+data.halt_crnr.call            :  MixlayerVertexHeights( oro_crnr, blh_crnr )
+
+data.wflux.long_name           :  volume flux
+data.wflux.units               :  m3/s
+data.wflux.range               :  -Inf Inf
+data.wflux.gridtype            :  cell
+data.wflux.levtype             :  halflevels
+data.wflux.time                :  c
+data.wflux.datatype            :  instant_field
+data.wflux.call                :  VolumeFlux_w0( uflux, vflux )
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#elif "${levels.type}" == "hyblevel"
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+my.blh_crnr                    :  
+my.sp_crnr                     :  sp_crnr
+
+! define:
+data.blh.long_name             :  boundary layer height
+data.blh.units                 :  m
+data.blh.range                 :  0.0 Inf
+data.blh.gridtype              :  cell
+data.blh.levtype               :  sfc
+data.blh.datatype              :  instant_field_series
+data.blh.input                 :  meteo.blh
+
+data.sp_crnr.long_name         :  surface pressure at corners
+data.sp_crnr.units             :  Pa
+data.sp_crnr.range             :  0.0 Inf
+data.sp_crnr.gridtype          :  corner_bnds
+data.sp_crnr.levtype           :  sfc
+data.sp_crnr.datatype          :  instant_field_series
+data.sp_crnr.input             :  meteo.sp
+
+data.hp_crnr.long_name         :  half-level pressure
+data.hp_crnr.units             :  Pa
+data.hp_crnr.range             :  0.0 Inf
+data.hp_crnr.gridtype          :  corner_bnds
+data.hp_crnr.levtype           :  halflevels_top
+data.hp_crnr.datatype          :  instant_field
+data.hp_crnr.call              :  HybrideHalflevelPressure( sp_crnr )
+
+data.halt_crnr.long_name       :  half-level altitude
+data.halt_crnr.units           :  m
+data.halt_crnr.range           :  0.0 Inf
+data.halt_crnr.gridtype        :  corner_bnds
+data.halt_crnr.levtype         :  halflevels_top
+data.halt_crnr.datatype        :  instant_field
+data.halt_crnr.call            :  LayerInterpol( hp_crnr_met, halt_crnr_met, hp_crnr )
+
+! vertical flux, computed from divergence and volume change;
+! setup after all other fields (incl nvol) are done:
+data.wflux.long_name           :  volume flux
+data.wflux.units               :  m3/s
+data.wflux.range               :  -Inf Inf
+data.wflux.gridtype            :  cell
+data.wflux.levtype             :  halflevels
+data.wflux.time                :  a
+data.wflux.datatype            :  instant_field
+data.wflux.call                :  VolumeFlux_w( uflux, vflux, pvol, nvol )
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#elif "${levels.type}" == "metlevel"
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+my.blh_crnr                    : 
+my.sp_crnr                     :  
+
+! define:
+data.blh.long_name             :  boundary layer height
+data.blh.units                 :  m
+data.blh.range                 :  0.0 Inf
+data.blh.gridtype              :  cell_bnds
+data.blh.levtype               :  sfc
+data.blh.datatype              :  instant_field_series
+data.blh.input                 :  meteo.blh
+
+! define:
+data.hp_crnr.long_name         :  half-level pressure
+data.hp_crnr.units             :  Pa
+data.hp_crnr.range             :  0.0 Inf
+data.hp_crnr.gridtype          :  corner_bnds
+data.hp_crnr.levtype           :  halflevels_top
+data.hp_crnr.datatype          :  instant_field
+data.hp_crnr.call              :  SelectLayers( hp_crnr_met )
+
+! define:
+data.halt_crnr.long_name       :  half-level altitude
+data.halt_crnr.units           :  m
+data.halt_crnr.range           :  0.0 Inf
+data.halt_crnr.gridtype        :  corner_bnds
+data.halt_crnr.levtype         :  halflevels_top
+data.halt_crnr.datatype        :  instant_field
+data.halt_crnr.call            :  SelectLayers( halt_crnr_met )
+
+! vertical flux, computed from divergence and volume change;
+! setup after all other fields (incl nvol) are done:
+data.wflux.long_name           :  volume flux
+data.wflux.units               :  m3/s
+data.wflux.range               :  -Inf Inf
+data.wflux.gridtype            :  cell
+data.wflux.levtype             :  halflevels
+data.wflux.time                :  a
+data.wflux.datatype            :  instant_field
+data.wflux.call                :  VolumeFlux_w( uflux, vflux, pvol, nvol )
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#else
+#error could not define data for levels.type "${levels.type}"
+#endif
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+data.halt.long_name            :  altitude above mean sea level
+data.halt.units                :  m
+data.halt.range                :  0.0 Inf
+data.halt.gridtype             :  cell_bnds
+data.halt.levtype              :  halflevels_top
+data.halt.datatype             :  instant_field
+data.halt.call                 :  CornerAverage( halt_crnr )
+
+data.h.long_name               :  height above surface at layer top
+data.h.units                   :  m
+data.h.range                   :  0.0 Inf
+data.h.gridtype                :  cell
+data.h.levtype                 :  levels_top
+data.h.datatype                :  instant_field
+data.h.call                    :  LevelTopHeight( halt )
+
+data.hp.long_name              :  half-level pressure
+data.hp.units                  :  Pa
+data.hp.range                  :  0.0 Inf
+data.hp.gridtype               :  cell_bnds
+data.hp.levtype                :  halflevels_top
+data.hp.datatype               :  instant_field
+data.hp.call                   :  CornerAverage( hp_crnr )
+
+data.p.long_name               :  pressure
+data.p.units                   :  Pa
+data.p.range                   :  0.0 Inf
+data.p.gridtype                :  cell
+data.p.levtype                 :  levels
+data.p.datatype                :  instant_field
+data.p.call                    :  HalfLevelAverage( hp )
+
+data.dh_crnr.long_name         :  layer thickness
+data.dh_crnr.units             :  m
+data.dh_crnr.range             :  0.0 Inf
+data.dh_crnr.gridtype          :  corner_bnds
+data.dh_crnr.levtype           :  levels_top
+data.dh_crnr.datatype          :  instant_field
+data.dh_crnr.call              :  Thickness( halt_crnr )
+
+data.dh.long_name              :  layer thickness
+data.dh.units                  :  m
+data.dh.range                  :  0.0 Inf
+data.dh.gridtype               :  cell_bnds
+data.dh.levtype                :  levels_top
+data.dh.datatype               :  instant_field
+data.dh.call                   :  CornerAverage( dh_crnr )
+
+data.dhu.long_name              :  layer thickness at u-edge
+data.dhu.units                  :  m
+data.dhu.range                  :  0.0 Inf
+data.dhu.gridtype               :  cell_bnds
+data.dhu.levtype                :  levels_top
+data.dhu.datatype               :  instant_field
+data.dhu.call                   :  CornerAverageU( dh_crnr )
+
+data.dhv.long_name              :  layer thickness at v-edge
+data.dhv.units                  :  m
+data.dhv.range                  :  0.0 Inf
+data.dhv.gridtype               :  cell_bnds
+data.dhv.levtype                :  levels_top
+data.dhv.datatype               :  instant_field
+data.dhv.call                   :  CornerAverageV( dh_crnr )
+
+data.vol.long_name             :  volume
+data.vol.units                 :  m3
+data.vol.range                 :  0.0 Inf
+data.vol.gridtype              :  cell_bnds
+data.vol.levtype               :  levels_top
+data.vol.datatype              :  instant_field
+data.vol.call                  :  Thickness_to_Volume( area, dh )
+
+! volumes, include halo cell for cfl criterium on domains
+#for TIME in p n
+data.TIMEvol.long_name         :  volume
+data.TIMEvol.units             :  m3
+data.TIMEvol.range             :  0.0 Inf
+data.TIMEvol.gridtype          :  cell_bnds
+data.TIMEvol.levtype           :  levels_top
+data.TIMEvol.time              :  TIME
+data.TIMEvol.datatype          :  instant_field
+data.TIMEvol.call              :  Thickness_to_Volume( area, dh )
+#endfor
+
+data.oro.long_name             :  orograhpy
+data.oro.units                 :  m
+data.oro.range                 :  0.0 Inf
+data.oro.gridtype              :  cell_bnds
+data.oro.levtype               :  sfc
+data.oro.datatype              :  instant_field
+data.oro.const                 :  T
+data.oro.call                  :  CornerAverage( oro_crnr )
+
+data.lsm.long_name             :  land/sea mask
+data.lsm.units                 :  1
+data.lsm.range                 :  0.0 1.0
+data.lsm.gridtype              :  cell
+data.lsm.levtype               :  sfc
+data.lsm.datatype              :  constant_field_series
+data.lsm.const                 :  T
+data.lsm.input                 :  meteo.lsm
+
+data.airm.long_name            :  air mass
+data.airm.units                :  kg
+data.airm.range                :  0.0 Inf
+data.airm.gridtype             :  cell_bnds
+data.airm.levtype              :  levels_top
+data.airm.datatype             :  instant_field
+data.airm.call                 :  AirMass( area, hp )
+
+data.dens.long_name            :  air density
+data.dens.units                :  kg/m3
+data.dens.range                :  0.0 Inf
+data.dens.gridtype             :  cell_bnds
+data.dens.levtype              :  levels_top
+data.dens.datatype             :  instant_field
+data.dens.call                 :  AirDensity( airm, vol )
+
+! ~ volume fluxes
+
+! wind vector (lon and lat component) at mid of u-edge
+data.uv_u_met.long_name        :  wind speed
+data.uv_u_met.units            :  m/s
+data.uv_u_met.range            :  -Inf Inf
+data.uv_u_met.gridtype         :  u-edge
+data.uv_u_met.levtype          :  input_levels
+data.uv_u_met.datatype         :  instant_vectorfield_series
+data.uv_u_met.input            :  meteo.uv
+
+! uflux from wind vector:
+data.uflux.long_name           :  volume flux
+data.uflux.units               :  m3/s
+data.uflux.range               :  -Inf Inf
+data.uflux.gridtype            :  u-edge
+data.uflux.levtype             :  levels
+data.uflux.datatype            :  instant_field
+data.uflux.call                :  VolumeFlux_uv2u( uv_u_met, dxu, unormal, halt_crnr_met, halt_crnr )
+
+! wind vector (lon and lat component) at mid of v-edge
+data.uv_v_met.long_name        :  wind speed
+data.uv_v_met.units            :  m/s
+data.uv_v_met.range            :  -Inf Inf
+data.uv_v_met.gridtype         :  v-edge
+data.uv_v_met.levtype          :  input_levels
+data.uv_v_met.datatype         :  instant_vectorfield_series
+data.uv_v_met.input            :  meteo.uv
+
+! vflux from wind vector:
+data.vflux.long_name           :  volume flux
+data.vflux.units               :  m3/s
+data.vflux.range               :  -Inf Inf
+data.vflux.gridtype            :  v-edge
+data.vflux.levtype             :  levels
+data.vflux.datatype            :  instant_field
+data.vflux.call                :  VolumeFlux_uv2v( uv_v_met, dxv, vnormal, halt_crnr_met, halt_crnr )
+
+! wind vector (lon and lat component) at cell center
+data.uv_met.long_name        :  wind speed
+data.uv_met.units            :  m/s
+data.uv_met.range            :  -Inf Inf
+data.uv_met.gridtype         :  center
+data.uv_met.levtype          :  input_levels
+data.uv_met.datatype         :  instant_vectorfield_series
+data.uv_met.input            :  meteo.uv
+
+! absolute wind speed at cell center
+data.w_met.long_name        :  wind speed
+data.w_met.units            :  m/s
+data.w_met.range            :  0.0 Inf
+data.w_met.gridtype         :  cell
+data.w_met.levtype          :  input_levels
+data.w_met.datatype         :  instant_field
+data.w_met.call             :  VectorLength( uv_met )
+
+! WRF surface pressure
+data.psurf.long_name           :  surface pressure
+data.psurf.units               :  Pa
+data.psurf.range               :  0.0 Inf
+data.psurf.gridtype            :  cell_bnds
+data.psurf.levtype             :  sfc
+data.psurf.datatype            :  instant_field_series
+data.psurf.input               :  meteo.psurf
+
+data.hp_met.long_name          :  half-level pressure
+data.hp_met.units              :  Pa
+data.hp_met.range              :  0.0 Inf
+data.hp_met.gridtype           :  cell_bnds
+data.hp_met.levtype            :  input_halflevels
+data.hp_met.datatype           :  instant_field_series
+data.hp_met.call               :  HalflevelPressures( psurf, t_met,  q_met, halt_met )
+
+!WRF potential temperature
+data.tpot_met.long_name         :  perturbation potential temperature
+data.tpot_met.units             :   K
+data.tpot_met.range             :  -Inf Inf
+data.tpot_met.gridtype          :  cell_bnds
+data.tpot_met.levtype           :  input_levels
+data.tpot_met.datatype          :  instant_field_series
+data.tpot_met.input             :  meteo.tpot
+
+!WEF base pressure
+data.pbase_met.long_name         : base state pressure
+data.pbase_met.units             :   Pa
+data.pbase_met.range             :   0.0 Inf
+data.pbase_met.gridtype          :  cell_bnds
+data.pbase_met.levtype           :  input_levels
+data.pbase_met.datatype          :  instant_field_series
+data.pbase_met.input             :  meteo.pbase
+
+!WRF perturbation pressure
+data.ppert_met.long_name         :  perturbation pressure
+data.ppert_met.units             :   Pa
+data.ppert_met.range             :   -Inf Inf
+data.ppert_met.gridtype          :  cell_bnds
+data.ppert_met.levtype           :  input_levels
+data.ppert_met.datatype          :  instant_field_series
+data.ppert_met.input             :  meteo.ppert
+
+! WRF temperature
+data.t_met.long_name           :  temperature
+data.t_met.units               :  K
+data.t_met.range               :  0.0 Inf
+data.t_met.gridtype            :  cell_bnds
+data.t_met.levtype             :  input_levels
+data.t_met.datatype            :  instant_field_series
+data.t_met.call                :  T_from_potentialtemperature( tpot_met,pbase_met, ppert_met )
+
+data.t.long_name               :  temperature
+data.t.units                   :  K
+data.t.range                   :  0.0 Inf
+data.t.gridtype                :  cell_bnds
+data.t.levtype                 :  levels
+data.t.datatype                :  instant_field
+data.t.call                    :  LayerAverage( hp_met, t_met, hp )
+
+!WRF q 
+data.wvmix_met.long_name       :  wvmixingratio
+data.wvmix_met.units           :  kg/kg
+data.wvmix_met.range           :  0.0 1.0
+data.wvmix_met.gridtype        :  cell_bnds
+data.wvmix_met.levtype         :  input_levels
+data.wvmix_met.datatype        :  instant_field_series
+data.wvmix_met.input           :  meteo.wvmix
+
+data.q_met.long_name           :  specific humidity
+data.q_met.units               :  kg/kg
+data.q_met.range               :  0.0 1.0
+data.q_met.gridtype            :  cell_bnds
+data.q_met.levtype             :  input_levels
+data.q_met.datatype            :  instant_field_series
+data.q_met.call                :  SH_from_wvmixingratio(wvmix_met)
+
+data.q.long_name               :  specific humidity
+data.q.units                   :  kg/kg
+data.q.range                   :  0.0 1.0
+data.q.gridtype                :  cell_bnds
+data.q.levtype                 :  levels
+data.q.datatype                :  instant_field
+data.q.call                    :  LayerAverage( hp_met, q_met, hp )
+
+data.rh.long_name              :  relative humidity
+data.rh.units                  :  %
+data.rh.range                  :  0.0 100.0
+data.rh.gridtype               :  cell
+data.rh.levtype                :  levels
+data.rh.datatype               :  instant_field
+data.rh.call                   :  RelativeHumidityPTQ( p, t, q )
+
+! ~ clouds
+
+data.cc_met.long_name          :  cloud cover
+data.cc_met.units              :  1
+data.cc_met.range              :  0.0 1.0
+data.cc_met.gridtype           :  cell
+data.cc_met.levtype            :  input_levels
+data.cc_met.datatype           :  instant_field_series
+data.cc_met.input              :  meteo.cc
+
+data.tcc.long_name             :  total cloud covarage
+data.tcc.units                 :  1
+data.tcc.range                 :  0.0 1.0
+data.tcc.gridtype              :  cell
+data.tcc.levtype               :  sfc
+data.tcc.datatype              :  instant_field_series
+data.tcc.call                  :  TotalCloudCoverage(cc_met)
+
+! cloud liquid water content [(kg water)/(kg air)]
+data.clwc_met.long_name        :  cloud liquid water content
+data.clwc_met.units            :  kg/kg
+data.clwc_met.range            :  0.0 1.0
+data.clwc_met.gridtype         :  cell
+data.clwc_met.levtype          :  input_levels
+data.clwc_met.datatype         :  instant_field_series
+data.clwc_met.input            :  meteo.clwc
+
+! cloud liquid water content [(kg water)/(kg air)]
+data.ciwc_met.long_name        :  cloud ice water content
+data.ciwc_met.units            :  kg/kg
+data.ciwc_met.range            :  0.0 1.0
+data.ciwc_met.gridtype         :  cell
+data.ciwc_met.levtype          :  input_levels
+data.ciwc_met.datatype         :  instant_field_series
+data.ciwc_met.input            :  meteo.ciwc
+
+! calculated together with other cloud properties,
+! these should all depend on this field:
+data.icc.long_name             :  in-cloud covarage
+data.icc.units                 :  1
+data.icc.range                 :  0.0 1.0
+data.icc.gridtype              :  cell
+data.icc.levtype               :  levels
+data.icc.datatype              :  instant_field
+data.icc.call                  :  CloudProfiles( hp_met, tcc, cc_met, clwc_met, ciwc_met, hp ; \
+                                                 icc, bcc, occ, clwc, ciwc, praini )
+
+data.bcc.long_name             :  below cloud covarage
+data.bcc.units                 :  1
+data.bcc.range                 :  0.0 1.0
+data.bcc.gridtype              :  cell
+data.bcc.levtype               :  levels
+data.bcc.datatype              :  instant_field
+data.bcc.call                  :  Dummy( icc )
+
+data.occ.long_name             :  overhead cloud covarage
+data.occ.units                 :  1
+data.occ.range                 :  0.0 1.0
+data.occ.gridtype              :  cell
+data.occ.levtype               :  levels
+data.occ.datatype              :  instant_field
+data.occ.call                  :  Dummy( icc )
+
+! cloud liquid water content [(kg water)/(kg air)]
+data.clwc.long_name            :  cloud liquid water content
+data.clwc.units                :  kg/kg
+data.clwc.range                :  0.0 1.0
+data.clwc.gridtype             :  cell
+data.clwc.levtype              :  levels
+data.clwc.datatype             :  instant_field
+data.clwc.call                 :  Dummy( icc )
+
+! cloud ice water content [(kg water)/(kg air)]
+data.ciwc.long_name            :  cloud ice water content
+data.ciwc.units                :  kg/kg
+data.ciwc.range                :  0.0 1.0
+data.ciwc.gridtype             :  cell
+data.ciwc.levtype              :  levels
+data.ciwc.datatype             :  instant_field
+data.ciwc.call                 :  Dummy( icc )
+
+! potential rain intensity [1]
+data.praini.long_name          :  potential rain intensity
+data.praini.units              :  1
+data.praini.range              :  0.0 1.0
+data.praini.gridtype           :  cell
+data.praini.levtype            :  levels
+data.praini.datatype           :  instant_field
+data.praini.call               :  Dummy( icc )
+
+! in-cloud liquid water content [(kg water)/(kg air)]
+data.iclwc.long_name           :  in-cloud liquid water content
+data.iclwc.units               :  kg/kg
+data.iclwc.range               :  0.0 1.0
+data.iclwc.gridtype            :  cell
+data.iclwc.levtype             :  levels
+data.iclwc.datatype            :  instant_field
+data.iclwc.call                :  InCloudWaterContent( icc, clwc )
+
+! in-cloud liquid water content [(kg water)/(kg air)]
+data.iciwc.long_name           :  in-cloud ice water content
+data.iciwc.units               :  kg/kg
+data.iciwc.range               :  0.0 1.0
+data.iciwc.gridtype            :  cell
+data.iciwc.levtype             :  levels
+data.iciwc.datatype            :  instant_field
+data.iciwc.call                :  InCloudWaterContent( icc, ciwc )
+
+! rain intensity [m/s] from 2D total rain and potential rain intensity:
+data.raini.long_name           :  rain intensity
+data.raini.units               :  m/s
+data.raini.range               :  0.0 Inf
+data.raini.gridtype            :  cell
+data.raini.levtype             :  levels
+data.raini.datatype            :  instant_field
+data.raini.call                :  RainIntensity( rain, praini )
+
+! ~ sfc, instant
+
+! define:
+data.tsurf.long_name           :  surface temperature
+data.tsurf.units               :  K
+data.tsurf.range               :  0.0 Inf
+data.tsurf.gridtype            :  cell
+data.tsurf.levtype             :  sfc
+data.tsurf.datatype            :  instant_field_series
+data.tsurf.input               :  meteo.tsurf
+
+! define:                         
+data.wvmixsurf.long_name       :  waver vapour mixing ratio
+data.wvmixsurf.units           :  kg/kg
+data.wvmixsurf.range           :  0.0 1.0
+data.wvmixsurf.gridtype        :  cell
+data.wvmixsurf.levtype         :  sfc
+data.wvmixsurf.datatype        :  instant_field_series
+data.wvmixsurf.input           :  meteo.wvmixsurf
+
+!WRF q 
+data.qsurf.long_name           :  specific humidity
+data.qsurf.units               :  kg/kg
+data.qsurf.range               :  0.0 1.0
+data.qsurf.gridtype            :  cell
+data.qsurf.levtype             :  input_levels
+data.qsurf.datatype            :  instant_field_series
+data.qsurf.call                :  SH_from_wvmixingratio(wvmixsurf)
+
+! define:
+data.srh.long_name             :  surface relative humidity
+data.srh.units                 :  %
+data.srh.range                 :  0.0 100.0
+data.srh.gridtype              :  cell
+data.srh.levtype               :  sfc
+data.srh.datatype              :  instant_field
+data.srh.call                  :  RelativeHumidityPTQ( psurf, tsurf, qsurf )
+
+! define:
+data.uv10.long_name            :  10 metre wind vector
+data.uv10.units                :  m/s
+data.uv10.range                :  -Inf Inf
+data.uv10.gridtype             :  cell
+data.uv10.levtype              :  sfc
+data.uv10.datatype             :  instant_vectorfield_series
+data.uv10.input                :  meteo.uv10
+
+! define:
+data.wsurf.long_name           :  10 metre wind speed
+data.wsurf.units               :  m/s
+data.wsurf.range               :  0.0 Inf
+data.wsurf.gridtype            :  cell
+data.wsurf.levtype             :  sfc
+data.wsurf.datatype            :  instant_field
+data.wsurf.call                :  VectorLength( uv10 )
+
+! define:
+data.sstk.long_name            :  sea surface temperature
+data.sstk.units                :  K
+data.sstk.range                :  0.0 Inf
+data.sstk.gridtype             :  cell
+data.sstk.levtype              :  sfc
+data.sstk.datatype             :  instant_field_series
+data.sstk.input                :  meteo.sstk
+
+!define
+data.sdphys.long_name          :  physical snowdepth
+data.sdphys.units              :  m
+data.sdphys.range              :  0.0 Inf
+data.sdphys.gridtype           :  cell
+data.sdphys.levtype            :  sfc
+data.sdphys.datatype           :  instant_field_series
+data.sdphys.input              :  meteo.sd
+
+! define: snowdepth in liquid water equivalent
+data.sd.long_name              :  snowdepth
+data.sd.units                  :  m
+data.sd.range                  :  0.0 Inf
+data.sd.gridtype               :  cell
+data.sd.levtype                :  sfc
+data.sd.datatype               :  instant_field_series
+data.sd.call                   :  Snowdepth_lw(sdphys)
+
+data.slt.long_name             :  soil type
+data.slt.units                 :  1
+data.slt.range                 :  0 Inf
+data.slt.gridtype              :  cell
+data.slt.gridmapping           :  nearest
+data.slt.levtype               :  sfc
+data.slt.datatype              :  constant_field_series
+data.slt.const                 :  T
+data.slt.input                 :  meteo.slt
+
+! define:
+data.swvl_met.long_name        :  Volumetric soil water
+data.swvl_met.units            :  m3/m3
+data.swvl_met.range            :  0.0 1.0
+data.swvl_met.gridtype         :  cell
+data.swvl_met.levtype          :  input_levels
+data.swvl_met.datatype         :  instant_field_series
+data.swvl_met.input            :  meteo.swvl
+#for N in 1 2 3 4
+data.swvlN.long_name           :  Volumetric soil water layer N
+data.swvlN.units               :  m3/m3
+data.swvlN.range               :  0.0 1.0
+data.swvlN.gridtype            :  cell
+data.swvlN.levtype             :  sfc
+data.swvlN.datatype            :  instant_field
+data.swvlN.call                :  Extract_swvl( swvl_met, nlayer=N )
+#endfor
+
+data.swvl1t2.long_name         :  Volumetric soil water layers 1-2
+data.swvl1t2.units             :  m3/m3
+data.swvl1t2.range             :  0.0 1.0
+data.swvl1t2.gridtype          :  cell
+data.swvl1t2.levtype           :  sfc
+data.swvl1t2.datatype          :  instant_field
+data.swvl1t2.call              :  VolumetricSoilWater( swvl1, swvl2, None )
+
+data.swvl1t3.long_name         :  Volumetric soil water layers 1-3
+data.swvl1t3.units             :  m3/m3
+data.swvl1t3.range             :  0.0 1.0
+data.swvl1t3.gridtype          :  cell
+data.swvl1t3.levtype           :  sfc
+data.swvl1t3.datatype          :  instant_field
+data.swvl1t3.call              :  VolumetricSoilWater( swvl1, swvl2, swvl3 )
+
+#for N in 2 3
+data.smiN.long_name            :  soil moisture index layers 1-N
+data.smiN.units                :  1
+data.smiN.range                :  0.0 1.0
+data.smiN.gridtype             :  cell
+data.smiN.levtype              :  sfc
+data.smiN.datatype             :  instant_field
+data.smiN.call                 :  SoilMoistureIndex_WRF( swvl1tN, lsm, slt )
+#endfor
+
+data.swg.long_name             :  Gravimetric soil water
+data.swg.units                 :  kg/kg
+data.swg.range                 :  0.0 1.0
+data.swg.gridtype              :  cell
+data.swg.levtype               :  sfc
+data.swg.datatype              :  instant_field
+data.swg.call                  :  GravimetricSoilWater( swvl1, lsm )
+
+! ~ sfc, average
+
+! define:
+data.acc_cp.long_name              :  accumulated cumulus precipitation
+data.acc_cp.units                  :  m
+data.acc_cp.range                  :  0.0 Inf
+data.acc_cp.gridtype               :  cell
+data.acc_cp.levtype                :  sfc
+data.acc_cp.datatype               :  accumulated_field_series
+data.acc_cp.input                  :  meteo.acc_cp
+
+data.cp.long_name             :  large-scale precipitation
+data.cp.units                 :  m/s
+data.cp.range                 :  0.0 Inf
+data.cp.gridtype              :  cell
+data.cp.levtype               :  sfc
+data.cp.datatype              :  constant_field
+data.cp.call                  :  Tendency( acc_cp )
+
+! timeseries of accumulated rain:
+data.acc_scp.long_name              :  accumulated  shallow cumulus precipitation
+data.acc_scp.units                  :  m
+data.acc_scp.range                  :  0.0 Inf
+data.acc_scp.gridtype               :  cell
+data.acc_scp.levtype                :  sfc
+data.acc_scp.datatype               :  accumulated_field_series
+data.acc_scp.input                  :  meteo.acc_scp
+
+! define:
+data.scp.long_name             :  large-scale precipitation
+data.scp.units                 :  m/s
+data.scp.range                 :  0.0 Inf
+data.scp.gridtype              :  cell
+data.scp.levtype               :  sfc
+data.scp.datatype              :  constant_field
+data.scp.call                  :  Tendency( acc_scp )
+
+! timeseries of accumulated rain:
+data.acc_lsp.long_name         :  accumulated large-scale precipitation
+data.acc_lsp.units             :  m
+data.acc_lsp.range             :  0.0 Inf
+data.acc_lsp.gridtype          :  cell
+data.acc_lsp.levtype           :  sfc
+data.acc_lsp.datatype          :  accumulated_field_series
+data.acc_lsp.input             :  meteo.acc_lsp
+!
+! timeseries of rain intensity (tendency of accumulated rain):
+data.lsp.long_name             :  large-scale precipitation
+data.lsp.units                 :  m/s
+data.lsp.range                 :  0.0 Inf
+data.lsp.gridtype              :  cell
+data.lsp.levtype               :  sfc
+data.lsp.datatype              :  constant_field
+data.lsp.call                  :  Tendency( acc_lsp )
+
+! define:
+data.rain.long_name            :  precipitation
+data.rain.units                :  m/s
+data.rain.range                :  0.0 Inf
+data.rain.gridtype             :  cell
+data.rain.levtype              :  sfc
+data.rain.datatype             :  constant_field
+data.rain.call                 :  TotalRain( lsp, cp , scp )
+
+!define
+data.acc_sf.long_name          :  snowfall
+data.acc_sf.units              :  m
+data.acc_sf.range              :  0.0 Inf
+data.acc_sf.gridtype           :  cell
+data.acc_sf.levtype            :  sfc
+data.acc_sf.datatype           :  accumulated_field_series
+data.acc_sf.input              :  meteo.acc_sf
+! define:
+data.sf.long_name              :  snowfall
+data.sf.units                  :  m/s
+data.sf.range                  :  0.0 Inf
+data.sf.gridtype               :  cell
+data.sf.levtype                :  sfc
+data.sf.datatype               :  constant_field_series
+data.sf.call                   :    Tendency(acc_sf)
+
+! define:
+data.ssrd.long_name            :  surface solar radiation downwards
+data.ssrd.units                :  J/m2/s
+data.ssrd.range                :  0.0 Inf
+data.ssrd.gridtype             :  cell
+data.ssrd.levtype              :  sfc
+data.ssrd.datatype             :  instant_field_series
+data.ssrd.input                :  meteo.ssrd
+
+! define:
+data.sshf.long_name            :  surface sensible downward heat flux
+data.sshf.units                :  J/m2/s
+data.sshf.range                :  -Inf Inf
+data.sshf.gridtype             :  cell
+data.sshf.levtype              :  sfc
+data.sshf.datatype             :  instant_field_series
+data.sshf.input                :  meteo.sshf
+
+! define:
+data.slhf.long_name            :  surface latent downward heat flux
+data.slhf.units                :  J/m2/s
+data.slhf.range                :  -Inf Inf
+data.slhf.gridtype             :  cell
+data.slhf.levtype              :  sfc
+data.slhf.datatype             :  instant_field_series
+data.slhf.input                :  meteo.slhf
+
+! define, Exponential moving average with 1 hour update: 1/24 = 0.04166
+data.tsurf_ema.long_name       :  surface temperature running daily mean
+data.tsurf_ema.units           :  K
+data.tsurf_ema.range           :  0.0 Inf
+data.tsurf_ema.gridtype        :  cell
+data.tsurf_ema.levtype         :  sfc
+data.tsurf_ema.datatype        :  constant_field_series
+data.tsurf_ema.call            :  CalcEMA( tsurf, alpha=0.04166 )
+
+! define, Exponential moving average with 1 hour update: 1/24 = 0.04166
+data.ssrd_ema.long_name        :  surface solar radiation downwards running daily mean
+data.ssrd_ema.units            :  J/m2/s
+data.ssrd_ema.range            :  0.0 Inf
+data.ssrd_ema.gridtype         :  cell
+data.ssrd_ema.levtype          :  sfc
+data.ssrd_ema.datatype         :  constant_field_series
+data.ssrd_ema.call             :  CalcEMA( ssrd, alpha=0.04166 )
+
+
+! *********************************************************************************
+! ***
+! ** vegetation parameters **
+! ***
+! *********************************************************************************
+
+! define:
+data.lai_lu.long_name          :  leaf area index of landuse
+data.lai_lu.units              :  m2/m2
+data.lai_lu.range              :  0.0 Inf
+data.lai_lu.gridtype           :  cell
+data.lai_lu.levtype            :  input_levels
+data.lai_lu.datatype           :  instant_field
+data.lai_lu.call               :  LeafAreaIndex( lat )
+
+! define:
+data.sai_lu.long_name          :  surface area index of landuse
+data.sai_lu.units              :  m2/m2
+data.sai_lu.range              :  0.0 Inf
+data.sai_lu.gridtype           :  cell
+data.sai_lu.levtype            :  input_levels
+data.sai_lu.datatype           :  instant_field
+data.sai_lu.call               :  SurfaceAreaIndex( lai_lu, lat )
+
+
+! *********************************************************************************
+! ***
+! ** Stability parameters **
+! ***
+! *********************************************************************************
+
+! roughness length, could be negative for no-data:
+data.z0m_lu.long_name          :  surface roughness for mass of landuse
+data.z0m_lu.units              :  m
+data.z0m_lu.range              :  -Inf Inf
+data.z0m_lu.gridtype           :  cell
+data.z0m_lu.levtype            :  input_levels
+data.z0m_lu.datatype           :  instant_field
+data.z0m_lu.call               :  SurfaceRoughness_Mass_LU( lai_lu, wsurf, sd )
+
+! roughness length, could be negative for no-data:
+data.z0m.long_name             :  surface roughness for mass of cell
+data.z0m.units                 :  m
+data.z0m.range                 :  -Inf Inf
+data.z0m.gridtype              :  cell
+data.z0m.levtype               :  sfc
+data.z0m.datatype              :  instant_field
+data.z0m.call                  :  SurfaceRoughness_CellAverage( z0m_lu )
+
+! roughness length, could be negative for no-data:
+data.z0h_lu.long_name          :  surface roughness for heat of landuse
+data.z0h_lu.units              :  m
+data.z0h_lu.range              :  -Inf Inf
+data.z0h_lu.gridtype           :  cell
+data.z0h_lu.levtype            :  input_levels
+data.z0h_lu.datatype           :  instant_field
+data.z0h_lu.call               :  SurfaceRoughness_Heat_LU( lai_lu, wsurf, sd )
+
+! roughness length, could be negative for no-data:
+data.z0h.long_name             :  surface roughness for heat of cell
+data.z0h.units                 :  m
+data.z0h.range                 :  -Inf Inf
+data.z0h.gridtype              :  cell
+data.z0h.levtype               :  sfc
+data.z0h.datatype              :  instant_field
+data.z0h.call                  :  SurfaceRoughness_CellAverage( z0h_lu )
+
+! canopy height:
+data.zcanopy_lu.long_name      :  canopy height of landuse
+data.zcanopy_lu.units          :  m
+data.zcanopy_lu.range          :  0.0 Inf
+data.zcanopy_lu.gridtype       :  cell
+data.zcanopy_lu.levtype        :  input_levels
+data.zcanopy_lu.datatype       :  instant_field
+data.zcanopy_lu.call           :  CanopyHeight_LU( z0h_lu, lai_lu )
+
+! roughness length, could be negative for no-data:
+data.z0dust_lu.long_name       :  surface roughness for dust emission of landuse
+data.z0dust_lu.units           :  m
+data.z0dust_lu.range           :  -Inf Inf
+data.z0dust_lu.gridtype        :  cell
+data.z0dust_lu.levtype         :  input_levels
+data.z0dust_lu.datatype        :  instant_field
+data.z0dust_lu.call            :  SurfaceRoughness_Dust_LU( lai_lu )
+
+! define:
+data.ustar.long_name            :  friction velocity cell average
+data.ustar.units                :  m/s
+data.ustar.range                :  -Inf Inf
+data.ustar.gridtype             :  cell
+data.ustar.levtype              :  sfc
+data.ustar.datatype             :  instant_field_series
+data.ustar.input                :  meteo.ust
+
+! define:
+data.monin_inv.long_name    :  monin_ifs_inv
+data.monin_inv.units        :  1/m
+data.monin_inv.range        :  -Inf Inf
+data.monin_inv.gridtype     :  cell
+data.monin_inv.levtype      :  sfc
+data.monin_inv.datatype     :  instant_field_series
+data.monin_inv.input        :  meteo.rmol
+
+! define:
+data.monin.long_name        :  Monin Obukhov length from WRF
+data.monin.units            :  m
+data.monin.range            :  -Inf Inf
+data.monin.gridtype         :  cell
+data.monin.levtype          :  sfc
+data.monin.datatype         :  instant_field
+data.monin.call             :  InverseMoninInverse(monin_inv)
+
+
+! define:
+data.sstar.long_name            :  sstar
+data.sstar.units                :  J/kg
+data.sstar.range                :  -Inf Inf
+data.sstar.gridtype             :  cell
+data.sstar.levtype              :  sfc
+data.sstar.datatype             :  instant_field
+data.sstar.call                 :  ScaleParameterDryStaticEnergy( sshf, dens, ustar )
+
+! define:
+data.qstar.long_name            :  qstar
+data.qstar.units                :  kg/kg
+data.qstar.range                :  -Inf Inf
+data.qstar.gridtype             :  cell
+data.qstar.levtype              :  sfc
+data.qstar.datatype             :  instant_field
+data.qstar.call                 :  ScaleParameterSpecificHumidity( slhf, dens, ustar )
+
+! define:
+data.duudz.long_name            :  duudz
+data.duudz.units                :  1/s
+data.duudz.range                :  -Inf Inf
+data.duudz.gridtype             :  cell
+data.duudz.levtype              :  input_halflevels
+data.duudz.datatype             :  instant_field
+data.duudz.call                 :  HalfLevelGradient( uu_ifs, dh_met )
+
+! define ifs wind profile :
+data.uu_ifs.long_name           :  uu_ifs
+data.uu_ifs.units               :  m/s
+data.uu_ifs.range               :  0 Inf
+data.uu_ifs.gridtype            :  cell
+data.uu_ifs.levtype             :  input_levels
+data.uu_ifs.datatype            :  instant_field_series
+data.uu_ifs.call                :  BottomWindSpeed( t_met, w_met, Q0v )
+
+! define:
+data.Q0v.long_name              :  Q0v
+data.Q0v.units                  :  K m/s
+data.Q0v.range                  :  -Inf Inf
+data.Q0v.gridtype               :  cell
+data.Q0v.levtype                :  sfc
+data.Q0v.datatype               :  instant_field
+data.Q0v.call                   :  VirtualTemperatureFlux( ustar, sstar, tsurf, qstar )
+
+! define dry static energy :
+data.dse.long_name               :  dse
+data.dse.units                   :  J/kg
+data.dse.range                   :  -Inf Inf
+data.dse.gridtype                :  cell
+data.dse.levtype                 :  input_levels
+data.dse.datatype                :  instant_field
+data.dse.call                    :  DryStaticEnergy( t_met, halt_met )
+
+! define:
+data.kz_ifs.long_name            :  kz_ifs
+data.kz_ifs.units                :  m2/s
+data.kz_ifs.range                :  0 Inf
+data.kz_ifs.gridtype             :  cell
+data.kz_ifs.levtype              :  input_halflevels
+data.kz_ifs.datatype             :  instant_field
+data.kz_ifs.call                 :  HalfLevelKzIFS( t_met, duudz, ri_ifs, monin, halt_met, blh, ustar )
+
+! define Richardson number at meteo levels, could be positve and negative:
+data.ri_ifs.long_name            :  Richardson number
+data.ri_ifs.units                :  1
+data.ri_ifs.range                :  -Inf Inf
+data.ri_ifs.gridtype             :  cell
+data.ri_ifs.levtype              :  input_halflevels
+data.ri_ifs.datatype             :  instant_field
+data.ri_ifs.call                 :  RichardsonNumber( dse, halt_met, uv_met, q_met, t_met )
+
+! interpolate Kz to model half levels, differs per scheme:
+data.kz.long_name       :  kz
+data.kz.units           :  m2/s
+data.kz.range           :  0.0 Inf
+data.kz.gridtype        :  cell
+data.kz.levtype         :  halflevels
+data.kz.datatype        :  instant_field
+
+! switch:
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#if "${levels.type}" == "mixlayer"
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! - for mixlayer scheme
+! - use traditional scheme with correction for difference in layer heights (msp)
+! - use Kz just above blh for the top of the mixlayer (ifs)
+#if "${vdiff.kz_type}" == "msp"
+data.kz.call            :  HalfLevelKzMSP( h, monin_inv, blh, ustar )
+#elif "${vdiff.kz_type}" == "normal"
+data.kz.call            :  LayerInterpol_MixLayer_Kz( halt_met, kz_ifs, halt, blh )
+#else
+#error kz_type "${vdiff.kz_type}" not valid for levels.type "${levels.type}"
+#endif
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#elif "${levels.type}" in [ "hyblevel", "metlevel"]
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+! - Check if kz_type is ifs --> This is necessary for hyblayer system
+#if "${vdiff.kz_type}" == "normal"
+! - Use interpolation between input meteo-layers
+data.kz.call            :  LayerInterpol( halt_met, kz_ifs, halt )
+#else
+#error kz_type "${vdiff.kz_type}" not valid for levels.type "${levels.type}"
+#endif
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#else
+#error Kz calculation not defined yet for levels.type "${levels.type}"
+#endif
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

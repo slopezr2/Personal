@@ -1,0 +1,4 @@
+40    !Number of states
+20    !Number of observations
+30    !Number of ensembles
+1000  !Simulation time

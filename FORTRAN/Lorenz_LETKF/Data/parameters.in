@@ -1,0 +1,5 @@
+40    !Number of states
+40    !Number of observations
+30    !Number of ensembles
+1100  !Simulation time
+15    !Localization radius rho

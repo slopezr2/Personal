@@ -1,0 +1,10 @@
+40    !Number of states
+40    !Number of observations
+100    !Number of ensembles
+1500   !Simulation time
+15    !Assimilation Window
+100   !Assimilation window start
+20     !Number of inner step
+0.02  !Tolerance Inner Loop
+1    !Sparse initial Ensemble
+0.001  !Sigma Observations
