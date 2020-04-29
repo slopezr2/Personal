@@ -11,7 +11,7 @@ subroutine read_NC_Yk(Y_xk,dawindows)
 	integer::lat,lon,level,time
   integer :: ncid, varid,status,latid,lonid,levelid,timeid
 
-	FILE_NAME='/home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output/Y_xk.nc'
+	FILE_NAME='/run/media/dirac/Datos/scratch/projects/4DEnVAR_inner/Xk/output/Y_xk.nc'
 		status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
 	! Get the varid of the data variable, based on its name.
 	  status = nf90_inq_dimid(ncid, "latitude", latid)
