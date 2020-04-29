@@ -25,7 +25,7 @@
 #==================================================================================
 
 #===Path where the program is running===
-mydir='/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Repositorio_Personal_Slopez/Personal/FORTRAN/LOTOS-EUROS'
+mydir='/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Repositorio_Personal_Slopez/Personal/FORTRAN/LOTOS-EUROS_ANDRES'
 
 #===Path LOTOS-EUROS MODEL (OJO carpeta de LEKF)===
 LE='/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Version_WRF_04_2020/lekf_4DEnVAR/lekf/v3.0.003-beta'
@@ -33,13 +33,15 @@ LE='/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Version_WRF_0
 #===Path where netcdf-fortran and netcdf is installed===
 OPT=${HOME}'/opt'
 NETCDF_FORTRAN_HOME='/usr/lib64'
-NETCDF_HOME=${OPT}'/netcdf/4.4.0'
+#NETCDF_HOME=${OPT}'/netcdf/4.4.0'
+NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
+
 
 #===Run ID====
 runid='Proof_Ensemble_Output_V3'
 
 #===Date of simulations====
-#rm ${LE}/proj/eafit/000/rc/timerange.rc
+rm ${LE}/proj/eafit/000/rc/timerange.rc
 start_date=20190202
 echo 'timerange.start     :  2019-02-02 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 echo 'timerange.end       :  2019-02-04 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
@@ -74,49 +76,49 @@ echo 'Running Model Real and Ensemble'
 #====Run LOTOS-EUROS MODEL====
 cd ${LE}
 
-./launcher
+#./launcher
 
 #====Read LE Ensemble outputs====
 
 #==Merging LE outputs for each ensemble member==
 echo 'Merging LE Ensembles DC'
 cd ${LE_Outputs}
-let "j=0"
-for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
-	do
-	let "j=j+1"
-	if [ $j -lt 10 ]
-	then
-		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
-		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
-		ncrcat -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
-
-	else
-			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
-		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
-		ncrcat -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
-	fi
-done 
+#let "j=0"
+#for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
+#	do
+#	let "j=j+1"
+#	if [ $j -lt 10 ]
+#	then
+#		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
+#		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
+#		ncrcat -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
+#
+#	else
+#			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
+#		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
+#		ncrcat -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
+#	fi
+#done 
 
 #==Merging LE outputs for each ensemble member==
 echo 'Merging LE Ensembles Outputs'
 
-let "j=0"
-for i in $(ls LE_${runid}_column_${start_date}_xi**a.nc)
-	do
-	let "j=j+1"
-	if [ $j -lt 10 ]
-	then
-		ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xi0${j}a.nc  Y_Merge_x0${j}.nc
-		mv LE_${runid}_column_${start_date}_xi0${j}a.nc ..
-		ncrcat -h Y_Merge_x0${j}.nc LE_${runid}_column_2*_xi0${j}a.nc Y_Ens_x0${j}.nc
-
-	else
-			ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xi${j}a.nc  Y_Merge_x${j}.nc
-		mv LE_${runid}_column_${start_date}_xi${j}a.nc ..
-		ncrcat -h Y_Merge_x${j}.nc LE_${runid}_column_2*_xi${j}a.nc Y_Ens_x${j}.nc
-	fi
-done 
+#let "j=0"
+#for i in $(ls LE_${runid}_column_${start_date}_xi**a.nc)
+#	do
+#	let "j=j+1"
+#	if [ $j -lt 10 ]
+#	then
+#		ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xi0${j}a.nc  Y_Merge_x0${j}.nc
+#		mv LE_${runid}_column_${start_date}_xi0${j}a.nc ..
+#		ncrcat -h Y_Merge_x0${j}.nc LE_${runid}_column_2*_xi0${j}a.nc Y_Ens_x0${j}.nc
+#
+#	else
+#			ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xi${j}a.nc  Y_Merge_x${j}.nc
+#		mv LE_${runid}_column_${start_date}_xi${j}a.nc ..
+#		ncrcat -h Y_Merge_x${j}.nc LE_${runid}_column_2*_xi${j}a.nc Y_Ens_x${j}.nc
+#	fi
+#done 
 
 
 
@@ -124,16 +126,16 @@ done
 #==Merging Real State==
 echo 'Merging Real State'
 
-ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xb.nc  Merge_xb.nc
-mv LE_${runid}_dc_${start_date}_xb.nc ..
-ncrcat -h Merge_xb.nc LE_${runid}_dc_2*_xb.nc X_real.nc
+#ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xb.nc  Merge_xb.nc
+#mv LE_${runid}_dc_${start_date}_xb.nc ..
+#ncrcat -h Merge_xb.nc LE_${runid}_dc_2*_xb.nc X_real.nc
 
 #==Merging Observations==
 echo 'Merging Observations'
 
-ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xb.nc  Y_Merge_xb.nc
-mv LE_${runid}_column_${start_date}_xb.nc ..
-ncrcat -h Y_Merge_xb.nc LE_${runid}_column_2*_xb.nc Y.nc
+#ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xb.nc  Y_Merge_xb.nc
+#mv LE_${runid}_column_${start_date}_xb.nc ..
+#ncrcat -h Y_Merge_xb.nc LE_${runid}_column_2*_xb.nc Y.nc
 
 
 
@@ -151,11 +153,11 @@ cd ${mydir}/MODULES
 
 cd ${mydir}
 
-gfortran -c modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  prueba_mod.f95     -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib
+gfortran -c modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  prueba_mod.f95     -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
 
 #==FORTRAN READ NC FILES==
 echo 'Reading LE outputs'
-gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS.F95 -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib
+gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS.F95 -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
 ./read_le_ensemble_output
 rm read_le_ensemble_output
 
@@ -163,9 +165,9 @@ rm read_le_ensemble_output
 
 
 
-gfortran -c 4DEnVAR_Method.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib
+gfortran -c 4DEnVAR_Method.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
 
-gfortran -o 4DEnVAR_method 4DEnVAR_Method.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib
+gfortran -o 4DEnVAR_method 4DEnVAR_Method.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
 
 
 

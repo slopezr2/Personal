@@ -1,0 +1,25 @@
+
+
+Instruction for operation the code 4DENVAR LOTOS-EUROS
+
+
+The code assimilates synthetic column as observations (first step to assimilate TROPOMI NO2 Column)
+
+
+
+The GITHUB path is https://github.com/slopezr2/Personal/tree/master/FORTRAN/LOTOS-EUROS_ANDRES
+
+
+
+Main file:  4D_EnVAR_LE_main_V3.sh (Here put number of ensembles, Simulation date, )
+
+
+Launch  lekf.rc   (Generate the ensembles, mod # ensembles) (lotos)
+
+
+    launck lekf_inner
+ 
+
+
+
+
