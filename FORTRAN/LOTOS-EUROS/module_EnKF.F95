@@ -3,6 +3,40 @@ use netcdf
 contains
 
 
+subroutine read_NC_Yk(Y_xk,dawindows)
+	real*8,dimension(:,:),intent(inout)::Y_xk
+	integer, intent(in)::dawindows
+	real*8,dimension(:,:,:),allocatable::aux
+	character (len=100)::FILE_NAME
+	integer::lat,lon,level,time
+  integer :: ncid, varid,status,latid,lonid,levelid,timeid
+
+	FILE_NAME='/home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output/Y_xk.nc'
+		status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
+	! Get the varid of the data variable, based on its name.
+	  status = nf90_inq_dimid(ncid, "latitude", latid)
+    status = nf90_inq_dimid(ncid, "longitude", lonid)     
+    status = nf90_inquire(ncid, unlimiteddimid = timeid)
+
+    !Get dimensions length
+    status = nf90_inquire_dimension(ncid, latid, len = lat)
+    status = nf90_inquire_dimension(ncid, lonid, len = lon)
+    status = nf90_inquire_dimension(ncid, timeid, len = time)
+		
+		status= nf90_inq_varid(ncid, "no2_column", varid)
+    allocate(aux(lon,lat,time))
+
+    ! Read the data.
+    status=nf90_get_var(ncid, varid, aux(:,:,:))
+    status= nf90_close(ncid)
+    Y_xk(:,:)=reshape(aux(:,:,1:dawindows),(/lat*lon,dawindows/))
+        
+end subroutine read_NC_Yk
+
+
+
+
+
 subroutine create_DC_NC(Xk,lat,lon,time)
 !===Create a NC file with DC for LE forecast simulation====
    implicit none
@@ -33,7 +67,7 @@ subroutine create_DC_NC(Xk,lat,lon,time)
     status =nf90_close(ncid)
 
 !===Create new DC file====
-   status = nf90_create('./data/DC_inner_20190201.nc',NF90_CLOBBER, ncid)
+   status = nf90_create('./data/DC_inner_dc_20190203_xa.nc',NF90_CLOBBER, ncid)
 !=== Define dimensions===
    status = nf90_def_dim(ncid, "latitude", lat, lat_dimid)
    status = nf90_def_dim(ncid, "longitude", lon, lon_dimid)

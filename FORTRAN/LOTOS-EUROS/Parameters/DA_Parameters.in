@@ -1,8 +1,8 @@
 121    !Number of states
 22    !Number of observations
 40    !Number of ensembles
-96    !Simulation time
-6    !Assimilation Window
+48    !Simulation time
+24    !Assimilation Window
 24   !Assimilation window start
 10     !Number of inner step
 0.02  !Tolerance Inner Loop

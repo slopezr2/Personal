@@ -1,0 +1,9 @@
+
+cd /home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output
+echo 'Merging LE Ensembles Outputs'
+
+ncks -O -h --mk_rec_dmn time LE_Xk_column_20190203_xb.nc  Y_Merge_xk.nc
+mv LE_Xk_column_20190203_xb.nc ..
+ncrcat -h Y_Merge_xk.nc LE_Xk_column_2*_xb.nc Y_xk.nc
+
+ cd /home/slopezr2/GITHUB/Personal/FORTRAN/LOTOS-EUROS

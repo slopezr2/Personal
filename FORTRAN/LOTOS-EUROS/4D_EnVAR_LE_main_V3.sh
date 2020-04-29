@@ -25,7 +25,7 @@
 #==================================================================================
 
 #===Path where the program is running===
-mydir='/home/slopezr2/GITHUB/Ensemble_Data_Assimilation/FORTRAN/LOTOS-EUROS'
+mydir='/home/slopezr2/GITHUB/Personal/FORTRAN/LOTOS-EUROS'
 
 #===Path LOTOS-EUROS MODEL (OJO carpeta de LEKF)===
 LE='/home/slopezr2/lekf_4DEnVAR/lekf/v3.0.003-beta'
@@ -173,12 +173,12 @@ rm 4DEnVAR_method
 
 
 
-gfortran -c prueba_nc.f95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95 -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include  -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib
+#gfortran -c prueba_nc.f95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95 -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include  -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib
 
 
 
 
-gfortran  -o prueba_nc_puta prueba_nc.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib
+#gfortran  -o prueba_nc_puta prueba_nc.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib
 
-./prueba_nc_puta
+#./prueba_nc_puta
 

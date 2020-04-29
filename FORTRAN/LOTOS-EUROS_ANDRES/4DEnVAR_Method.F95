@@ -15,7 +15,7 @@ program LE_4DEnVAR_Method
   real*8,parameter :: dt=0.01
   real*8::tolerance,sparse
   real*8,allocatable,dimension(:,:,:):: xa,xb,Yb,xk
-  real*8,allocatable,dimension(:,:)::dXen,Robs,inR
+  real*8,allocatable,dimension(:,:)::dXen,Robs,inR,Y_xk
   real*8,allocatable,dimension(:,:)::increment,inno,sum1,ident,Y
   real*8,allocatable,dimension(:)::sum2,norma
   real*8,allocatable,dimension(:,:,:)::dY
@@ -65,6 +65,7 @@ program LE_4DEnVAR_Method
   allocate(inno(m,tsim))
   allocate(ident(Nen,Nen))
   allocate(norma(inner))
+  allocate(Y_xk(m,dawindows))
   Robs=0
   inR=0
   ident=0
@@ -126,18 +127,16 @@ program LE_4DEnVAR_Method
    xk(:,st_ass,1)=xbmean+prod_matvec(dXen,increment(:,1))
   !=== Write DC_k output ====
 	call create_DC_NC(xk(:,st_ass,1),lat,lon,time)
-  !=== Run LE using that DC_k Value===
-
-
-
-
-!  !=== Read DC_k and Column of DC_k===
-
-
-
-
-   loop_time_analysis: do j=(st_ass+1),tsim
-      inno(:,j)=Y(:,j)-Y_xk(:,j)
+  !=== Run LE using that DC_k Value Ojo cambiar Dirac===
+  CALL execute_command_line('./aux_launcher_inner')
+  write(*,*) '=== Merging Yxk==='
+	!=== Read DC_k and Column of DC_k===
+	CALL execute_command_line('./aux_merge_Y_xk')
+	write(*,*) '=== Reading Yxk==='
+  Call read_NC_Yk(Y_xk,dawindows)
+  write(*,*) '=== Yxk Readed==='
+   loop_time_analysis: do j=(st_ass+1),st_ass+dawindows
+      inno(:,j)=Y(:,j)-Y_xk(:,j-st_ass)
    end do loop_time_analysis
 
    allocate(sum1(Nen,Nen))
@@ -156,15 +155,19 @@ program LE_4DEnVAR_Method
       increment(:,l)=prod_matvec(inv(ident+sum1),sum2)
       !=== Incremental===
       xk(:,st_ass,l)=xk(:,st_ass,l-1)+prod_matvec(dXen,increment(:,l))
-	!=== Write DC_k output ====
+			!=== Write DC_k output ====
 	  call create_DC_NC(xk(:,st_ass,l),lat,lon,time)
-  	!=== Run LE using that DC_k Value===
-
-
-  	!=== Read DC_k and Column of DC_k===
+  	!=== Run LE using that DC_k Value Ojo cambiar Dirac===
+  	CALL execute_command_line('./aux_launcher_inner')
+ 	  write(*,*) '=== Merging Yxk, iteration ', l 
+		!=== Read DC_k and Column of DC_k===
+		CALL execute_command_line('./aux_merge_Y_xk')
+		write(*,*) '=== Reading Yxk iteration', l 
+  	Call read_NC_Yk(Y_xk,dawindows)
+  	write(*,*) '=== Yxk Readed iteration', l 
       
-      loop_time_analysis_inner: do j=(st_ass+1),tsim
-         inno(:,j)=Y(:,j)-Y_xk(:,j)
+      loop_time_analysis_inner: do j=(st_ass+1),st_ass+dawindows
+         inno(:,j)=Y(:,j)-Y_xk(:,j-st_ass)
       end do loop_time_analysis_inner
       norma(l)=norm2(prod_matvec(dXen,increment(:,l)))
       if (norma(l) .LE. norma(l-1)) then
