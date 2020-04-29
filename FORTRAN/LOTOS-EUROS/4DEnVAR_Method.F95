@@ -152,6 +152,7 @@ program LE_4DEnVAR_Method
          sum1=sum1+prod(prod(transpose(dY(:,:,i)),inR),dY(:,:,i))
          sum2=sum2+ prod_matvec(prod(transpose(dY(:,:,i)),inR),inno(:,i))
       end do
+      write(*,*) '===Calculate Increment==='
       increment(:,l)=prod_matvec(inv(ident+sum1),sum2)
       !=== Incremental===
       xk(:,st_ass,l)=xk(:,st_ass,l-1)+prod_matvec(dXen,increment(:,l))
