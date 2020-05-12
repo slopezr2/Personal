@@ -80,8 +80,11 @@ program Lorenz_4DEnVAR
      Hobs(i,Hm_index(i))=1
      Robs(i,i)=sigmaobs**2
      inR(i,i)=(1/(sigmaobs**2))
-     ident(i,i)=1.0
+     
   end do
+  do i=1,Nen
+  	ident(i,i)=1.0
+  enddo
   deallocate(Hn_index)
   deallocate(Hm_index)
   !=== Ensemble initialization===
