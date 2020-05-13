@@ -3,7 +3,7 @@
 Instruction for operation the code 4DENVAR LOTOS-EUROS
 
 
-The code assimilates synthetic column as observations (first step to assimilate TROPOMI NO2 Column)
+The code assimilates synthetic column as observations (first step to assimilate TROPOMI NO2 Column) in order to modify the dc correction factors. The dc correction factors are the values to multiply the current emission factors
 
 
 
@@ -13,11 +13,19 @@ The GITHUB path is https://github.com/slopezr2/Personal/tree/master/FORTRAN/LOTO
 
 Main file:  4D_EnVAR_LE_main_V3.sh (Here put number of ensembles, Simulation date, )
 
+Folder DATA_4DEnVar : parameteres.in   (Assimilation Window, Spread, Sigma Errors)
+                      parameters_python.out  (Preguntar a Santiago para comentar)
+                      
 
 Launch  lekf.rc   (Generate the ensembles, mod # ensembles) (lotos)
 
 
     launck lekf_inner
+
+
+
+4DEnVar_method.f95 (read parameters from the folder DATA_4DEnVar)
+module_enkf.f95 (Create new dc files in the folder data)
  
 
 

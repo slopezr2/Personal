@@ -153,25 +153,24 @@ cd ${mydir}/MODULES
 
 cd ${mydir}
 
-gfortran -c modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  prueba_mod.f95     -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
 
 #==FORTRAN READ NC FILES==
 echo 'Reading LE outputs'
-gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS.F95 -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
-./read_le_ensemble_output
-rm read_le_ensemble_output
+#gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS.F95 -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
+#./read_le_ensemble_output
+#rm read_le_ensemble_output
 
 #==FORTRAN 4DEnVAR Method
 
 
 
-#gfortran -c 4DEnVAR_Method.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
+gfortran -c 4DEnVAR_Method.F95  module_matrix.F95 module_EnKF.F95  -lblas -llapack  -lnetcdff -lnetcdf  -I/usr/lib64/gfortran/modules
 
-#gfortran -o 4DEnVAR_method 4DEnVAR_Method.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
+gfortran -o 4DEnVAR_method 4DEnVAR_Method.o module_matrix.o module_EnKF.o  -lblas -llapack  -lnetcdff -lnetcdf -I/usr/lib64/gfortran/modules
 
 
 
-#./4DEnVAR_method
+./4DEnVAR_method
 #rm 4DEnVAR_method
 
 
