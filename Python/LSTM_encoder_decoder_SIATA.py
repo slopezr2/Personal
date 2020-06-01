@@ -1,5 +1,6 @@
 # univariate multi-step encoder-decoder lstm example
 from numpy import array
+import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import LSTM
 from keras.layers import Dense
@@ -15,15 +16,17 @@ X = X.reshape((X.shape[0], X.shape[1], n_features))
 y = y.reshape((y.shape[0], y.shape[1], n_features))
 # define model
 model = Sequential()
-model.add(LSTM(200, activation='relu', input_shape=(n_input_steps, n_features)))
+model.add(LSTM(2000, input_shape=(n_input_steps, n_features)))
 model.add(RepeatVector(n_output_steps))
-model.add(LSTM(200, activation='relu', return_sequences=True))
-model.add(TimeDistributed(Dense(100, activation='relu' )))
+model.add(LSTM(2000,  return_sequences=True))
+model.add(TimeDistributed(Dense(1000, activation='relu' )))
 model.add(TimeDistributed(Dense(1)))
-model.compile(optimizer='adam', loss='mse')
+model.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
 # fit model
-model.fit(X, y, epochs=30, verbose=0, batch_size=16)
+model.fit(X, y, epochs=20, verbose=1, batch_size=16)
 # demonstrate prediction
 x_input = datax[n_train+10,:]
 x_input = x_input.reshape((1, n_input_steps, n_features))
-yhat = model.predict(x_input, verbose=0)
+yhat = model.predict(x_input, verbose=1)
+
+model.save('Models_save/LSTM_encoder_station82') 

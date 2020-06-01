@@ -1,15 +1,18 @@
 # univariate multi-step vector-output 1d cnn example
+import os
 from numpy import array
+import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Flatten
-from keras.layers.convolutional import Conv1D
-from keras.layers.convolutional import MaxPooling1D
+from keras.layers import Conv1D
+from keras.layers import MaxPooling1D
 
-
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 # reshape from [samples, timesteps] into [samples, timesteps, features]
 n_features = 1
-n_train=5000
+#n_train=5000
 X=datax[0:n_train,:]
 Y=datay[0:n_train,:]
 X = X.reshape((X.shape[0], X.shape[1], n_features))
@@ -22,7 +25,7 @@ model.add(Dense(50, activation='relu'))
 model.add(Dense(n_output_steps))
 model.compile(optimizer='adam', loss='mse')
 # fit model
-model.fit(X, Y, epochs=2000, verbose=0)
+model.fit(X, Y, epochs=2000, verbose=1)
 # demonstrate prediction
 x_input = datax[n_train,:]
 x_input = x_input.reshape((1, n_input_steps, n_features))
