@@ -11,10 +11,10 @@ dt=0.01; %step length
 m=40;
 n=40;
 
-Nexp=20;
+Nexp=50;
 F=8;
 sigma=1e-3;
-N=30;
+N=20;
 frequency=1;
 
 H = eye(n,n); 
@@ -222,18 +222,18 @@ rmse_EnKF=nanmedian(error_EnKF_sigma,2);
 rmse_EnKF_KA=nanmedian(error_EnKF_KA_sigma,2);
 
 
-plot(1:1:4,rmse_EnKF,'*--b','LineWidth',2)
+plot(1:1:4,rmse_EnTLHF_KA,'*--b','LineWidth',2)
 hold on
 plot(1:1:4,rmse_EnKF_KA,'*--r','LineWidth',2)
 plot(1:1:4,rmse_EnTLHF,'*-b','LineWidth',2)
-plot(1:1:4,rmse_EnTLHF_KA,'*-r','LineWidth',2)
+plot(1:1:4,rmse_EnKF,'*-r','LineWidth',2)
 
 
 
 legend({'EnKF','EnKF-KA','EnTLHF','EnTLHF-KA'},'FontSize',14,'Position',[0.142690063812579 0.675141249576627 0.268421047298532 0.23607747520142])
 ylabel(['Time mean RMSE'],'FontSize',14)
 xlabel(['Observation error'],'FontSize',14)
-ylim([9.9 10.5])
+ylim([9.0 9.5])
 xticks([1,2,3,4])
 xticklabels({'1e-4','1e-3','1e-2','1e-1'})
 saveas(fig,'Robust_Comparison_sigma.eps','epsc')

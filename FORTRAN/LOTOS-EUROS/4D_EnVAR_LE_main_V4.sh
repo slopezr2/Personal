@@ -38,9 +38,10 @@ NETCDF_HOME='/home/slopezr2/opt/netcdf/4.7.3'
 runid='Proof_Ensemble_Output_V3'
 
 #===Date of simulations====
-if [ -d ${LE}/proj/eafit/000/rc/timerange.rc ]
+if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
 then
 	rm ${LE}/proj/eafit/000/rc/timerange.rc
+	echo 'Puta si'
 fi	
 start_date=20190202
 echo 'timerange.start     :  2019-02-02 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc

@@ -11,7 +11,7 @@ dt=0.01; %step length
 m=40;
 n=40;
 
-Nexp=20;
+Nexp=50;
 F=8;
 sigma=1e-3;
 N=30;
@@ -233,5 +233,5 @@ xticks([10,15,20,25,30])
 legend({'EnKF','EnKF-KA','EnTLHF','EnTLHF-KA'},'FontSize',14)
 ylabel(['Time mean RMSE'],'FontSize',14)
 xlabel(['Number of Ensemble Members'],'FontSize',14)
-saveas(fig,'Robust_Comparison_N.eps','epsc')
-saveas(fig,'Robust_Comparison_N.jpg','jpg')
+% saveas(fig,'Robust_Comparison_N.eps','epsc')
+% saveas(fig,'Robust_Comparison_N.jpg','jpg')

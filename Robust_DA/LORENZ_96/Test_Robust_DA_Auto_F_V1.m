@@ -11,7 +11,7 @@ dt=0.01; %step length
 m=40;
 n=40;
 
-Nexp=20;
+Nexp=3;
 F=8;
 sigma=1e-3;
 N=30;
