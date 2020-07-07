@@ -44,9 +44,14 @@ then
 	
 fi	
 start_date=20190202
+days_simulation=4
 echo 'timerange.start     :  2019-02-02 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 echo 'timerange.end       :  2019-02-04 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 
+echo ${start_date}>${mydir}/DATA_4DEnVAR/startdate.in
+echo ${days_simulation}>>${mydir}/DATA_4DEnVAR/startdate.in
+
+echo ${runid}>${mydir}/DATA_4DEnVAR/runid.in
 #===Number of Ensembles===
 Nens=2
 
@@ -92,29 +97,29 @@ cd ${LE}
 
 ./launcher
 
-##====Read LE Ensemble outputs====
+#====Read LE Ensemble outputs====
 
-##==Merging LE outputs for each ensemble member==
-#echo 'Merging LE Ensembles DC'
-#cd ${LE_Outputs}
-#let "j=0"
-#for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
-#	do
-#	let "j=j+1"
-#	if [ $j -lt 10 ]
-#	then
-#		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
-#		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
-#		ncrcat -O -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
+#==Merging LE DC for each ensemble member ==
+echo 'Merging LE Ensembles DC'
+cd ${LE_Outputs}
+let "j=0"
+for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
+	do
+	let "j=j+1"
+	if [ $j -lt 10 ]
+	then
+		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
+		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
+		ncrcat -O -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
 
-#	else
-#			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
-#		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
-#		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
-#	fi
-#done 
+	else
+			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
+		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
+		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
+	fi
+done 
 
-##==Merging LE outputs for each ensemble member==
+##==Merging LE outputs for each ensemble member, con CDO y revisar formato salidas satelite simulado==
 #echo 'Merging LE Ensembles Outputs'
 
 #let "j=0"
@@ -137,43 +142,43 @@ cd ${LE}
 
 
 
-#==Merging Real State==
+##==Merging Real State, No se necesita==
 #echo 'Merging Real State'
 
 #ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xb.nc  Merge_xb.nc
 #mv LE_${runid}_dc_${start_date}_xb.nc ..
 #ncrcat -O -h Merge_xb.nc LE_${runid}_dc_2*_xb.nc X_real.nc
-#
-##==Merging Observations==
+
+##==Merging Observations, Cambiar para formato nuevas salidas de satelite hacer con CDO, ya no es Xb si no el archivo de las observaciones reales==
 #echo 'Merging Observations'
-#
+
 #ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xb.nc  Y_Merge_xb.nc
 #mv LE_${runid}_column_${start_date}_xb.nc ..
 #ncrcat -O -h Y_Merge_xb.nc LE_${runid}_column_2*_xb.nc Y.nc
 
 
 
-##==FORTRAN READ NC FILES==
+#==FORTRAN READ NC FILES==
 
-#cd ${mydir}
-#echo 'Reading LE outputs'
-#gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS.F95 -I${mydir}/MODULES -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
+cd ${mydir}
+echo 'Reading LE outputs'
+gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS_V2.F95 -I${mydir}/MODULES -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
 
-#./read_le_ensemble_output
-#rm read_le_ensemble_output
+./read_le_ensemble_output
+rm read_le_ensemble_output
 
-##==FORTRAN 4DEnVAR Method
-
-
-
-#gfortran -c 4DEnVAR_Method.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
-
-#gfortran -o 4DEnVAR_method 4DEnVAR_Method.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
+#==FORTRAN 4DEnVAR Method
 
 
 
-#./4DEnVAR_method
-#rm 4DEnVAR_method
+gfortran -c 4DEnVAR_Method_V2.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
+
+gfortran -o 4DEnVAR_method 4DEnVAR_Method_V2.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
+
+
+
+./4DEnVAR_method
+rm 4DEnVAR_method
 
 
 

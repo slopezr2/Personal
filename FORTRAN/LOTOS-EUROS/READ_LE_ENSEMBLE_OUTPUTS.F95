@@ -64,18 +64,19 @@ program read_le_ensemble_outputs
     !status=nf90_get_var(ncid, varid, aux)
     
     !Santiago Medellin (45,46) (45,47) (46,46) (46,47)
-	
+	  !Numero de celdas
+	  
+	  
+	  
     !nx_int=(/45,46/)
     !ny_int=(/46,47/)	
     
     !indi=0	
-    !do h=1,2
-    !	do l=1,2
+    !	do h=1,n_int
     !		indi=indi+1
-    !		x(indi)=aux(nx_int(h),ny_int(l))  
+    !		x(indi)=aux(nx_int(h),ny_int(h))  
     !       
     !	enddo
-    !enddo
     
     
     status= nf90_close(ncid) 
