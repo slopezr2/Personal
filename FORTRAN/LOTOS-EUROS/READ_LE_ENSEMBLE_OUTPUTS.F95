@@ -57,8 +57,27 @@ program read_le_ensemble_outputs
     !Read the data.
     status=nf90_get_var(ncid, lat_varid, latitude)
 	
+	
+	
     ! Read the data.
     status=nf90_get_var(ncid, varid, xb)
+    !status=nf90_get_var(ncid, varid, aux)
+    
+    !Santiago Medellin (45,46) (45,47) (46,46) (46,47)
+	
+    !nx_int=(/45,46/)
+    !ny_int=(/46,47/)	
+    
+    !indi=0	
+    !do h=1,2
+    !	do l=1,2
+    !		indi=indi+1
+    !		x(indi)=aux(nx_int(h),ny_int(l))  
+    !       
+    !	enddo
+    !enddo
+    
+    
     status= nf90_close(ncid) 
     if (j<10) then
     	open(61,file='./data/Ens_x0'//trim(FILE_NAME2)//'.dat',status='unknown')
