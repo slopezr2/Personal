@@ -12,36 +12,110 @@ subroutine read_NC_Yk(Y_xk,dawindows)
   integer :: ncid, varid,status,latid,lonid,levelid,timeid
 
 	FILE_NAME='/home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output/Y_xk.nc'
-		status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
-	! Get the varid of the data variable, based on its name.
-	  status = nf90_inq_dimid(ncid, "latitude", latid)
-    status = nf90_inq_dimid(ncid, "longitude", lonid)     
-    status = nf90_inquire(ncid, unlimiteddimid = timeid)
+	status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
+! Get the varid of the data variable, based on its name.
+  status = nf90_inq_dimid(ncid, "latitude", latid)
+  status = nf90_inq_dimid(ncid, "longitude", lonid)     
+  status = nf90_inquire(ncid, unlimiteddimid = timeid)
 
-    !Get dimensions length
-    status = nf90_inquire_dimension(ncid, latid, len = lat)
-    status = nf90_inquire_dimension(ncid, lonid, len = lon)
-    status = nf90_inquire_dimension(ncid, timeid, len = time)
-		
-		status= nf90_inq_varid(ncid, "no2_column", varid)
-    allocate(aux(lon,lat,time))
+  !Get dimensions length
+  status = nf90_inquire_dimension(ncid, latid, len = lat)
+  status = nf90_inquire_dimension(ncid, lonid, len = lon)
+  status = nf90_inquire_dimension(ncid, timeid, len = time)
+	
+	status= nf90_inq_varid(ncid, "no2_column", varid)
+  allocate(aux(lon,lat,time))
 
-    ! Read the data.
-    status=nf90_get_var(ncid, varid, aux(:,:,:))
-    status= nf90_close(ncid)
-    Y_xk(:,:)=reshape(aux(:,:,1:dawindows),(/lat*lon,dawindows/))
+  ! Read the data.
+  status=nf90_get_var(ncid, varid, aux(:,:,:))
+  status= nf90_close(ncid)
+  Y_xk(:,:)=reshape(aux(:,:,1:dawindows),(/lat*lon,dawindows/))
         
 end subroutine read_NC_Yk
 
+subroutine read_NC_Yk_Tropomi(Y_xk,dawindows,lon,lat)
+	real*8,dimension(:,:),intent(inout)::Y_xk
+	integer,intent(in)::lon,lat
+	integer, intent(in)::dawindows,initial_forecast
+	real*8,dimension(:,:),allocatable::aux_y
+	real*8,dimension(:,:,:),allocatable::Y(:,:,:)
+	real*8,dimension(:),allocatable::ilat(:),ilon(:)
+	character (len=100)::FILE_NAME, FILE_NAME3
+	integer::lat,lon,level,time,pixel
+  integer :: ncid, varid,status,latid,lonid,levelid,timeid,pixelid,pixel_len
+  logical :: file_exists
+  initial_forecast=20190203
+  allocate(Y(lon,lat,days_simulation))
+  loop_days:  do i=0,dawindows-1
+    write (FILE_NAME3,'(i8)') i+initial_forecast 	   
+		FILE_NAME="/home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output/LE_XK_tropomi-no2_"//trim(FILE_NAME3)//"_1800.nc'
+		status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
+	! Get the varid of the data variable, based on its name.
+		status = nf90_inq_dimid(ncid, "pixel", pixelid)
+		!Get dimensions length
+		status = nf90_inquire_dimension(ncid, pixelid, len = pixel_len) 
+		! Get the varid of the data variable, based on its name.
+		status= nf90_inq_varid(ncid, "yr", varid) 
+		status= nf90_inq_varid(ncid, "ilat", ilatid)
+		status= nf90_inq_varid(ncid, "ilon", ilonid)
+		allocate(aux_y(pixel_len,1))
+		allocate(ilat(pixel_len))
+		allocate(ilon(pixel_len))
+		! Read the data.
+		status= nf90_get_var(ncid, varid, aux_y(:,:))
+		status= nf90_get_var(ncid, ilatid, ilat)
+		status= nf90_get_var(ncid, ilonid, ilon)	
+		status= nf90_close(ncid)
+		Y=0.0
+		do k=1,pixel_len
+			Y(ilon(k),ilat(k),i)=aux_y(k,1) 
+		enddo
+		deallocate(aux_y)
+		deallocate(ilat(pixel_len))
+		deallocate(ilon(pixel_len))
+		!=Check if exists other satelite file for the same day
+		FILE_NAME="/home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output/LE_XK_tropomi-no2_"//trim(FILE_NAME3)//"_1900.nc'
+		INQUIRE(FILE=FILE_NAME, EXIST=file_exists)
+		if file_exists then
+			status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
+			status = nf90_inq_dimid(ncid, "pixel", pixelid)
+			!Get dimensions length
+			status = nf90_inquire_dimension(ncid, pixelid, len = pixel_len)
+			! Get the varid of the data variable, based on its name.
+			status= nf90_inq_varid(ncid, "y", varid)
+			status= nf90_inq_varid(ncid, "ilat", ilatid)
+			status= nf90_inq_varid(ncid, "ilon", ilonid) 
+			allocate(aux_y(pixel_len,1))
+			allocate(ilat(pixel_len))
+			allocate(ilon(pixel_len))
+			! Read the data.
+			status=nf90_get_var(ncid, varid, aux_y(:,:))
+			status=nf90_get_var(ncid, ilatid, ilat)
+			status=nf90_get_var(ncid, ilonid, ilon)
+			status= nf90_close(ncid)
+			do k=1,pixel_len
+				if Y(ilon(k),ilat(k),i) .NE. then
+					Y(ilon(k),ilat(k),i)=(aux_y(k,1)+ Y_xk(ilon(k),ilat(k),i))/2
+				else
+					Y(ilon(k),ilat(k),i)=aux_y(k,1)
+				endif
+			enddo
+			deallocate(aux_y)
+			deallocate(ilat(pixel_len))
+			deallocate(ilon(pixel_len))
+		endif
+		Y_xk(:,:)=reshape(Y(:,:,1:dawindows),(/lat*lon,dawindows/))
+	enddo loop_days
+        
+end subroutine read_NC_Yk_Tropomi
 
 
 
-
-subroutine create_DC_NC(Xk,lat,lon,time)
+subroutine create_DC_NC(Xk,n_cells_int,lat,lon,time,nx_int,ny_int)
 !===Create a NC file with DC for LE forecast simulation====
    implicit none
    integer,intent(in)  :: lat,lon,time
-   real*8,dimension(:), intent(inout)::Xk(lat*lon)
+   real*8,dimension(:), intent(inout)::Xk(n_cells_int),nx_int(n_cells_int),ny_int(n_cells_int)
    real*8,dimension(:,:)::DC(lon,lat)
    real*8,dimension(:)::latitude(lat),longitude(lon),time_var(time)
    real*8,dimension(:,:,:,:,:)::DC_nc(lon,lat,1,1,time)
@@ -52,60 +126,63 @@ subroutine create_DC_NC(Xk,lat,lon,time)
     
 	open(61,file='./temp/Ensembles.in',status='old')
 	read(61,"(A200)") Path
-    close(61)
-    FILE_NAME=trim(path)//'/Ens_x01.nc'
+  close(61)
+  FILE_NAME=trim(path)//'/Ens_x01.nc'
 
-    status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
-    ! Get the varid of the data variable, based on its name.
-    status= nf90_inq_varid(ncid, "latitude", lat_varid)
+  status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
+  ! Get the varid of the data variable, based on its name.
+  status= nf90_inq_varid(ncid, "latitude", lat_varid)
 	status= nf90_inq_varid(ncid, "longitude", lon_varid)
 	status= nf90_inq_varid(ncid, "time", time_varid)
-    !Read the data.
-    status=nf90_get_var(ncid, lat_varid, latitude)
+  !Read the data.
+  status=nf90_get_var(ncid, lat_varid, latitude)
 	status=nf90_get_var(ncid, lon_varid, longitude)
 	status=nf90_get_var(ncid, time_varid, time_var)
-    status =nf90_close(ncid)
+  status =nf90_close(ncid)
 
 !===Create new DC file====
-   status = nf90_create('./data/DC_inner_dc_20190203_xa.nc',NF90_CLOBBER, ncid)
+  status = nf90_create('./data/DC_inner_dc_20190203_xa.nc',NF90_CLOBBER, ncid)
 !=== Define dimensions===
-   status = nf90_def_dim(ncid, "latitude", lat, lat_dimid)
-   status = nf90_def_dim(ncid, "longitude", lon, lon_dimid)
-   status = nf90_def_dim(ncid, "noise", 1, noise_dimid)
-   status = nf90_def_dim(ncid, "hist", 1, hist_dimid)
-   status = nf90_def_dim(ncid, "time", time, time_dimid)
-   status = nf90_def_dim(ncid, "namelen", 32, name_dimid)
+  status = nf90_def_dim(ncid, "latitude", lat, lat_dimid)
+  status = nf90_def_dim(ncid, "longitude", lon, lon_dimid)
+  status = nf90_def_dim(ncid, "noise", 1, noise_dimid)
+  status = nf90_def_dim(ncid, "hist", 1, hist_dimid)
+  status = nf90_def_dim(ncid, "time", time, time_dimid)
+  status = nf90_def_dim(ncid, "namelen", 32, name_dimid)
 !=== Define variables===
-   status = nf90_def_var(ncid, "latitude", NF90_REAL8, (/ lat_dimid/), lat_varid)
-   status = nf90_put_att(ncid, lat_varid, "standard_name", 'latitude')
-   status = nf90_put_att(ncid, lat_varid, "units", 'degrees_north')
-   status = nf90_put_att(ncid, lat_varid, "_CoordinateAxisType", 'Lat')
+  status = nf90_def_var(ncid, "latitude", NF90_REAL8, (/ lat_dimid/), lat_varid)
+  status = nf90_put_att(ncid, lat_varid, "standard_name", 'latitude')
+  status = nf90_put_att(ncid, lat_varid, "units", 'degrees_north')
+  status = nf90_put_att(ncid, lat_varid, "_CoordinateAxisType", 'Lat')
 
-   status = nf90_def_var(ncid, "longitude", NF90_REAL8, (/lon_dimid/), lon_varid)
-   status = nf90_put_att(ncid, lon_varid, "standard_name", 'longitude')
-   status = nf90_put_att(ncid, lon_varid, "units", 'degrees_east')
-   status = nf90_put_att(ncid, lon_varid, "_CoordinateAxisType", 'Lon')	
+  status = nf90_def_var(ncid, "longitude", NF90_REAL8, (/lon_dimid/), lon_varid)
+  status = nf90_put_att(ncid, lon_varid, "standard_name", 'longitude')
+  status = nf90_put_att(ncid, lon_varid, "units", 'degrees_east')
+  status = nf90_put_att(ncid, lon_varid, "_CoordinateAxisType", 'Lon')	
 
-   status = nf90_def_var(ncid, "time", NF90_REAL8, (/ time_dimid/), time_varid)
-   status = nf90_put_att(ncid, time_varid, "standard_name", 'time')
-   status = nf90_put_att(ncid, time_varid, "long_name", 'time')
-   status = nf90_put_att(ncid, time_varid, "units", 'seconds since 2019-01-01 00:00:00 UTC')
-   status = nf90_put_att(ncid, time_varid, "calendar", 'standard')
-   status = nf90_put_att(ncid, time_varid, "_CoordinateAxisType", 'Time')	
+  status = nf90_def_var(ncid, "time", NF90_REAL8, (/ time_dimid/), time_varid)
+  status = nf90_put_att(ncid, time_varid, "standard_name", 'time')
+  status = nf90_put_att(ncid, time_varid, "long_name", 'time')
+  status = nf90_put_att(ncid, time_varid, "units", 'seconds since 2019-01-01 00:00:00 UTC')
+  status = nf90_put_att(ncid, time_varid, "calendar", 'standard')
+  status = nf90_put_att(ncid, time_varid, "_CoordinateAxisType", 'Time')	
 
-   status = nf90_def_var(ncid, "noise_name", NF90_CHAR, (/name_dimid, noise_dimid/), noise_varid)
+  status = nf90_def_var(ncid, "noise_name", NF90_CHAR, (/name_dimid, noise_dimid/), noise_varid)
 
-   status = nf90_def_var(ncid, "dc", NF90_REAL8, (/ lon_dimid,lat_dimid,noise_dimid,hist_dimid,time_dimid/), dc_varid)
+  status = nf90_def_var(ncid, "dc", NF90_REAL8, (/ lon_dimid,lat_dimid,noise_dimid,hist_dimid,time_dimid/), dc_varid)
    
-   status = nf90_enddef(ncid)
+  status = nf90_enddef(ncid)
 !=== Write Data===
-    status =nf90_put_var(ncid, lat_varid, latitude)
-    status =nf90_put_var(ncid, lon_varid, longitude)
+  status =nf90_put_var(ncid, lat_varid, latitude)
+  status =nf90_put_var(ncid, lon_varid, longitude)
 	status =nf90_put_var(ncid, time_varid, time_var)
-	DC=reshape(Xk,(/lon,lat/))
-    do i=1,time
+	DC=1
+	do i=1,n_cells_int
+		DC(nx_int(i),ny_int(i))=Xk(i)
+	enddo
+  do i=1,time
 		DC_nc(:,:,1,1,i)=DC	
-    enddo
+  enddo
 	status =nf90_put_var(ncid, dc_varid, DC_nc)
 	status =nf90_put_var(ncid, noise_varid, 'NOx_emis                        ')
 	status =nf90_close(ncid)
