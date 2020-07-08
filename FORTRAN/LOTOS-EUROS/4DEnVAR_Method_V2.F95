@@ -134,8 +134,8 @@ loop_time_Y:do j=1,days_simulation
 end do loop_time_Y
 
 
-call ensmean(xb(:,:,st_ass*24),xbmean(:)) !Calculate the Ensemble mean, from module_EnKF
-call anomalies(xb(:,:,st_ass*24),xbmean(:),dXen) !Calculate anomalies matrix dX, from module_EnKF
+call ensmean(xb(:,:,st_ass*24 +1),xbmean(:)) !Calculate the Ensemble mean, from module_EnKF
+call anomalies(xb(:,:,st_ass*24 +1),xbmean(:),dXen) !Calculate anomalies matrix dX, from module_EnKF
 
 
 
@@ -155,17 +155,17 @@ write(61,*) dXen
 close(61)
 
 !=== Calculate DC_k initial====
- xk(:,st_ass,1)=xbmean+prod_matvec(dXen,increment(:,1))
- write (FILE_NAME2,'(i1)') l
+xk(:,st_ass+1,1)=xbmean+prod_matvec(dXen,increment(:,1))
+write (FILE_NAME2,'(i1)') l
 FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
 open(61,file=FILE_NAME)
-write(61,*) xk(:,st_ass,l) 
+write(61,*) xk(:,st_ass+1,l) 
 close(61)
 FILE_NAME='./data/Xbmean_'//trim(FILE_NAME2)//'.dat'
 open(61,file=FILE_NAME)
 write(61,*) xbmean 
 close(61)
-call create_DC_NC(xk(:,st_ass,1),n_cells_int,lat,lon,time,nx_int,ny_int)
+call create_DC_NC(xk(:,st_ass+1,1),n_cells_int,lat,lon,time,nx_int,ny_int,initial_day,st_ass)
 !=== Run LE using that DC_k Value Ojo cambiar Dirac===
 CALL execute_command_line('./aux_launcher_inner')
 write(*,*) '=== Merging Yxk==='
@@ -174,8 +174,8 @@ write(*,*) '=== Merging Yxk==='
 write(*,*) '=== Reading Yxk==='
 Call read_NC_Yk_Tropomi(Y_xk,dawindows,lon,lat)
 write(*,*) '=== Yxk Readed==='
-loop_time_analysis: do j=(st_ass+1),st_ass+dawindows
-  inno(:,j)=Y(:,j)-Y_xk(:,j-st_ass)
+loop_time_analysis: do j=(st_ass+2),st_ass+1+dawindows
+  inno(:,j)=Y(:,j-1)-Y_xk(:,j-(st_ass+1))
 end do loop_time_analysis
 
 allocate(sum1(Nen,Nen))
@@ -189,21 +189,21 @@ allocate(aux_vect(m))
 loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
   sum1=0
   sum2=0
-  do i=st_ass+1,st_ass+dawindows
-     sum1=sum1+prod(prod(transpose(dY(:,:,i)),inR),dY(:,:,i))
-     sum2=sum2+ prod_matvec(prod(transpose(dY(:,:,i)),inR),inno(:,i))
+  do i=st_ass+2,st_ass+1+dawindows
+     sum1=sum1+prod(prod(transpose(dY(:,:,i-1)),inR),dY(:,:,i-1))
+     sum2=sum2+ prod_matvec(prod(transpose(dY(:,:,i-1)),inR),inno(:,i-1))
   end do
   write(*,*) '===Calculate Increment==='
   increment(:,l)=prod_matvec(inv(ident+sum1),sum2)
   !=== Incremental===
-  xk(:,st_ass,l)=xk(:,st_ass,l-1)+prod_matvec(dXen,increment(:,l))
+  xk(:,st_ass+1,l)=xk(:,st_ass+1,l-1)+prod_matvec(dXen,increment(:,l))
   write (FILE_NAME2,'(i1)') l
 	FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
 	open(61,file=FILE_NAME)
-	write(61,*) xk(:,st_ass,l) 
+	write(61,*) xk(:,st_ass+1,l) 
 	close(61)
 	!=== Write DC_k output ====
-	call create_DC_NC(xk(:,st_ass,l),n_cells_int,lat,lon,time,nx_int,ny_int)
+	call create_DC_NC(xk(:,st_ass+1,l),n_cells_int,lat,lon,time,nx_int,ny_int,initial_day,st_ass)
 	!=== Run LE using that DC_k Value Ojo cambiar Dirac===
 	CALL execute_command_line('./aux_launcher_inner')
 	write(*,*) '=== Merging Yxk, iteration ', l 
@@ -212,8 +212,8 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
 	write(*,*) '=== Reading Yxk iteration', l 
 	Call read_NC_Yk_Tropomi(Y_xk,dawindows,lon,lat)
 	write(*,*) '=== Yxk Readed iteration', l 
-  loop_time_analysis_inner: do j=(st_ass+1),st_ass+dawindows
-     inno(:,j)=Y(:,j)-Y_xk(:,j-st_ass)
+  loop_time_analysis_inner: do j=(st_ass+2),st_ass+1+dawindows
+     inno(:,j)=Y(:,j-1)-Y_xk(:,j-(st_ass+1))
   end do loop_time_analysis_inner
   write (FILE_NAME2,'(i1)') l
 	FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'

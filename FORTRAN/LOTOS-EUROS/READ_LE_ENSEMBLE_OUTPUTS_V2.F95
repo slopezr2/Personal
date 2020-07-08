@@ -8,7 +8,7 @@ program read_le_ensemble_outputs
   implicit none
 
   integer::time,Ens,j,i,k
-  integer::lat,lon,level,st_ass,dawindows,days_simulation
+  integer::lat,lon,level,initial_day,dawindows,days_simulation
   real*8,allocatable,dimension(:,:,:,:,:)::aux(:,:,:,:,:) !Dimensions lon,lat,hist,noise,time
   real*8,allocatable,dimension(:,:)::xb(:,:),aux_y(:,:)
   real*8,allocatable,dimension(:,:,:)::Y_xb(:,:,:),Y(:,:,:) !Dimensions lon,lat,time
@@ -18,6 +18,7 @@ program read_le_ensemble_outputs
   real*8,allocatable,dimension(:)::latitude
   logical :: file_exists
   
+  !=====Numero de Celdas====
   n_cells_int=28
 	allocate(nx_int(n_cells_int))
 	allocate(ny_int(n_cells_int))
@@ -35,7 +36,7 @@ program read_le_ensemble_outputs
   close(61)
   
   open(61,file='./DATA_4DEnVAR/startdate.in',status='old')
-  read(61,*) st_ass
+  read(61,*) initial_day
   read(61,*) days_simulation
   close(61)
   
@@ -84,14 +85,13 @@ program read_le_ensemble_outputs
     ! Read the data.
     status=nf90_get_var(ncid, varid, aux)
     !Santiago Medellin (45,46) (46,47) (67,70) (70,80)
-   !Escribir los nx_int y ny_int en archivos  
+    !Escribir los nx_int y ny_int en archivos  
     nx_int=(/54,43,16,75,59,83,89,104,55,53,54,55,55,54,43,44,44,16,17,74,75,60,60,83,89,105,56,57/)
     ny_int=(/36,111,90,85,32,12,42,56,36,36,37,37,35,35,112,112,111,89,89,84,84,32,33,11,41,56,38,37/)
 
-    indi=0	
+
     do k=1,n_cells_int
-  		indi=indi+1
-  		xb(indi,:)=aux(nx_int(k),ny_int(k),1,1,:)  
+  		xb(k,:)=aux(nx_int(k),ny_int(k),1,1,:)  
     enddo
     status= nf90_close(ncid) 
     if (j<10) then
@@ -109,12 +109,12 @@ program read_le_ensemble_outputs
 		loop_days:  do i=0,days_simulation-1	   
 		if (j < 10) then
 			write (FILE_NAME2,'(i1)') j ! converting integer to string using a 'internal file'
-			write (FILE_NAME3,'(i8)') i+st_ass        
-			FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1800_state_x0"//trim(FILE_NAME2)//'_xa.nc'
+			write (FILE_NAME3,'(i8)') i+initial_day        
+			FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1800_xi0"//trim(FILE_NAME2)//'a.nc'
 		else            
 			write (FILE_NAME2,'(i2)') j ! converting integer to string using a 'internal file'
-			write (FILE_NAME3,'(i8)') i+st_ass 	   
-			FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1800_state_x"//trim(FILE_NAME2)//'_xa.nc'
+			write (FILE_NAME3,'(i8)') i+initial_day 	   
+			FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1800_xi"//trim(FILE_NAME2)//'a.nc'
 		endif
 		 
 		write(*,*) 'Writing Ensemble output '//trim(FILE_NAME2)//' Day '//trim(FILE_NAME3)
@@ -142,7 +142,7 @@ program read_le_ensemble_outputs
 		status= nf90_close(ncid)	  
 		Y_xb=0.0
 		do k=1,pixel_len
-			Y_xb(ilon(k),ilat(k),i)=aux_y(k,1) 
+			Y_xb(ilon(k),ilat(k),i+1)=aux_y(k,1) 
 		enddo
 
 		deallocate(aux_y)
@@ -151,12 +151,12 @@ program read_le_ensemble_outputs
 		!=Check if exists other satelite file for the same day
 		if (j < 10) then
 			write (FILE_NAME2,'(i1)') j ! converting integer to string using a 'internal file'
-			write (FILE_NAME3,'(i8)') i+st_ass        
-			FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1900_state_x0"//trim(FILE_NAME2)//'_xa.nc'
+			write (FILE_NAME3,'(i8)') i+initial_day        
+			FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1900_xi0"//trim(FILE_NAME2)//'a.nc'
 		else            
 			write (FILE_NAME2,'(i2)') j ! converting integer to string using a 'internal file'
-			write (FILE_NAME3,'(i8)') i+st_ass 	   
-			FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1900_state_x"//trim(FILE_NAME2)//'_xa.nc'
+			write (FILE_NAME3,'(i8)') i+initial_day 	   
+			FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1900_xi"//trim(FILE_NAME2)//'a.nc'
 		endif
 		INQUIRE(FILE=FILE_NAME, EXIST=file_exists)
 		if file_exists then
@@ -183,10 +183,10 @@ program read_le_ensemble_outputs
 			status=nf90_get_var(ncid, ilonid, ilon)
 			status= nf90_close(ncid)
 			do k=1,pixel_len
-			  if Y_xb(ilon(k),ilat(k),i) .NE. then
-					Y_xb(ilon(k),ilat(k),i)=(aux_y(k,1)+ Y_xb(ilon(k),ilat(k),i))/2
+			  if Y_xb(ilon(k),ilat(k),i+1) .NE. 0.0 then
+					Y_xb(ilon(k),ilat(k),i+1)=(aux_y(k,1)+ Y_xb(ilon(k),ilat(k),i))/2
 				else
-					Y_xb(ilon(k),ilat(k),i)=aux_y(k,1)
+					Y_xb(ilon(k),ilat(k),i+1)=aux_y(k,1)
 				endif
 			enddo
 			deallocate(aux_y)
@@ -207,7 +207,7 @@ end do loop_Read_Y_Ens
 ! ============ Read information about NC files of observations ============ Modify with the template of the real observations
 allocate(Y(lon,lat,days_simulation))
 loop_days_y:  do i=0,days_simulation-1
-	write (FILE_NAME3,'(i8)') i+st_ass 	   
+	write (FILE_NAME3,'(i8)') i+initial_day 	   
 	FILE_NAME=trim(path)//"/LE_"//trim(runid)//"_tropomi-no2_"//trim(FILE_NAME3)//"_1800.nc'
 	write(*,*) 'Writing Observations for Day '//trim(FILE_NAME3)
 	status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
@@ -228,7 +228,7 @@ loop_days_y:  do i=0,days_simulation-1
 	status= nf90_close(ncid)
 	Y=0.0
 	do k=1,pixel_len
-		Y(ilon(k),ilat(k),i)=aux_y(k,1) 
+		Y(ilon(k),ilat(k),i+1)=aux_y(k,1) 
 	enddo
 	deallocate(aux_y)
 	deallocate(ilat(pixel_len))
@@ -254,10 +254,10 @@ loop_days_y:  do i=0,days_simulation-1
 		status=nf90_get_var(ncid, ilonid, ilon)
 		status= nf90_close(ncid)
 		do k=1,pixel_len
-		  if Y(ilon(k),ilat(k),i) .NE. then
-				Y(ilon(k),ilat(k),i)=(aux_y(k,1)+ Y(ilon(k),ilat(k),i))/2
+		  if Y(ilon(k),ilat(k),i+1) .NE. 0.0 then
+				Y(ilon(k),ilat(k),i+1)=(aux_y(k,1)+ Y(ilon(k),ilat(k),i+1))/2
 			else
-				Y(ilon(k),ilat(k),i)=aux_y(k,1)
+				Y(ilon(k),ilat(k),i+1)=aux_y(k,1)
 			endif
 		enddo
 		deallocate(aux_y)

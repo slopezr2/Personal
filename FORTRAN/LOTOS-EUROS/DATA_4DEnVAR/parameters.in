@@ -1,5 +1,5 @@
-24    !Assimilation Window
-24   !Assimilation window start
+2    !Assimilation Window Days
+0   !Assimilation window start Days First day=0,
 10     !Number of inner step
 0.02  !Tolerance Inner Loop
 1    !Sparse initial Ensemble

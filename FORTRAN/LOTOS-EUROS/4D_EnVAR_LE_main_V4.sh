@@ -44,7 +44,11 @@ then
 	
 fi	
 start_date=20190202
-days_simulation=4
+#=====Days to be simulated======
+
+days_simulation=3
+
+
 echo 'timerange.start     :  2019-02-02 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 echo 'timerange.end       :  2019-02-04 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 
@@ -142,7 +146,7 @@ done
 
 
 
-##==Merging Real State, No se necesita==
+###==Merging Real State, No se necesita==
 #echo 'Merging Real State'
 
 #ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xb.nc  Merge_xb.nc

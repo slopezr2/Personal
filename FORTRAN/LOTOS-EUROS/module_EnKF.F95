@@ -48,6 +48,7 @@ subroutine read_NC_Yk_Tropomi(Y_xk,dawindows,lon,lat)
   allocate(Y(lon,lat,days_simulation))
   loop_days:  do i=0,dawindows-1
     write (FILE_NAME3,'(i8)') i+initial_forecast 	   
+    !=====Modificar computador Andres====
 		FILE_NAME="/home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output/LE_XK_tropomi-no2_"//trim(FILE_NAME3)//"_1800.nc'
 		status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
 	! Get the varid of the data variable, based on its name.
@@ -55,20 +56,24 @@ subroutine read_NC_Yk_Tropomi(Y_xk,dawindows,lon,lat)
 		!Get dimensions length
 		status = nf90_inquire_dimension(ncid, pixelid, len = pixel_len) 
 		! Get the varid of the data variable, based on its name.
-		status= nf90_inq_varid(ncid, "yr", varid) 
 		status= nf90_inq_varid(ncid, "ilat", ilatid)
 		status= nf90_inq_varid(ncid, "ilon", ilonid)
 		allocate(aux_y(pixel_len,1))
 		allocate(ilat(pixel_len))
 		allocate(ilon(pixel_len))
 		! Read the data.
-		status= nf90_get_var(ncid, varid, aux_y(:,:))
 		status= nf90_get_var(ncid, ilatid, ilat)
 		status= nf90_get_var(ncid, ilonid, ilon)	
 		status= nf90_close(ncid)
+		FILE_NAME="/home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output/LE_XK_tropomi-no2_"//trim(FILE_NAME3)//"_1800_xb.nc'
+		
+		status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
+		status= nf90_inq_varid(ncid, "y", varid) 
+		status= nf90_get_var(ncid, varid, aux_y(:,:))
+		
 		Y=0.0
 		do k=1,pixel_len
-			Y(ilon(k),ilat(k),i)=aux_y(k,1) 
+			Y(ilon(k),ilat(k),i+1)=aux_y(k,1) 
 		enddo
 		deallocate(aux_y)
 		deallocate(ilat(pixel_len))
@@ -82,22 +87,24 @@ subroutine read_NC_Yk_Tropomi(Y_xk,dawindows,lon,lat)
 			!Get dimensions length
 			status = nf90_inquire_dimension(ncid, pixelid, len = pixel_len)
 			! Get the varid of the data variable, based on its name.
-			status= nf90_inq_varid(ncid, "y", varid)
 			status= nf90_inq_varid(ncid, "ilat", ilatid)
 			status= nf90_inq_varid(ncid, "ilon", ilonid) 
 			allocate(aux_y(pixel_len,1))
 			allocate(ilat(pixel_len))
 			allocate(ilon(pixel_len))
 			! Read the data.
-			status=nf90_get_var(ncid, varid, aux_y(:,:))
 			status=nf90_get_var(ncid, ilatid, ilat)
 			status=nf90_get_var(ncid, ilonid, ilon)
 			status= nf90_close(ncid)
+			FILE_NAME="/home/slopezr2/scratch/projects/4DEnVAR_inner/Xk/output/LE_XK_tropomi-no2_"//trim(FILE_NAME3)//"_1900_xb.nc'
+			status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
+			status= nf90_inq_varid(ncid, "y", varid)
+			status=nf90_get_var(ncid, varid, aux_y(:,:))
 			do k=1,pixel_len
-				if Y(ilon(k),ilat(k),i) .NE. then
-					Y(ilon(k),ilat(k),i)=(aux_y(k,1)+ Y_xk(ilon(k),ilat(k),i))/2
+				if Y(ilon(k),ilat(k),i+1) .NE. 0.0 then
+					Y(ilon(k),ilat(k),i+1)=(aux_y(k,1)+ Y_xk(ilon(k),ilat(k),i+1))/2
 				else
-					Y(ilon(k),ilat(k),i)=aux_y(k,1)
+					Y(ilon(k),ilat(k),i+1)=aux_y(k,1)
 				endif
 			enddo
 			deallocate(aux_y)
@@ -111,7 +118,7 @@ end subroutine read_NC_Yk_Tropomi
 
 
 
-subroutine create_DC_NC(Xk,n_cells_int,lat,lon,time,nx_int,ny_int)
+subroutine create_DC_NC(Xk,n_cells_int,lat,lon,time,nx_int,ny_int,initial_day,st_ass)
 !===Create a NC file with DC for LE forecast simulation====
    implicit none
    integer,intent(in)  :: lat,lon,time
@@ -121,8 +128,8 @@ subroutine create_DC_NC(Xk,n_cells_int,lat,lon,time,nx_int,ny_int)
    real*8,dimension(:,:,:,:,:)::DC_nc(lon,lat,1,1,time)
    integer::ncid,lat_dimid,lon_dimid,time_dimid,noise_dimid,hist_dimid,name_dimid
    integer::lat_varid,lon_varid,time_varid,dc_varid,noise_varid	,status
-   integer::i
-   character (len=100)::FILE_NAME,Path
+   integer::i,initial_day,st_ass
+   character (len=100)::FILE_NAME,Path,FILE_NAME2
     
 	open(61,file='./temp/Ensembles.in',status='old')
 	read(61,"(A200)") Path
@@ -140,8 +147,10 @@ subroutine create_DC_NC(Xk,n_cells_int,lat,lon,time,nx_int,ny_int)
 	status=nf90_get_var(ncid, time_varid, time_var)
   status =nf90_close(ncid)
 
-!===Create new DC file====
-  status = nf90_create('./data/DC_inner_dc_20190203_xa.nc',NF90_CLOBBER, ncid)
+!===Create new DC file initial====
+
+	write (FILE_NAME3,'(i8)') st_ass+initial_day
+  status = nf90_create('./data/DC_inner_dc_'//trim(FILE_NAME3)//'_xa.nc',NF90_CLOBBER, ncid)
 !=== Define dimensions===
   status = nf90_def_dim(ncid, "latitude", lat, lat_dimid)
   status = nf90_def_dim(ncid, "longitude", lon, lon_dimid)
