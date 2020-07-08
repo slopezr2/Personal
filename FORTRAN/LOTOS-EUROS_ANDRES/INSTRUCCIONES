@@ -10,6 +10,8 @@ The code assimilates synthetic column as observations (first step to assimilate 
 The GITHUB path is https://github.com/slopezr2/Personal/tree/master/FORTRAN/LOTOS-EUROS_ANDRES
 
 
+*REMEMBER TO DELETE timerange.rc if you are running a new experiment
+
 
 Main file:  4D_EnVAR_LE_main_V3.sh (Here put number of ensembles, Simulation date, )
 

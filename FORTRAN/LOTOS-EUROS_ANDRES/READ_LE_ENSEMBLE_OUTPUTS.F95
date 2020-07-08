@@ -119,7 +119,7 @@ loop_Read_Y_Ens: do j=1,Ens
     open(61,file='./data/Y.dat',status='unknown')
     write(61,*) Y(:,:,:)
     close(61)
- 
+     write(*,*) 'mark here'
 
   
 

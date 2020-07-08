@@ -4,6 +4,8 @@ program LE_4DEnVAR_Method
   use module_matrix
   implicit none
 
+
+  ! Variable declaration
   integer::n,m,tsim,Nen,dawindows,inner,fileidreal=1000
   integer::st_ass
   integer::lat,lon,time !Dimensions	
@@ -69,7 +71,9 @@ program LE_4DEnVAR_Method
   Robs=0
   inR=0
   ident=0
-	
+	do i=1,Nen
+		ident(i,i)=1
+	enddo
   write(*,*) "====Starting Analysis 4DEnVAR===="
   !===Read Ensembles, Ensembles Outputs and Observations ===
   allocate(aux_read(n*time))
@@ -105,9 +109,10 @@ program LE_4DEnVAR_Method
    FILE_NAME='./data/Y.dat'
    open(61,file=FILE_NAME)
    read(61,*) aux_read_y(:)
+   close(61)
    Y(:,:)=reshape(aux_read_y,(/m,tsim/))
 
-
+  
   !=== Ensemble initialization===
 
   loop_time:do j=2,tsim    
@@ -119,12 +124,33 @@ program LE_4DEnVAR_Method
      end if
   end do loop_time
 
+  
   !=====Analysis Step===
   !===Inner Loop===
    CALL RANDOM_NUMBER(increment(:,1))
    allocate(xk(n,tsim,inner))
+   l=1
+  write (FILE_NAME2,'(i1)') l
+  FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'
+  open(61,file=FILE_NAME)
+  write(61,*) increment(:,1) 
+  close(61)
+  FILE_NAME='./data/Dxen_'//trim(FILE_NAME2)//'.dat'
+  open(61,file=FILE_NAME)
+  write(61,*) dXen 
+  close(61)
+  
   !=== Calculate DC_k initial====
    xk(:,st_ass,1)=xbmean+prod_matvec(dXen,increment(:,1))
+   write (FILE_NAME2,'(i1)') l
+  FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
+  open(61,file=FILE_NAME)
+  write(61,*) xk(:,st_ass,l) 
+  close(61)
+  FILE_NAME='./data/Xbmean_'//trim(FILE_NAME2)//'.dat'
+  open(61,file=FILE_NAME)
+  write(61,*) xbmean 
+  close(61)
   !=== Write DC_k output ====
 	call create_DC_NC(xk(:,st_ass,1),lat,lon,time)
   !=== Run LE using that DC_k Value Ojo cambiar Dirac===
@@ -142,10 +168,12 @@ program LE_4DEnVAR_Method
    allocate(sum1(Nen,Nen))
    allocate(sum2(Nen))
    l=2
+   norma(1)=norm2(prod_matvec(dXen,increment(:,l)))
+   write(*,*) "Value of Norm iteration ", 1, "= ",   norma(1) 
    norma(1)=tolerance
    flaq=0
    allocate(aux_vect(m))
-   loop_inner:do while ((l .LE. inner) .AND. (norma(l-1) .GE. tolerance))
+   loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
       sum1=0
       sum2=0
       do i=st_ass+1,st_ass+dawindows
@@ -156,6 +184,11 @@ program LE_4DEnVAR_Method
       increment(:,l)=prod_matvec(inv(ident+sum1),sum2)
       !=== Incremental===
       xk(:,st_ass,l)=xk(:,st_ass,l-1)+prod_matvec(dXen,increment(:,l))
+        write (FILE_NAME2,'(i1)') l
+  			FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
+  			open(61,file=FILE_NAME)
+  			write(61,*) xk(:,st_ass,l) 
+  		close(61)
 			!=== Write DC_k output ====
 	  call create_DC_NC(xk(:,st_ass,l),lat,lon,time)
   	!=== Run LE using that DC_k Value Ojo cambiar Dirac===
@@ -170,14 +203,20 @@ program LE_4DEnVAR_Method
       loop_time_analysis_inner: do j=(st_ass+1),st_ass+dawindows
          inno(:,j)=Y(:,j)-Y_xk(:,j-st_ass)
       end do loop_time_analysis_inner
+      write (FILE_NAME2,'(i1)') l
+			FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'
+			open(61,file=FILE_NAME)
+			write(61,*) increment(:,1) 
+			close(61)
+			FILE_NAME='./data/Dxen_'//trim(FILE_NAME2)//'.dat'
+			open(61,file=FILE_NAME)
+			write(61,*) dXen 
+			close(61)
       norma(l)=norm2(prod_matvec(dXen,increment(:,l)))
+      write(*,*) "Value of Norm iteration ", l, "= ",   norma(l) 
       if (norma(l) .LE. norma(l-1)) then
          flaq=flaq+1
-      end if
-      if (flaq .EQ. 2) then
-         EXIT
-      end if
-      
+      end if     
       l=l+1
    end do loop_inner
    
