@@ -1,0 +1,10 @@
+git status
+git pull
+
+git add --all   # Realiza seguimiento a todos los archivos
+git commit -m"Actualizacion"
+
+
+
+
+! vim  :wq  write+quit   
