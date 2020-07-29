@@ -19,7 +19,7 @@ program read_le_ensemble_outputs
   logical :: file_exists
   
   !=====Numero de Celdas====
-  n_cells_int=28
+  n_cells_int=21   ! Andres_ este se debe modificar si se ponen mas 
 	allocate(nx_int(n_cells_int))
 	allocate(ny_int(n_cells_int))
 	
@@ -54,7 +54,8 @@ program read_le_ensemble_outputs
 	    FILE_NAME=trim(path)//"/Ens_x"//trim(FILE_NAME2)//'.nc'
     endif
     write(*,*) 'Writing Ensemble '//trim(FILE_NAME2)
-    !Get for the dimensions ID 
+    !Get for the dimensions ID
+    write(*,*) 'Opening file:', FILE_NAME
     status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
     status = nf90_inq_dimid(ncid, "latitude", latid)
     status = nf90_inq_dimid(ncid, "longitude", lonid)     
@@ -86,8 +87,8 @@ program read_le_ensemble_outputs
     status=nf90_get_var(ncid, varid, aux)
     !Santiago Medellin (45,46) (46,47) (67,70) (70,80)
     !Escribir los nx_int y ny_int en archivos  
-    nx_int=(/54,43,16,75,59,83,89,104,55,53,54,55,55,54,43,44,44,16,17,74,75,60,60,83,89,105,56,57/)
-    ny_int=(/36,111,90,85,32,12,42,56,36,36,37,37,35,35,112,112,111,89,89,84,84,32,33,11,41,56,38,37/)
+    nx_int=(/64,47,37,56,48,82,51,69,75,63,73,46,44,28,48,144,91,132,117,136,15/)
+    ny_int=(/103,120,89,173,166,139,100,97,130,176,167,105,148,65,107,168,169,164,163,165,49/)
 
 
     do k=1,n_cells_int
@@ -102,9 +103,10 @@ program read_le_ensemble_outputs
     write(61,*) xb(:,:)
     close(61)
   end do loop_Read_Ens
-
+   write(*,*) 'Size Lon: ', lon, ' Size Lat: ', lat
 ! ============ Read information about NC files of Ensemble outputs Revisar formato de salida satelites, preguntar al nc por numero de observaciones============
 	allocate(Y_xb(lon,lat,days_simulation))
+        write(*,*) 'Holi'
 	loop_Read_Y_Ens: do j=1,Ens
 		loop_days:  do i=0,days_simulation-1	   
 		if (j < 10) then

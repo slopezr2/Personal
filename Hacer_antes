@@ -5,6 +5,6 @@ git add --all   # Realiza seguimiento a todos los archivos
 git commit -m"Actualizacion"
 
 
-
+git push
 
 ! vim  :wq  write+quit   

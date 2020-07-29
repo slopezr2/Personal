@@ -37,7 +37,7 @@ NETCDF_FORTRAN_HOME='/usr/lib64'
 #NETCDF_HOME=${OPT}'/netcdf/4.4.0'
 NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
 #===Run ID====
-runid='Proof_Ensemble_Output_V5'
+runid='Proof_Ensemble_10_members'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
@@ -45,10 +45,12 @@ then
 	rm ${LE}/proj/eafit/000/rc/timerange.rc
 	
 fi	
-start_date=20190202
+start_date=20190201 # Recordar modificar
 #=====Days to be simulated======
 
-days_simulation=2
+days_simulation=3   # Recordar modificar
+
+#===Recordar ver parametro de duracion de la vebtana de asimilacion, inicio de la ventana de asimilacion (./DATA_4DEnVAR/parameters.in)y fecha del archivo Lotos_euros_inner
 
 
 echo 'timerange.start     :  2019-02-01 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
@@ -108,59 +110,23 @@ cd ${LE}
 #==Merging LE DC for each ensemble member ==
 echo 'Merging LE Ensembles DC'
 cd ${LE_Outputs}
-#let "j=0"
-#for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
-#	do
-#	let "j=j+1"
-#	if [ $j -lt 10 ]
-#	then
-#		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
-#		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
-#		ncrcat -O -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
+let "j=0"
+for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
+	do
+	let "j=j+1"
+	if [ $j -lt 10 ]
+	then
+		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
+		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
+		ncrcat -O -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
 
-#	else
-#			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
-#		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
-#		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
-#	fi
-#done 
+	else
+			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
+		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
+		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
+	fi
+done 
 
-##==Merging LE outputs for each ensemble member, con CDO y revisar formato salidas satelite simulado==
-#echo 'Merging LE Ensembles Outputs'
-
-#let "j=0"
-#for i in $(ls LE_${runid}_column_${start_date}_xi**a.nc)
-#	do
-#	let "j=j+1"
-#	if [ $j -lt 10 ]
-#	then
-#		ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xi0${j}a.nc  Y_Merge_x0${j}.nc
-#		mv LE_${runid}_column_${start_date}_xi0${j}a.nc ..
-#		ncrcat -O -h Y_Merge_x0${j}.nc LE_${runid}_column_2*_xi0${j}a.nc Y_Ens_x0${j}.nc
-
-#	else
-#			ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xi${j}a.nc  Y_Merge_x${j}.nc
-#		mv LE_${runid}_column_${start_date}_xi${j}a.nc ..
-#		ncrcat -O -h Y_Merge_x${j}.nc LE_${runid}_column_2*_xi${j}a.nc Y_Ens_x${j}.nc
-#	fi
-#done 
-
-
-
-
-###==Merging Real State, No se necesita==
-#echo 'Merging Real State'
-
-#ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xb.nc  Merge_xb.nc
-#mv LE_${runid}_dc_${start_date}_xb.nc ..
-#ncrcat -O -h Merge_xb.nc LE_${runid}_dc_2*_xb.nc X_real.nc
-
-##==Merging Observations, Cambiar para formato nuevas salidas de satelite hacer con CDO, ya no es Xb si no el archivo de las observaciones reales==
-#echo 'Merging Observations'
-
-#ncks -O -h --mk_rec_dmn time LE_${runid}_column_${start_date}_xb.nc  Y_Merge_xb.nc
-#mv LE_${runid}_column_${start_date}_xb.nc ..
-#ncrcat -O -h Y_Merge_xb.nc LE_${runid}_column_2*_xb.nc Y.nc
 
 
 

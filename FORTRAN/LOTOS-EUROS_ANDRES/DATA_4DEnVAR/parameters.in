@@ -1,5 +1,5 @@
 1    !Assimilation Window
-1   !Assimilation window start
+2   !Assimilation window start
 5     !Number of inner step
 0.00002  !Tolerance Inner Loop
 1    !Sparse initial Ensemble
