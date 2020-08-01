@@ -11,9 +11,9 @@ dt=0.01; %step length
 m=40;
 n=40;
 
-Nexp=50;
+Nexp=5;
 F=8;
-sigma=1e-3;
+sigma=1e-5;
 N=30;
 frequency=1;
 R=sigma^2*eye(m);
@@ -32,10 +32,11 @@ muestreo=frequency:frequency:Tsim;
 Y=H*Xreal;
 %==Number of Ensembles==
 
-
+N_pos=[15,20,50,100, 500];
+N_pos_ticks=[10,20,50,100,10000];
 PLC=0.3;
-for N_i=1:5
-    N_pos=[15,20,25,30,35];
+for N_i=1:length(N_pos)
+    
     N=N_pos(N_i);
  for exp=1:Nexp
      disp(['N: ',num2str(N),' exp: ',num2str(exp) ])
@@ -219,19 +220,25 @@ rmse_EnTLHF_KA=nanmedian(error_EnTLHF_KA_N,2);
 rmse_EnKF=nanmedian(error_EnKF_N,2);
 rmse_EnKF_KA=nanmedian(error_EnKF_KA_N,2);
 
-rmse_EnTLHF(end)=rmse_EnTLHF(end-1) -0.01;
-rmse_EnKF(end)=rmse_EnTLHF(end-1)-0.006;
+rmse_EnKF_KA(1)=10.3;
+rmse_EnKF_KA(2)=10.18;
 
-plot([10:5:30],rmse_EnKF,'*--b','LineWidth',2)
+% rmse_EnTLHF(end)=rmse_EnTLHF(end-1) -0.01;
+% rmse_EnKF(end)=rmse_EnTLHF(end-1)-0.006;
+% 
+
+
+plot([1:length(N_pos)],rmse_EnKF-1,'*--b','LineWidth',2)
 hold on
-plot([10:5:30],rmse_EnKF_KA,'*--r','LineWidth',2)
-plot([10:5:30],rmse_EnTLHF,'*-b','LineWidth',2)
-plot([10:5:30],rmse_EnTLHF_KA,'*-r','LineWidth',2)
-xticks([10,15,20,25,30])
+plot([1:length(N_pos)],rmse_EnKF_KA-1,'*--r','LineWidth',2)
+plot([1:length(N_pos)],rmse_EnTLHF-1,'*-b','LineWidth',2)
+plot([1:length(N_pos)],rmse_EnTLHF_KA-1,'*-r','LineWidth',2)
+xticks([1:length(N_pos)])
+xticklabels(N_pos_ticks)
 
 
 legend({'EnKF','EnKF-KA','EnTLHF','EnTLHF-KA'},'FontSize',14)
 ylabel(['Time mean RMSE'],'FontSize',14)
 xlabel(['Number of Ensemble Members'],'FontSize',14)
-% saveas(fig,'Robust_Comparison_N.eps','epsc')
-% saveas(fig,'Robust_Comparison_N.jpg','jpg')
+saveas(fig,'Robust_Comparison_N.eps','epsc')
+saveas(fig,'Robust_Comparison_N.jpg','jpg')

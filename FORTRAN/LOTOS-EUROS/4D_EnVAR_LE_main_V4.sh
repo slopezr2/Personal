@@ -166,7 +166,7 @@ done
 
 cd ${mydir}
 echo 'Reading LE outputs'
-gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS_V2.F95 -I${mydir}/MODULES -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
+gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS_V2.F95 -I${mydir}/MODULES -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W -ffree-line-length-none
 
 ./read_le_ensemble_output
 rm read_le_ensemble_output
@@ -175,9 +175,9 @@ rm read_le_ensemble_output
 
 
 
-gfortran -c 4DEnVAR_Method_V2.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
+gfortran -c 4DEnVAR_Method_V2.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W -ffree-line-length-none
 
-gfortran -o 4DEnVAR_method 4DEnVAR_Method_V2.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W
+gfortran -o 4DEnVAR_method 4DEnVAR_Method_V2.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I/usr/include -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -W -ffree-line-length-none
 
 
 

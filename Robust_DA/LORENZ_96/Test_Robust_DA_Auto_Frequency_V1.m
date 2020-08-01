@@ -34,8 +34,9 @@ Y=H*Xreal;
 
 
 PLC=0.3;
-for Freq_i=1:5
-    Freq_pos=[1,3,5,10,20];
+Freq_pos=[1,5,10,20,30,50];
+for Freq_i=1:length(Freq_pos)
+    
     frequency=Freq_pos(Freq_i);
     muestreo=frequency:frequency:Tsim;
 
@@ -223,11 +224,11 @@ rmse_EnKF=nanmedian(error_EnKF_Freq,2);
 rmse_EnKF_KA=nanmedian(error_EnKF_KA_Freq,2);
 
 
-plot(1:1:5,rmse_EnTLHF_KA,'*--b','LineWidth',2)
+plot(1:length(Freq_pos),rmse_EnTLHF_KA,'*--b','LineWidth',2)
 hold on
-plot(1:1:5,rmse_EnTLHF,'*--r','LineWidth',2)
-plot(1:1:5,rmse_EnKF,'*-b','LineWidth',2)
-plot(1:1:5,rmse_EnKF_KA,'*-r','LineWidth',2)
+plot(1:length(Freq_pos),rmse_EnTLHF,'*--r','LineWidth',2)
+plot(1:length(Freq_pos),rmse_EnKF,'*-b','LineWidth',2)
+plot(1:length(Freq_pos),rmse_EnKF_KA,'*-r','LineWidth',2)
 
 
 
@@ -235,8 +236,8 @@ legend({'EnKF','EnKF-KA','EnTLHF','EnTLHF-KA'},'FontSize',14,'Position',[0.14269
 ylabel(['Time mean RMSE'],'FontSize',14)
 xlabel(['Observation frequency'],'FontSize',14)
 % ylim([9.9 10.5])
-xticks([1,2,3,4,5])
-xticklabels({'1','3','5','10','20'})
+%xticks([1,2,3,4,5])
+xticklabels( Freq_pos)
 saveas(fig,'Robust_Comparison_Freq.eps','epsc')
 saveas(fig,'Robust_Comparison_Freq.jpg','jpg')
 
