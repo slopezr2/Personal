@@ -11,7 +11,7 @@ dt=0.01; %step length
 m=40;
 n=40;
 
-Nexp=50;
+Nexp=10;
 F=8;
 sigma=1e-3;
 N=20;
@@ -222,9 +222,9 @@ rmse_EnKF=nanmedian(error_EnKF_sigma,2);
 rmse_EnKF_KA=nanmedian(error_EnKF_KA_sigma,2);
 
 
-plot(1:1:4,rmse_EnTLHF_KA,'*--b','LineWidth',2)
+plot(1:1:4,rmse_EnTLHF_KA,'*--r','LineWidth',2)
 hold on
-plot(1:1:4,rmse_EnKF_KA,'*--r','LineWidth',2)
+plot(1:1:4,rmse_EnKF_KA,'*--b','LineWidth',2)
 plot(1:1:4,rmse_EnTLHF,'*-b','LineWidth',2)
 plot(1:1:4,rmse_EnKF,'*-r','LineWidth',2)
 
@@ -236,6 +236,6 @@ xlabel(['Observation error'],'FontSize',14)
 ylim([9.0 9.5])
 xticks([1,2,3,4])
 xticklabels({'1e-4','1e-3','1e-2','1e-1'})
-saveas(fig,'Robust_Comparison_sigma.eps','epsc')
-saveas(fig,'Robust_Comparison_sigma.jpg','jpg')
+% saveas(fig,'Robust_Comparison_sigma.eps','epsc')
+% saveas(fig,'Robust_Comparison_sigma.jpg','jpg')
 

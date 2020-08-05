@@ -2,12 +2,11 @@ close all
 % clear all
 Hist=0;
 Matrix_Shapiro=1;
-Nuevo=0;
+Nuevo=1;
 guardar=1;
 
 state_hist=31;
 
-xx=randn(1,10000);
 Tsim=51;
 dt=0.01; %step length
 F=8;
@@ -41,6 +40,7 @@ set(gcf, 'Position', [300, 100, 700, 800])
         end
         
    end
+   Shapiro(:,1)=0
    axes1 = axes('Parent',Fig,...
     'Position',[0.13 0.11 0.568521046643914 0.815]);
     hold(axes1,'on');

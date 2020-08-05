@@ -1,0 +1,32 @@
+dc=zeros(20);
+
+nx_int=[4 7 8 9 14 15 16 ];
+
+ny_int=[ 6 10 10 10 17 17 17];
+
+agrup=[1,2,3,4,5,6,7];
+
+r
+
+for i=1:length(agrup)
+    aux_rand=rand(1,1);
+    for j=1:length(nx_int)
+       if agrup(i)==agrup(j)
+           dc(nx_int(i),ny_int(i))=rand(1,1);
+       end
+    end
+    
+    
+    
+    
+    
+    
+   if i==1
+       dc(nx_int(i),ny_int(i))=rand(1,1);
+   else 
+       agrup(i)==agrup
+       
+   dc(nx_int(i),ny_int(i))=rand(1,1); 
+end
+
+imagesc(dc)

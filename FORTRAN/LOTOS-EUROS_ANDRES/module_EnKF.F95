@@ -127,12 +127,12 @@ end subroutine read_NC_Yk_Tropomi
 
 
 
-subroutine create_DC_NC(Xk,n_cells_int,lat,lon,time,nx_int,ny_int,initial_day,st_ass)
+subroutine create_DC_NC(Xk,n,n_cells_int,agrup,lat,lon,time,nx_int,ny_int,initial_day,st_ass)
 !===Create a NC file with DC for LE forecast simulation====
    implicit none
    integer,intent(in)  :: lat,lon,time,n_cells_int
-   real*8,dimension(:), intent(inout)::Xk(n_cells_int)
-   integer,dimension(:), intent(inout):: nx_int(n_cells_int),ny_int(n_cells_int)
+   real*8,dimension(:), intent(inout)::Xk(n)
+   integer,dimension(:), intent(inout):: nx_int(n_cells_int),ny_int(n_cells_int),agrup(n_cells_int)
    real*8,dimension(:,:)::DC(lon,lat)
    real*8,dimension(:)::latitude(lat),longitude(lon),time_var(time)
    real*8,dimension(:,:,:,:,:)::DC_nc(lon,lat,1,1,time)
@@ -196,9 +196,9 @@ subroutine create_DC_NC(Xk,n_cells_int,lat,lon,time,nx_int,ny_int,initial_day,st
   status =nf90_put_var(ncid, lon_varid, longitude)
 	status =nf90_put_var(ncid, time_varid, time_var)
 	DC=1
-	do i=1,n_cells_int
-		DC(nx_int(i),ny_int(i))=Xk(i)
-	enddo
+		do i=1,n_cells_int
+			DC(nx_int(i),ny_int(i))=Xk(agrup(i))
+		enddo
   do i=1,time
 		DC_nc(:,:,1,1,i)=DC	
   enddo
