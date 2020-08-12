@@ -37,7 +37,7 @@ NETCDF_FORTRAN_HOME='/usr/lib64'
 #NETCDF_HOME=${OPT}'/netcdf/4.4.0'
 NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
 #===Run ID====
-runid='SingleRUN'
+runid='SingleRUN_0.54'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
