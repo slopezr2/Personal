@@ -26,18 +26,26 @@
 
 
 #===Path where the program is running===
-mydir='/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Repositorio_Personal_Slopez/Personal/FORTRAN/LOTOS-EUROS_ANDRES'
+mydir='/home/ayarceb/4DENVAR/Personal/FORTRAN/LOTOS-EUROS_ANDRES'
 
 #===Path LOTOS-EUROS MODEL (OJO carpeta de LEKF)===
-LE='/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Version_WRF_04_2020/lekf_4DEnVAR/lekf/v3.0.003-beta'
+LE='/home/ayarceb/4DENVAR/Version_WRF_04_2020/lekf_4DEnVAR/lekf/v3.0.003-beta'
 
 #===Path where netcdf-fortran and netcdf is installed===
+#OPT=${HOME}'/opt'
+#NETCDF_FORTRAN_HOME='/usr/lib64'
+##NETCDF_HOME=${OPT}'/netcdf/4.4.0'
+#NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
+
+
 OPT=${HOME}'/opt'
-NETCDF_FORTRAN_HOME='/usr/lib64'
+NETCDF_FORTRAN_HOME='/share/apps/netcdf-fortran/4.4.3/gcc-5.4.0'
 #NETCDF_HOME=${OPT}'/netcdf/4.4.0'
-NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
+NETCDF_HOME='/share/apps/netcdf-fortran/4.4.3/gcc-5.4.0'
+
+
 #===Run ID====
-runid='Tesr_agrupamiento'
+runid='Test_4DENVAR'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
@@ -70,7 +78,7 @@ then
 	rm ${mydir}/temp/*
 fi
 #===Path LOTOS-EUROS Ensemble Outputs===
-LE_Outputs='/run/media/dirac/Datos/scratch/projects/4DEnVAR/'${runid}'/output'
+LE_Outputs='/scratch/ayarceb/projects/LOTOS-EUROS/4DEnVAR/'${runid}'/output'
 
 #==================================================================================
 # 			      End Modified by user
@@ -101,9 +109,9 @@ echo 'kf.restart.key                :  model=LEKF;expid='${runid}>>${LE}/proj/ea
 echo 'Running Model Real and Ensemble'
 
 #====Run LOTOS-EUROS MODEL====
-#cd ${LE}
-
-#./launcher
+cd ${LE}
+echo $LE 
+./launcher
 
 #====Read LE Ensemble outputs====
 
