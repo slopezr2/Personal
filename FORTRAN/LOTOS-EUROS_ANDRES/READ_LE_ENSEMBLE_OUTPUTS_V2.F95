@@ -20,7 +20,7 @@ program read_le_ensemble_outputs
   integer,allocatable,dimension(:) :: agrup(:)
   
   !=====Numero de Celdas====
-  n_cells_int=189   ! Andres_ este se debe modificar si se ponen mas 
+  n_cells_int=18   ! Andres_ este se debe modificar si se ponen mas 
 	allocate(nx_int(n_cells_int))
 	allocate(ny_int(n_cells_int))
 	allocate(agrup(n_cells_int))
@@ -123,14 +123,16 @@ program read_le_ensemble_outputs
     
     
 		agrup=(/1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2 /)
-		allocate(xb(maxval(agrup),time))
 
+    if (j .eq. 1) then
+		allocate(xb(maxval(agrup),time))
+    endif
 
 
 
     do k=1,maxval(agrup)
     	do h=1,n_cells_int
-  			if agrup(h)=k then
+  			if (agrup(h)==k) then
   				xb(k,:)=aux(nx_int(h),ny_int(h),1,1,:) 
   				exit
   			endif

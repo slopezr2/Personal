@@ -37,7 +37,7 @@ NETCDF_FORTRAN_HOME='/usr/lib64'
 #NETCDF_HOME=${OPT}'/netcdf/4.4.0'
 NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
 #===Run ID====
-runid='Proof_Ensemble_25_members'
+runid='Tesr_agrupamiento'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
@@ -61,7 +61,7 @@ echo ${days_simulation}>>${mydir}/DATA_4DEnVAR/startdate.in
 
 echo ${runid}>${mydir}/DATA_4DEnVAR/runid.in
 #===Number of Ensembles===
-Nens=25
+Nens=3
 
 
 #===Remove all temporal files====
@@ -101,31 +101,31 @@ echo 'kf.restart.key                :  model=LEKF;expid='${runid}>>${LE}/proj/ea
 echo 'Running Model Real and Ensemble'
 
 #====Run LOTOS-EUROS MODEL====
-cd ${LE}
+#cd ${LE}
 
 #./launcher
 
 #====Read LE Ensemble outputs====
 
 #==Merging LE DC for each ensemble member ==
-echo 'Merging LE Ensembles DC'
-cd ${LE_Outputs}
-let "j=0"
-for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
-	do
-	let "j=j+1"
-	if [ $j -lt 10 ]
-	then
-		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
-		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
-		ncrcat -O -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
+#echo 'Merging LE Ensembles DC'
+#cd ${LE_Outputs}
+#let "j=0"
+#for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
+#	do
+#	let "j=j+1"
+#	if [ $j -lt 10 ]
+#	then
+#		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
+#		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
+#		ncrcat -O -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
 
-	else
-			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
-		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
-		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
-	fi
-done 
+#	else
+#			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
+#		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
+#		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
+#	fi
+#done 
 
 
 
@@ -134,7 +134,7 @@ done
 
 cd ${mydir}
 echo 'Reading LE outputs'
-gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS_V2.F95 -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib  -I/usr/lib64/gfortran/modules
+gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS_V2.F95 -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib  -I/usr/lib64/gfortran/modules -ffree-line-length-none -ffixed-line-length-none -fimplicit-none
 ./read_le_ensemble_output
 rm read_le_ensemble_output
 #==FORTRAN 4DEnVAR Method

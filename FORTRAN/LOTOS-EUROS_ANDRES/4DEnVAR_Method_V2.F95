@@ -199,6 +199,10 @@ allocate(sum2(Nen))
 l=2
 norma(1)=norm2(prod_matvec(dXen,increment(:,1)))
 write(*,*) "Value of Norm iteration ", l, "= ",   norma(1) 
+    FILE_NAME='./data/Norma_1.dat'
+    open(61,file=FILE_NAME)
+    write(61,*) norma(1)
+    close(61)
 norma(1)=tolerance
 flaq=0
 allocate(aux_vect(m))
@@ -213,10 +217,11 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
     open(61,file=FILE_NAME)
     write(61,*) sum1
     close(61)
-     FILE_NAME='./data/Sum2_'//trim(FILE_NAME2)//'.dat'
+    FILE_NAME='./data/Sum2_'//trim(FILE_NAME2)//'.dat'
     open(61,file=FILE_NAME)
     write(61,*) sum2
     close(61)
+   
 
   write(*,*) '===Calculate Increment==='
   increment(:,l)=prod_matvec(inv(ident+sum1),sum2)
@@ -226,7 +231,7 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
 	write(61,*) increment(:,l) 
 	close(61)
   !=== Incremental===
-  xk(:,st_ass+1,l)=xk(:,st_ass+1,l-1)+prod_matvec(dXen,increment(:,l))
+  xk(:,st_ass+1,l)=xk(:,st_ass+1,l-1)+0.1*prod_matvec(dXen,increment(:,l))
   write (FILE_NAME2,'(i2)') l
 	FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
 	open(61,file=FILE_NAME)
@@ -259,6 +264,10 @@ write(*,*) "Max val inno inner", l, " = ", maxval(inno)
 	write(61,*) dXen 
 	close(61)
   norma(l)=norm2(prod_matvec(dXen,increment(:,l)))
+  FILE_NAME='./data/Norma_'//trim(FILE_NAME2)//'.dat'
+    open(61,file=FILE_NAME)
+    write(61,*) norma(l)
+    close(61)
   write(*,*) "Value of Norm iteration ", l, "= ",   norma(l) 
   if (norma(l) .LE. norma(l-1)) then
      flaq=flaq+1
