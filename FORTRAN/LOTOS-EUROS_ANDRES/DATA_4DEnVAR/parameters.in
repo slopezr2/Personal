@@ -1,6 +1,0 @@
-1    !Assimilation Window
-2   !Assimilation window start
-10     !Number of inner step
-0.00002  !Tolerance Inner Loop
-1    !Sparse initial Ensemble
-0.001  !Sigma Observations
