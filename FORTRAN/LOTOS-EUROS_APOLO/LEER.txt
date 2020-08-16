@@ -1,0 +1,13 @@
+Como correr el 4DEnVAR 
+
+
+
+Primero se debe en el archivo  4DEnVAR_LE_Configure.sh  introducir datos opara la configuración inicial del experimento (RunId, Numero de ensembles, Path folders donde se encuentra el modelo corriendo el lekf, las salidas, la carpeta
+del 4DENVAR) 
+
+
+Luego se debe compilar utilizando el comando :  ./4DEnVAR_LE_Compile.sh   para compilar tanto la corrida de los ensambles como la corrida del inner loop
+
+OJO IMPORTANTE: RECUERDE CARGAR LOS MODULOS DEL SLURM ANTES DE COMPILAR 
+
+Siguiente se debe lanzar: sbatch slurm_4DEnVar.sh 

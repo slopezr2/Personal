@@ -1,0 +1,10 @@
+./4D_EnVAR_LE_main_V4.sh: línea 19: ncks: no se encontró la orden
+./4D_EnVAR_LE_main_V4.sh: línea 21: ncrcat: no se encontró la orden
+./4D_EnVAR_LE_main_V4.sh: línea 19: ncks: no se encontró la orden
+./4D_EnVAR_LE_main_V4.sh: línea 21: ncrcat: no se encontró la orden
+./4D_EnVAR_LE_main_V4.sh: línea 19: ncks: no se encontró la orden
+./4D_EnVAR_LE_main_V4.sh: línea 21: ncrcat: no se encontró la orden
+At line 30 of file READ_LE_ENSEMBLE_OUTPUTS_V2.F95 (unit = 61)
+Fortran runtime error: Cannot open file './temp/Ensembles.in': No existe el fichero o el directorio
+At line 37 of file 4DEnVAR_Method_V3.F95 (unit = 61)
+Fortran runtime error: Cannot open file './temp/Ensembles.in': No existe el fichero o el directorio

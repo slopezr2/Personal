@@ -7,4 +7,4 @@ git commit -m"Actualizacion"
 
 git push
 
-! vim  :wq  write+quit   
+#! vim  :wq  write+quit   
