@@ -209,6 +209,7 @@ end subroutine print_matrix
 
 subroutine randperm(N,m,p,pout)
     integer, intent(in)                :: N
+    integer, intent(in)                :: m
     integer, dimension(:), intent(inout) :: p
     integer, dimension(:), intent(out) :: pout
     integer :: j, k

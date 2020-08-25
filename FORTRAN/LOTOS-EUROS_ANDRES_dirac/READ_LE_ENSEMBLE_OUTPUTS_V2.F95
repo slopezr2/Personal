@@ -58,6 +58,9 @@ program read_le_ensemble_outputs
     !Get for the dimensions ID
     write(*,*) 'Opening file:', FILE_NAME
     status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
+    if (status .NE. 0) then
+        Write(*,*) 'Yarce, no se pudo abrir el archivo ojo'
+    endif
     status = nf90_inq_dimid(ncid, "latitude", latid)
     status = nf90_inq_dimid(ncid, "longitude", lonid)     
     status = nf90_inquire(ncid, unlimiteddimid = timeid)

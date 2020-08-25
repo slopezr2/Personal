@@ -213,7 +213,7 @@ subroutine ensmean(Xen,Xmean)
    implicit none
    integer :: nrens,j
    real*8,dimension(:,:), intent(in)  :: Xen
-   real*8,dimension(size(Xen,2)),intent(out) :: Xmean
+   real*8,dimension(size(Xen,1)),intent(out) :: Xmean
    nrens=size(Xen,2)
    
    Xmean(:)=Xen(:,1)
