@@ -34,8 +34,9 @@ LE='/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Version_WRF_0
 #===Path where netcdf-fortran and netcdf is installed===
 OPT=${HOME}'/opt'
 NETCDF_FORTRAN_HOME='/usr/lib64'
-#NETCDF_HOME=${OPT}'/netcdf/4.4.0'
-NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
+NETCDF_HOME='/lib64/gfortran/modules'
+#NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
+
 #===Run ID====
 runid='Test_30_ensembles'
 
@@ -61,7 +62,7 @@ echo ${days_simulation}>>${mydir}/DATA_4DEnVAR/startdate.in
 
 echo ${runid}>${mydir}/DATA_4DEnVAR/runid.in
 #===Number of Ensembles===
-Nens=3
+Nens=30
 
 
 #===Remove all temporal files====
@@ -102,52 +103,55 @@ echo 'Running Model Real and Ensemble'
 
 #====Run LOTOS-EUROS MODEL====
 
-cd ${LE}
-./launcher
+#cd ${LE}
+#./launcher
 
 #====Read LE Ensemble outputs====
 
 #==Merging LE DC for each ensemble member ==
-#echo 'Merging LE Ensembles DC'
-#cd ${LE_Outputs}
-#let "j=0"
-#for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
-#	do
-#	let "j=j+1"
-#	if [ $j -lt 10 ]
-#	then
-#		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
-#		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
-#		ncrcat -O -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
+echo 'Merging LE Ensembles DC'
+cd ${LE_Outputs}
+let "j=0"
+for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
+	do
+	let "j=j+1"
+	if [ $j -lt 10 ]
+	then
+		ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi0${j}a.nc  Merge_x0${j}.nc
+		mv LE_${runid}_dc_${start_date}_xi0${j}a.nc ..
+		ncrcat -O -h Merge_x0${j}.nc LE_${runid}_dc_2*_xi0${j}a.nc Ens_x0${j}.nc
 
-#	else
-#			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
-#		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
-#		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
-#	fi
-#done 
+	else
+			ncks -O -h --mk_rec_dmn time LE_${runid}_dc_${start_date}_xi${j}a.nc  Merge_x${j}.nc
+		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
+		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
+	fi
+done 
 
 
 
 
 #==FORTRAN READ NC FILES==
 
-#cd ${mydir}
-#echo 'Reading LE outputs'
-#gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS_V2.F95 -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib  -I/usr/lib64/gfortran/modules -ffree-line-length-none -ffixed-line-length-none -fimplicit-none
-#./read_le_ensemble_output
-#rm read_le_ensemble_output
+cd ${mydir}
+echo 'Reading LE outputs'
+gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS_V2.F95 -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -I${mydir}/MODULES -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib  -I/usr/lib64/gfortran/modules -ffree-line-length-none -ffixed-line-length-none -fimplicit-none
+./read_le_ensemble_output
+rm read_le_ensemble_output
 #==FORTRAN 4DEnVAR Method
 
 
-
-#gfortran -c 4DEnVAR_Method_V3.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
-
-#gfortran -o 4DEnVAR_method 4DEnVAR_Method_V3.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,#-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules
+gfortran -c module_EnKF.F95  -lblas -llapack  -I${NETCDF_HOME} -lnetcdff -Wl,-rpath, -lnetcdff -Wl,-rpath -ffree-line-length-none -ffixed-line-length-none -fimplicit-none -g -fcheck=all -Wall -fbacktrace
 
 
-#./4DEnVAR_method
-#rm 4DEnVAR_method
+
+gfortran -c 4DEnVAR_Method_V3.F95  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include  -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib   -ffree-line-length-none -ffixed-line-length-none -fimplicit-none -g -fcheck=all -Wall -fbacktrace
+
+gfortran -o 4DEnVAR_method 4DEnVAR_Method_V3.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -I${mydir}/MODULES -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib  -ffree-line-length-none -ffixed-line-length-none -fimplicit-none -g -fcheck=all -Wall -fbacktrace
+
+
+./4DEnVAR_method
+rm 4DEnVAR_method
 
 
 

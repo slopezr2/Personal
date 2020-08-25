@@ -41,8 +41,8 @@ subroutine read_NC_Yk_Tropomi(Y_xk,dawindows,initial_day,st_ass,lon,lat)
 	real*8,dimension(:,:,:),allocatable::Y(:,:,:)
 	integer,dimension(:),allocatable::ilat(:),ilon(:)
 	character (len=500)::FILE_NAME, FILE_NAME3
-	integer::level,time,pixel,n_cells_int
-  integer :: ncid, varid,status,latid,lonid,levelid,timeid,pixelid,pixel_len
+	integer::level,time,pixel,n_cells_int,i,initial_forecast,k
+  integer :: ncid, varid,status,ilatid,ilonid,levelid,timeid,pixelid,pixel_len
   logical :: file_exists
   initial_forecast=initial_day+st_ass
   allocate(Y(lon,lat,dawindows))
@@ -213,9 +213,9 @@ subroutine ensmean(Xen,Xmean)
    implicit none
    integer :: nrens,j
    real*8,dimension(:,:), intent(in)  :: Xen
-   real*8,dimension(size(Xen,2)),intent(out) :: Xmean
-   nrens=size(Xen,2)
-   
+   real*8,dimension(size(Xen,1)),intent(out) :: Xmean
+   nrens=size(xen,2)
+   write(*,*) 'size xen', shape(Xen)
    Xmean(:)=Xen(:,1)
    do j=2,nrens
       Xmean(:)=Xmean(:)+Xen(:,j)

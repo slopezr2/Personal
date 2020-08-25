@@ -37,7 +37,7 @@ NETCDF_FORTRAN_HOME='/usr/lib64'
 #NETCDF_HOME=${OPT}'/netcdf/4.4.0'
 NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
 #===Run ID====
-runid='SingleRUN_TEST_2_ENSEMBLES'
+runid='SingleRUN_0.75_RETEST'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
@@ -61,7 +61,7 @@ echo ${days_simulation}>>${mydir}/DATA_4DEnVAR/startdate.in
 
 echo ${runid}>${mydir}/DATA_4DEnVAR/runid.in
 #===Number of Ensembles===
-Nens=2
+Nens=1
 
 
 #===Remove all temporal files====
