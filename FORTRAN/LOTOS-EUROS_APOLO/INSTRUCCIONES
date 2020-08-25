@@ -1,0 +1,38 @@
+
+
+Instruction for operation the code 4DENVAR LOTOS-EUROS
+
+
+The code assimilates synthetic column as observations (first step to assimilate TROPOMI NO2 Column) in order to modify the dc correction factors. 
+The dc correction factors are the values to multiply the current emission factors
+
+
+
+The GITHUB path is https://github.com/slopezr2/Personal/tree/master/FORTRAN/LOTOS-EUROS_APOLO
+
+ 
+
+Folder DATA_4DEnVar : parameteres.in   (Assimilation Window, Spread, Sigma Errors)
+                      parameters_python.out  (Preguntar a Santiago para comentar)
+                      
+
+Launch  lekf.rc   (Generate the ensembles, mod # ensembles) (lotos)
+
+
+    launck lekf_inner
+
+
+INSTRUCTIONS:   Primero se debe modificar y guardar el archivo  4DEnVAR_LE_Configure.sh  introducir datos opara la configuración inicial del experimento 
+RunId (siempre utilizar nombres pegados sin espacio$
+ Numero de ensembles, Path folders donde se encuentra el modelo corriendo el lekf, las salidas, la carpeta del 4DENVAR)
+
+
+Luego se debe compilar utilizando el comando :  ./4DEnVAR_LE_Compile.sh   para compilar tanto la corrida de los ensambles como la corrida del inner loop
+
+OJO IMPORTANTE: RECUERDE CARGAR LOS MODULOS DEL SLURM ANTES DE COMPILAR
+
+Siguiente se debe lanzar: sbatch slurm_4DEnVar.sh
+
+
+Main file that is executed in slurm_4DENVAR:  4D_EnVAR_LE_main_V4.sh
+

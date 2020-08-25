@@ -1,0 +1,3 @@
+cd /scratch/ayarceb/projects/LOTOS-EUROS/4DEnVAR_inner/Xk/run
+./lekf.x lekf.rc
+cd /home/ayarceb/4DENVAR/Personal/FORTRAN/LOTOS-EUROS_ANDRES
