@@ -2,13 +2,22 @@
 
 . 4DEnVAR_LE_Configure.sh
 
+module load python/3.6.5_miniconda-4.5.1
+module load gcc/5.4.0
+module load netcdf-fortran/4.4.3_gcc-5.4.0
+module load udunits/2.2.26_gcc-5.4.0
+module load ncl/2.1.18_intel-2017_update-1
+module load lapack/3.5.0_gcc-5.4.0
+module unload netcdf/4.4.0_gcc-5.4.0 
+module load nco/4.9.3_gcc-5.4.0
+
 #===Write runid, timerange and Ensemble files====
 echo 'run.id             : '${runid}>${LE}/proj/eafit/000/rc/runid.rc
 
 
 
 echo 'kf.nmodes             : '${Nens}> ${LE}/proj/eafit/000/rc/N_Ensembles.rc
-echo ${LE_Outputs}>>${mydir}/temp/Ensembles.in
+echo ${LE_Outputs}>> ${mydir}/temp/Ensembles.in
 echo ${Nens}>>${mydir}/temp/Ensembles.in
 
 

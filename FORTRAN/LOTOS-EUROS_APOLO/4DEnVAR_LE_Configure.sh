@@ -26,7 +26,7 @@
 
 
 #===Path where the program is running===
-mydir='/home/ayarceb/4DENVAR/Personal/FORTRAN/LOTOS-EUROS_ANDRES'
+mydir='/home/ayarceb/4DENVAR/Personal/FORTRAN/LOTOS-EUROS_APOLO'
 
 #===Path LOTOS-EUROS MODEL (OJO carpeta de LEKF)===
 LE='/home/ayarceb/4DENVAR/Version_WRF_04_2020/lekf_4DEnVAR/lekf/v3.0.003-beta'
@@ -45,7 +45,7 @@ NETCDF_HOME='/share/apps/netcdf-fortran/4.4.3/gcc-5.4.0'
 
 
 #===Run ID====
-runid='Test_4DENVAR'
+runid='Test_4DENVAR_3_ensembles'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
