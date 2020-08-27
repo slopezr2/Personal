@@ -2,7 +2,7 @@
 #SBATCH --partition=longjobs
 #SBATCH --nodes=1
 #SBATCH --ntasks=32
-#SBATCH --time=1-23:59:00
+#SBATCH --time=0-4:59:00
 #SBATCH --job-name=LE_4DEnVar
 #SBATCH -o result_%x_%j.out      # File to which STDOUT will be written
 #SBATCH -e result_%x_%j.err      # File to which STDERR will be written
@@ -15,6 +15,8 @@ module load netcdf-fortran/4.4.3_gcc-5.4.0
 module load udunits/2.2.26_gcc-5.4.0
 module load ncl/2.1.18_intel-2017_update-1
 module load lapack/3.5.0_gcc-5.4.0
+module unload netcdf/4.4.0_gcc-5.4.0 
+module load nco/4.9.3_gcc-5.4.0
 
 
 ./4D_EnVAR_LE_main_V4.sh
