@@ -7,7 +7,7 @@ The code assimilates synthetic column as observations (first step to assimilate 
 
 
 
-The GITHUB path is https://github.com/slopezr2/Personal/tree/master/FORTRAN/LOTOS-EUROS_ANDRES
+The GITHUB path is https://github.com/slopezr2/Personal/tree/master/FORTRAN/LOTOS-EUROS_ANDRES_dirac
 
 
 *REMEMBER TO DELETE timerange.rc if you are running a new experiment
@@ -29,6 +29,12 @@ Launch  lekf.rc   (Generate the ensembles, mod # ensembles) (lotos)
 4DEnVar_method.f95 (read parameters from the folder DATA_4DEnVar)
 module_enkf.f95 (Create new dc files in the folder data)
  
+
+
+
+Modificar el parámetro para controlar el tamaño de paso
+
+
 
 
 ----------------------------------------------------------------------------------------------------

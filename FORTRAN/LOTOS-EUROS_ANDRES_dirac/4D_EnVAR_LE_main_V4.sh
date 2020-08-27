@@ -65,6 +65,13 @@ echo ${runid}>${mydir}/DATA_4DEnVAR/runid.in
 Nens=30
 
 
+#===Parameter rho====
+rho=0.5
+
+
+echo ${rho}>${mydir}/DATA_4DEnVAR/rho.in
+
+
 #===Remove all temporal files====
 if [ -d ${mydir}/temp ]
 then
@@ -126,6 +133,11 @@ for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
 		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
 		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
 	fi
+	
+	echo $j
+	echo $i
+	
+
 done 
 
 
