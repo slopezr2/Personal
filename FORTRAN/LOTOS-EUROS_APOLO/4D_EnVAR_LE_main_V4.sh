@@ -4,8 +4,8 @@
 
 #====Read LE Ensemble outputs==== NO OLVIDAR COMENTAR Y DESCOMENTAR SI LOS ENSAMBLES YA CORRIERON
 
-#cd ${LE_Run}
-#./lekf.x lekf.rc
+cd ${LE_Run}
+./lekf.x lekf.rc
 
 #==Merging LE DC for each ensemble member ==
 echo 'Merging LE Ensembles DC'

@@ -10,7 +10,7 @@ program LE_4DEnVAR_Method
   real*8,parameter::F=8
   real*8::sigmaobs
   integer::k,i,j,l,fileid     ! i for states, j for time, k for ensembles,l for inner steps
-  real*8::realaux
+  real*8::realaux  
   integer::intaux,flaq,initial_day
   real*8,parameter :: dt=0.01
   real*8::tolerance,sparse
@@ -19,11 +19,10 @@ program LE_4DEnVAR_Method
   real*8,allocatable,dimension(:,:)::increment,inno,sum1,ident,Y
   real*8,allocatable,dimension(:)::sum2,norma
   real*8,allocatable,dimension(:,:,:)::dY
-  real*8,allocatable,dimension(:)::aux_vect,aux_vect2,xbmean,xamean,ymean,aux_read,aux_read_y
+  real*8,allocatable,dimension(:)::aux_vect,xbmean,xamean,ymean,aux_read,aux_read_y
   integer,allocatable,dimension(:) :: nx_int(:),ny_int(:),agrup(:)
   character (len=500)::FILE_NAME,Path,FILE_NAME2
   
-
   Character(len=20)::filename
 
 !====Reading parameters from .in file====
@@ -32,8 +31,6 @@ read(61,*) lat
 read(61,*) lon
 read(61,*) time
 close(61)
-
-
 open(61,file='./temp/Ensembles.in',status='old')
 read(61,"(A200)")
 read(61,*) Nen
@@ -92,7 +89,7 @@ enddo
 
 ident=0
 do i=1,Nen
-	ident(i,i)=1
+        ident(i,i)=1
 enddo
 write(*,*) "====Starting Analysis 4DEnVAR===="
 !===Read Ensembles, Ensembles Outputs and Observations ===
@@ -114,7 +111,7 @@ loop_Read_Ens: do k=1,Nen
 
    xb(:,k,:)=reshape(aux_read,(/n,tsim/))
 
-   close(61)	
+   close(61)
    if (k < 10) then            
     write (FILE_NAME2,'(i1)') k ! converting integer to string using a 'internal file'
     FILE_NAME='./data/Y_Ens_x0'//trim(FILE_NAME2)//'.dat'
@@ -223,27 +220,27 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
   write(*,*) '===Calculate Increment==='
   increment(:,l)=prod_matvec(inv(ident+sum1),sum2)
   write (FILE_NAME2,'(i2)') l
-	FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'
-	open(61,file=FILE_NAME)
-	write(61,*) increment(:,l) 
-	close(61)
+        FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'
+        open(61,file=FILE_NAME)
+        write(61,*) increment(:,l) 
+        close(61)
   !=== Incremental===
   xk(:,st_ass+1,l)=xk(:,st_ass+1,l-1)+prod_matvec(dXen,increment(:,l))
   write (FILE_NAME2,'(i2)') l
-	FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
-	open(61,file=FILE_NAME)
-	write(61,*) xk(:,st_ass+1,l) 
-	close(61)
+        FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
+        open(61,file=FILE_NAME)
+        write(61,*) xk(:,st_ass+1,l) 
+        close(61)
 	!=== Write DC_k output ====
-	Call create_DC_NC(xk(:,st_ass+1,l),n,n_cells_int,agrup,lat,lon,time,nx_int,ny_int,initial_day,st_ass)
+        Call create_DC_NC(xk(:,st_ass+1,l),n,n_cells_int,agrup,lat,lon,time,nx_int,ny_int,initial_day,st_ass)
 	!=== Run LE using that DC_k Value Ojo cambiar Dirac===
-	CALL execute_command_line('./aux_launcher_inner')
-	write(*,*) '=== Merging Yxk, iteration ', l 
+        CALL execute_command_line('./aux_launcher_inner')
+        write(*,*) '=== Merging Yxk, iteration ', l 
 	!=== Read DC_k and Column of DC_k===
 	!CALL execute_command_line('./aux_merge_Y_xk')
-	write(*,*) '=== Reading Yxk iteration', l 
-	Call read_NC_Yk_Tropomi(Y_xk,dawindows,initial_day,st_ass,lon,lat)
-	write(*,*) '=== Yxk Readed iteration', l 
+        write(*,*) '=== Reading Yxk iteration', l 
+        Call read_NC_Yk_Tropomi(Y_xk,dawindows,initial_day,st_ass,lon,lat)
+        write(*,*) '=== Yxk Readed iteration', l 
      loop_time_analysis_inner: do j=(st_ass+2),st_ass+1+dawindows
           write(*,*) 'j-(st_ass+1)=', j-(st_ass+1)
           inno(:,j-(st_ass+1))=Y(:,j-1)-Y_xk(:,j-(st_ass+1))
@@ -253,13 +250,13 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
 write(*,*) "Max val inno inner", l, " = ", maxval(inno)
   
     FILE_NAME='./data/innovation_'//trim(FILE_NAME2)//'.dat'
-	open(61,file=FILE_NAME)
-	write(61,*) inno(:,l) 
-	close(61)
-	FILE_NAME='./data/Dxen_'//trim(FILE_NAME2)//'.dat'
-	open(61,file=FILE_NAME)
-	write(61,*) dXen 
-	close(61)
+        open(61,file=FILE_NAME)
+        write(61,*) inno(:,l) 
+        close(61)
+        FILE_NAME='./data/Dxen_'//trim(FILE_NAME2)//'.dat'
+        open(61,file=FILE_NAME)
+        write(61,*) dXen 
+        close(61)
   norma(l)=norm2(prod_matvec(dXen,increment(:,l)))
   write(*,*) "Value of Norm iteration ", l, "= ",   norma(l) 
   if (norma(l) .LE. norma(l-1)) then

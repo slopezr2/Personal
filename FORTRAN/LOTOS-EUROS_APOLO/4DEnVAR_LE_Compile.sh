@@ -8,7 +8,6 @@ module load netcdf-fortran/4.4.3_gcc-5.4.0
 module load udunits/2.2.26_gcc-5.4.0
 module load ncl/2.1.18_intel-2017_update-1
 module load lapack/3.5.0_gcc-5.4.0
-module unload netcdf/4.4.0_gcc-5.4.0 
 module load nco/4.9.3_gcc-5.4.0
 
 #===Write runid, timerange and Ensemble files====
@@ -54,7 +53,7 @@ gfortran -o read_le_ensemble_output  READ_LE_ENSEMBLE_OUTPUTS_V2.o  modulo_distr
 
 #==FORTRAN 4DEnVAR Method
 
-gfortran -c 4DEnVAR_Method_V3.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules -lexpat -g -fcheck=all -Wall -fbacktrace
+gfortran -c 4DEnVAR_Method_V3.F95 modulo_distribucion_normal.F95 module_matrix.F95 module_EnKF.F95  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules -lexpat -g -fcheck=all -fbacktrace
 echo 'Reading LE outputs 3'
 gfortran -o 4DEnVAR_method 4DEnVAR_Method_V3.o modulo_distribucion_normal.o module_matrix.o module_EnKF.o  -lblas -llapack  -I${NETCDF_FORTRAN_HOME}/include -L${NETCDF_FORTRAN_HOME}/lib -lnetcdff -Wl,-rpath -Wl,${NETCDF_FORTRAN_HOME}/lib -L${NETCDF_HOME}/lib -lnetcdf -Wl,-rpath -Wl,${NETCDF_HOME}/lib -I/usr/lib64/gfortran/modules -lexpat -g -fcheck=all -Wall -fbacktrace
 echo 'Reading LE outputs 4'
