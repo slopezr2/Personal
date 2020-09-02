@@ -72,6 +72,13 @@ echo ${runid}>${mydir}/DATA_4DEnVAR/runid.in
 Nens=30
 
 
+#===Parameter rho====
+rho=0.1
+
+
+echo ${rho}>${mydir}/DATA_4DEnVAR/rho.dat
+
+
 #===Remove all temporal files====
 if [ -d ${mydir}/temp ]
 then

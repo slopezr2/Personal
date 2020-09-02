@@ -8,7 +8,7 @@ program LE_4DEnVAR_Method
   integer::st_ass,n_cells_int,days_simulation
   integer::lat,lon,time !Dimensions	
   real*8,parameter::F=8
-  real*8::sigmaobs
+  real*8::sigmaobs,rho
   integer::k,i,j,l    ! i for states, j for time, k for ensembles,l for inner steps
   integer::flaq,initial_day
   real*8,parameter :: dt=0.01
@@ -22,6 +22,11 @@ program LE_4DEnVAR_Method
   integer,allocatable,dimension(:) :: nx_int(:),ny_int(:),agrup(:)
   character (len=500)::FILE_NAME,FILE_NAME2
   
+
+!====Reading parameter rho ====
+open(61,file='./DATA_4DEnVAR/rho.in',status='old')
+read(61,*) rho
+close(61)
 
 !====Reading parameters from .in file====
 open(61,file='./data/dimensions.dat',status='old')
@@ -62,6 +67,7 @@ read(61,*) tolerance
 read(61,*) sparse
 read(61,*) sigmaobs
 close(61)
+
 
 !===Matriz Initialization===
 allocate(xb(n,Nen,tsim))
@@ -164,7 +170,7 @@ close(61)
 
 allocate(xk(n,tsim,inner))
 !=== Calculate DC_k initial====
-xk(:,st_ass+1,1)=xbmean+prod_matvec(dXen,increment(:,1))
+xk(:,st_ass+1,1)=xbmean+rho*prod_matvec(dXen,increment(:,1))
 write (FILE_NAME2,'(i2)') l
 FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
 open(61,file=FILE_NAME)
@@ -197,7 +203,7 @@ write(*,*) "Max val inno inner", l, " = ", maxval(inno)
 allocate(sum1(Nen,Nen))
 allocate(sum2(Nen))
 l=2
-norma(1)=norm2(prod_matvec(dXen,increment(:,1)))
+norma(1)=norm2(rho*prod_matvec(dXen,increment(:,1)))
 write(*,*) "Value of Norm iteration ", l, "= ",   norma(1) 
 norma(1)=tolerance
 flaq=0
@@ -226,7 +232,7 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
 	write(61,*) increment(:,l) 
 	close(61)
   !=== Incremental===
-  xk(:,st_ass+1,l)=xk(:,st_ass+1,l-1)+prod_matvec(dXen,increment(:,l))
+  xk(:,st_ass+1,l)=xk(:,st_ass+1,l-1)+rho*prod_matvec(dXen,increment(:,l))
   write (FILE_NAME2,'(i2)') l
 	FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
 	open(61,file=FILE_NAME)
@@ -258,7 +264,7 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
 	open(61,file=FILE_NAME)
 	write(61,*) dXen 
 	close(61)
-  norma(l)=norm2(prod_matvec(dXen,increment(:,l)))
+  norma(l)=norm2(rho*prod_matvec(dXen,increment(:,l)))
   write(*,*) "Value of Norm iteration ", l, "= ",   norma(l) 
   if (norma(l) .LE. norma(l-1)) then
      flaq=flaq+1
