@@ -38,7 +38,7 @@ NETCDF_HOME='/lib64/gfortran/modules'
 #NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
 
 #===Run ID====
-runid='Test_30_ensembles'
+runid='40_ensembles'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
@@ -62,7 +62,14 @@ echo ${days_simulation}>>${mydir}/DATA_4DEnVAR/startdate.in
 
 echo ${runid}>${mydir}/DATA_4DEnVAR/runid.in
 #===Number of Ensembles===
-Nens=30
+Nens=40
+
+
+#===Parameter rho====
+rho=0.01
+
+
+echo ${rho}>${mydir}/DATA_4DEnVAR/rho.in
 
 
 #===Remove all temporal files====
@@ -126,6 +133,11 @@ for i in $(ls LE_${runid}_dc_${start_date}_xi**a.nc)
 		mv LE_${runid}_dc_${start_date}_xi${j}a.nc ..
 		ncrcat -O -h Merge_x${j}.nc LE_${runid}_dc_2*_xi${j}a.nc Ens_x${j}.nc
 	fi
+	
+	echo $j
+	echo $i
+	
+
 done 
 
 

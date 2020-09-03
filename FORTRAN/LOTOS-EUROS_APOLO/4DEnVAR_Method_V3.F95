@@ -2,15 +2,16 @@ program LE_4DEnVAR_Method
   !USE modulo_distribucion_normal
   use module_EnKF
   use module_matrix
+
   implicit none
 
   integer::n,m,tsim,Nen,dawindows,inner,fileidreal=1000
   integer::st_ass,n_cells_int,days_simulation
   integer::lat,lon,time !Dimensions	
   real*8,parameter::F=8
-  real*8::sigmaobs
+  real*8::sigmaobs,rho
   integer::k,i,j,l,fileid     ! i for states, j for time, k for ensembles,l for inner steps
-  real*8::realaux
+  real*8::realaux  
   integer::intaux,flaq,initial_day
   real*8,parameter :: dt=0.01
   real*8::tolerance,sparse
@@ -19,12 +20,15 @@ program LE_4DEnVAR_Method
   real*8,allocatable,dimension(:,:)::increment,inno,sum1,ident,Y
   real*8,allocatable,dimension(:)::sum2,norma
   real*8,allocatable,dimension(:,:,:)::dY
-  real*8,allocatable,dimension(:)::aux_vect,aux_vect2,xbmean,xamean,ymean,aux_read,aux_read_y
+  real*8,allocatable,dimension(:)::aux_vect,xbmean,xamean,ymean,aux_read,aux_read_y
   integer,allocatable,dimension(:) :: nx_int(:),ny_int(:),agrup(:)
   character (len=500)::FILE_NAME,Path,FILE_NAME2
   
 
-  Character(len=20)::filename
+!====Reading parameter rho ====
+open(61,file='./DATA_4DEnVAR/rho.in',status='old')
+read(61,*) rho
+close(61)
 
 !====Reading parameters from .in file====
 open(61,file='./data/dimensions.dat',status='old')
@@ -66,6 +70,7 @@ read(61,*) sparse
 read(61,*) sigmaobs
 close(61)
 
+
 !===Matriz Initialization===
 allocate(xb(n,Nen,tsim))
 allocate(xa(n,Nen,tsim))
@@ -92,7 +97,7 @@ enddo
 
 ident=0
 do i=1,Nen
-	ident(i,i)=1
+  ident(i,i)=1
 enddo
 write(*,*) "====Starting Analysis 4DEnVAR===="
 !===Read Ensembles, Ensembles Outputs and Observations ===
@@ -114,7 +119,7 @@ loop_Read_Ens: do k=1,Nen
 
    xb(:,k,:)=reshape(aux_read,(/n,tsim/))
 
-   close(61)	
+    close(61)	
    if (k < 10) then            
     write (FILE_NAME2,'(i1)') k ! converting integer to string using a 'internal file'
     FILE_NAME='./data/Y_Ens_x0'//trim(FILE_NAME2)//'.dat'
@@ -126,7 +131,7 @@ loop_Read_Ens: do k=1,Nen
    read(61,*) aux_read_y(:)
    close(61)
    Yb(:,k,:)=reshape(aux_read_y,(/m,days_simulation/))
-    write(*,*) 'Max Y ensemble', k, ' ==', maxval(Yb(:,k,:))
+   write(*,*) 'Max Y ensemble', k, ' ==', maxval(Yb(:,k,:))
    	
  enddo loop_Read_Ens
 
@@ -153,7 +158,7 @@ call anomalies(xb(:,:,st_ass*24 +1),xbmean(:),dXen) !Calculate anomalies matrix 
 !=====Analysis Step===
 !===Inner Loop===
  CALL RANDOM_NUMBER(increment(:,1))
- allocate(xk(n,tsim,inner))
+
  l=1
 write (FILE_NAME2,'(i1)') l
 FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'
@@ -165,8 +170,9 @@ open(61,file=FILE_NAME)
 write(61,*) dXen 
 close(61)
 
+allocate(xk(n,tsim,inner))
 !=== Calculate DC_k initial====
-xk(:,st_ass+1,1)=xbmean+prod_matvec(dXen,increment(:,1))
+xk(:,st_ass+1,1)=xbmean+rho*prod_matvec(dXen,increment(:,1))
 write (FILE_NAME2,'(i2)') l
 FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
 open(61,file=FILE_NAME)
@@ -199,7 +205,7 @@ write(*,*) "Max val inno inner", l, " = ", maxval(inno)
 allocate(sum1(Nen,Nen))
 allocate(sum2(Nen))
 l=2
-norma(1)=norm2(prod_matvec(dXen,increment(:,1)))
+norma(1)=norm2(rho*prod_matvec(dXen,increment(:,1)))
 write(*,*) "Value of Norm iteration ", l, "= ",   norma(1) 
 norma(1)=tolerance
 flaq=0
@@ -212,23 +218,23 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
      sum2=sum2+ prod_matvec(prod(transpose(dY(:,:,i-1)),inR),inno(:,i-(st_ass+1)))
   end do
   FILE_NAME='./data/Sum1_'//trim(FILE_NAME2)//'.dat'
-    open(61,file=FILE_NAME)
-    write(61,*) sum1
-    close(61)
-     FILE_NAME='./data/Sum2_'//trim(FILE_NAME2)//'.dat'
-    open(61,file=FILE_NAME)
-    write(61,*) sum2
-    close(61)
+  open(61,file=FILE_NAME)
+  write(61,*) sum1
+  close(61)
+  FILE_NAME='./data/Sum2_'//trim(FILE_NAME2)//'.dat'
+  open(61,file=FILE_NAME)
+  write(61,*) sum2
+  close(61)
 
   write(*,*) '===Calculate Increment==='
   increment(:,l)=prod_matvec(inv(ident+sum1),sum2)
   write (FILE_NAME2,'(i2)') l
-	FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'
+  FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'
 	open(61,file=FILE_NAME)
 	write(61,*) increment(:,l) 
 	close(61)
   !=== Incremental===
-  xk(:,st_ass+1,l)=xk(:,st_ass+1,l-1)+prod_matvec(dXen,increment(:,l))
+  xk(:,st_ass+1,l)=xk(:,st_ass+1,l-1)+rho*prod_matvec(dXen,increment(:,l))
   write (FILE_NAME2,'(i2)') l
 	FILE_NAME='./data/Xk_'//trim(FILE_NAME2)//'.dat'
 	open(61,file=FILE_NAME)
@@ -250,9 +256,9 @@ loop_inner:do while (l .LE. inner) !.AND. (norma(l-1) .GE. tolerance))
           write(*,*) 'Max value Y(:,', j-1,') =', maxval(Y(:,j-1))
           write(*,*) 'Max value Y(:,', j-(st_ass+1),') =', maxval(Y_xk(:,j-(st_ass+1)))
     end do loop_time_analysis_inner
-write(*,*) "Max val inno inner", l, " = ", maxval(inno)
+    write(*,*) "Max val inno inner", l, " = ", maxval(inno)
   
-    FILE_NAME='./data/innovation_'//trim(FILE_NAME2)//'.dat'
+  FILE_NAME='./data/innovation_'//trim(FILE_NAME2)//'.dat'
 	open(61,file=FILE_NAME)
 	write(61,*) inno(:,l) 
 	close(61)
@@ -260,7 +266,7 @@ write(*,*) "Max val inno inner", l, " = ", maxval(inno)
 	open(61,file=FILE_NAME)
 	write(61,*) dXen 
 	close(61)
-  norma(l)=norm2(prod_matvec(dXen,increment(:,l)))
+  norma(l)=norm2(rho*prod_matvec(dXen,increment(:,l)))
   write(*,*) "Value of Norm iteration ", l, "= ",   norma(l) 
   if (norma(l) .LE. norma(l-1)) then
      flaq=flaq+1

@@ -45,7 +45,7 @@ NETCDF_HOME='/share/apps/netcdf-fortran/4.4.3/gcc-5.4.0'
 
 
 #===Run ID====
-runid='Test_4DENVAR_3_ensembles'
+runid='Test_4DENVAR_3_ensembles_11'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
@@ -69,7 +69,14 @@ echo ${days_simulation}>>${mydir}/DATA_4DEnVAR/startdate.in
 
 echo ${runid}>${mydir}/DATA_4DEnVAR/runid.in
 #===Number of Ensembles===
-Nens=3
+Nens=30
+
+
+#===Parameter rho====
+rho=0.1
+
+
+echo ${rho}>${mydir}/DATA_4DEnVAR/rho.dat
 
 
 #===Remove all temporal files====

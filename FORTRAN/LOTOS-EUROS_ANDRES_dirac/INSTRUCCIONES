@@ -7,7 +7,7 @@ The code assimilates synthetic column as observations (first step to assimilate 
 
 
 
-The GITHUB path is https://github.com/slopezr2/Personal/tree/master/FORTRAN/LOTOS-EUROS_ANDRES
+The GITHUB path is https://github.com/slopezr2/Personal/tree/master/FORTRAN/LOTOS-EUROS_ANDRES_dirac
 
 
 *REMEMBER TO DELETE timerange.rc if you are running a new experiment
@@ -31,6 +31,12 @@ module_enkf.f95 (Create new dc files in the folder data)
  
 
 
+
+Modificar el parámetro para controlar el tamaño de paso
+
+
+
+
 ----------------------------------------------------------------------------------------------------
 
 
@@ -38,5 +44,5 @@ Para modificar el dc noise se deben modificiar con atención dos archivos.
 
 Uno es el READ_LE_ENSEMBLE_OUTPUTS_V2.F95   (/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Repositorio_Personal_Slopez/Personal/FORTRAN/LOTOS-EUROS_ANDRES_dirac)
 
-y otro el lekf.90      (/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Version_WRF_04_2020/lekf_4DEnVAR/lekf/v3.0.003-beta/base/002/src)
+y otro el lekf_noise_solo_ciudades.90      (/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/Version_WRF_04_2020/lekf_4DEnVAR/lekf/v3.0.003-beta/base/002/src)
 

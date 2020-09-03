@@ -15,11 +15,11 @@ program LE_4DEnVAR_Method
   real*8::realaux
   integer::intaux,flaq
   real*8,parameter :: dt=0.01
-  real*8::tolerance,sparse
+  real*8::tolerance,sparse,norma_error
   real*8,allocatable,dimension(:,:,:):: xa,xb,Yb,xk
   real*8,allocatable,dimension(:,:)::dXen,Robs,inR,Y_xk
   real*8,allocatable,dimension(:,:)::increment,inno,sum1,ident,Y
-  real*8,allocatable,dimension(:)::sum2,norma
+  real*8,allocatable,dimension(:)::sum2,norma,aux_norm
   real*8,allocatable,dimension(:,:,:)::dY
   real*8,allocatable,dimension(:)::aux_vect,aux_vect2,xbmean,xamean,ymean,aux_read,aux_read_y
   character (len=100)::FILE_NAME,Path,FILE_NAME2
@@ -65,6 +65,7 @@ program LE_4DEnVAR_Method
   allocate(inR(m,m))
   allocate(increment(Nen,inner))
   allocate(inno(m,tsim))
+  allocate(aux_norm(m))
   allocate(ident(Nen,Nen))
   allocate(norma(inner))
   allocate(Y_xk(m,dawindows))
@@ -163,8 +164,13 @@ program LE_4DEnVAR_Method
   write(*,*) '=== Yxk Readed==='
    loop_time_analysis: do j=(st_ass+1),st_ass+dawindows
       inno(:,j)=Y(:,j)-Y_xk(:,j-st_ass)
+	aux_norm(i)=norm2(inno(:,j))
    end do loop_time_analysis
-
+   norma_error=sum(aux_norm)/dawindows
+   FILE_NAME='./data/Norma_Error_'//trim(FILE_NAME2)//'.dat'
+   open(61,file=FILE_NAME)
+   write(61,*) norma_error
+   close(61)
    allocate(sum1(Nen,Nen))
    allocate(sum2(Nen))
    l=2
@@ -202,7 +208,14 @@ program LE_4DEnVAR_Method
       
       loop_time_analysis_inner: do j=(st_ass+1),st_ass+dawindows
          inno(:,j)=Y(:,j)-Y_xk(:,j-st_ass)
-      end do loop_time_analysis_inner
+      aux_norm(i)=norm2(inno(:,j))
+   end do loop_time_analysis_inner
+   norma_error=sum(aux_norm)/dawindows
+   FILE_NAME='./data/Norma_Error_'//trim(FILE_NAME2)//'.dat'
+   open(61,file=FILE_NAME)
+   write(61,*) norma_error   
+   close(61)
+
       write (FILE_NAME2,'(i1)') l
 			FILE_NAME='./data/increment_'//trim(FILE_NAME2)//'.dat'
 			open(61,file=FILE_NAME)
