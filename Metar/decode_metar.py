@@ -1,7 +1,7 @@
 from metar import Metar
 import pandas as pd
 
-df=pd.read_csv('./CONSULTA METAR - IDEAM_SANTA_MARTA.csv', sep=',',header=0)
+df=pd.read_csv('./Metar_archivos/CONSULTA METAR - IDEAM_SANTA_MARTA.csv', sep=',',header=0)
 
 information = pd.DataFrame(columns=['D','T','P','DP'])
 for row in df.iterrows():
@@ -39,4 +39,4 @@ for row in df.iterrows():
     information = information.append({'D': row[1]['Fecha hora'], 'T': T,'P': P, 'DP': DP}, ignore_index=True)
    
     
-information.to_csv(r'./datos.csv', index = True)
+information.to_csv(r'./datos/datos.csv', index = True)
