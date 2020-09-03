@@ -21,8 +21,6 @@ for row in df.iterrows():
         DP=int(DP)
         P=metar[index+5:index+9]
         if P[0]=='/':
-            T=None
-            DP=None
             P=None
             print('Error al decodificar el METAR, informacion de variable P faltante. Se encuentra "A////"')
             information = information.append({'D': row[1]['Fecha hora'], 'T': T,'P': P, 'DP': DP}, ignore_index=True)
