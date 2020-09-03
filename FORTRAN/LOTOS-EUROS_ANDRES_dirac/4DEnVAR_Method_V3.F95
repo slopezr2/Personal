@@ -1,10 +1,11 @@
 program LE_4DEnVAR_Method
   !USE modulo_distribucion_normal
-  use module_matrix
   use module_EnKF
+  use module_matrix
+ 
   implicit none
 
-  integer::n,m,tsim,Nen,dawindows,inner
+  integer::n,m,tsim,Nen,dawindows,inner,fileidreal=1000
   integer::st_ass,n_cells_int,days_simulation
   integer::lat,lon,time !Dimensions	
   real*8,parameter::F=8
@@ -138,7 +139,7 @@ loop_Read_Ens: do k=1,Nen
  read(61,*) aux_read_y(:)
  close(61)
  Y(:,:)=reshape(aux_read_y,(/m,days_simulation/))
-write(*,*) 'Max Y observation== ', maxval(Y(:,:))
+write(*,*) 'Max Y observation', k, ' == ', maxval(Y(:,:))
 
 !=== Ensemble initialization===
 
