@@ -44,7 +44,7 @@ mapshow(S,'FaceColor',[0.2 0.2 0.2],'FaceAlpha',0.0, 'LineWidth',1)
 scatter(lon_ecmwf(x_1),lat_ecmwf(y_1),15,'s','b','filled')
 scatter(lon_ecmwf(x_2),lat_ecmwf(y_2),15,'s','b','filled')
 ylim([5.8 6.8])
-
+saveas(fig,'Target','png')
 
 
 
@@ -64,7 +64,7 @@ mapshow(S,'FaceColor',[0.2 0.2 0.2],'FaceAlpha',0.0, 'LineWidth',1)
 scatter(lon_ecmwf(x_1),lat_ecmwf(y_1),15,'s','b','filled')
 scatter(lon_ecmwf(x_2),lat_ecmwf(y_2),15,'s','b','filled')
 ylim([5.8 6.8])
-
+saveas(fig2,'Distances','png')
 
 
 
@@ -77,3 +77,4 @@ hold on
 mapshow(S,'FaceColor',[0.2 0.2 0.2],'FaceAlpha',0.0, 'LineWidth',1)
 scatter(lon_ecmwf(x_1),lat_ecmwf(y_1),15,'s','b','filled')
 scatter(lon_ecmwf(x_2),lat_ecmwf(y_2),15,'s','b','filled')
+saveas(fig3,'orography','png')
