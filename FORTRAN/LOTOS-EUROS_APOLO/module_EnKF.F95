@@ -103,7 +103,7 @@ subroutine read_NC_Yk_Tropomi(Y_xk,dawindows,initial_day,st_ass,lon,lat)
 			FILE_NAME="/run/media/dirac/Datos/scratch/projects//4DEnVAR_inner/Xk/output/LE_Xk_tropomi-no2_"//trim(FILE_NAME3)//"_1900_xb.nc"
 			status = nf90_open(path = FILE_NAME, mode = nf90_nowrite, ncid = ncid)
 			status= nf90_inq_varid(ncid, "y", varid)
-			status=nf90_get_var(ncid, varid, aux_y)
+			status=nf90_get_var(ncid, varid, x_y)
 write(*,*) "Read Tercer"
 			do k=1,pixel_len
                 if (aux_y(1,k) .ge. 0) then
@@ -197,7 +197,7 @@ subroutine create_DC_NC(Xk,n,n_cells_int,agrup,lat,lon,time,nx_int,ny_int,initia
   status =nf90_put_var(ncid, time_varid, time_var)
   DC=1
 		do i=1,n_cells_int
-			DC(nx_int(i),ny_int(i))=Xk(agrup(i))
+			DC(nx_int(i),ny_int(i))=max(0,Xk(agrup(i)))
 		enddo
   do i=1,time
 		DC_nc(:,:,1,1,i)=DC	

@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --partition=debug
+#SBATCH --partition=longjobs
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --time=0-1:00:00
-#SBATCH --job-name=LE_4DEnVar_2
+#SBATCH --ntasks=32
+#SBATCH --time=1-1:00:00
+#SBATCH --job-name=LE_4DEnVar_32
 #SBATCH -o result_%x_%j.out      # File to which STDOUT will be written
 #SBATCH -e result_%x_%j.err      # File to which STDERR will be written
 #SBATCH --mail-type=ALL

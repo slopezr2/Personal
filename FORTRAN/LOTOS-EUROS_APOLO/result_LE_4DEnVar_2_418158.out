@@ -1,0 +1,408 @@
+
+***********************************************************
+***********************************************************
+***                                                     ***
+***                     LOTOS-EUROS                     ***
+***                                                     ***
+***********************************************************
+***********************************************************
+
+OpenMP: enabled                                   : yes
+OpenMP: thread number / number of threads         :    0 /    2
+
+
+LEKF: init LOTOS-EUROS ...
+Name of LOTOS-EUROS rc file : lekf.rc
+printing all LOTOS output
+do not debug infomation
+le_grid/LE_Grid_Init: define grids
+le_grid/LE_Grid_Init:   grid type: cartesian
+cartesian topology:
+  ndim          = 2
+  dims          : 1,1
+  periodic      : F,F
+  local coords  : 0,0
+  processor ids:
+    domain (0,0) on pe 0
+  processor map:
+      0
+  global domain borders:
+    west    : T
+    east    : T
+    south   : T
+    north   : T
+communication with neighbours:
+dimension: 1
+  direction: -1
+    receive from : -2
+    send to      : -2
+  direction: 1
+    receive from : -2
+    send to      : -2
+dimension: 2
+  direction: -1
+    receive from : -2
+    send to      : -2
+  direction: 1
+    receive from : -2
+    send to      : -2
+domain definition:
+  global: (1:154,1:198)
+  local : (1:154,1:198)
+  offset: 0,0
+  shape : 154,198
+  size  : 30492
+global shape : (154,198)
+local  shape : (154,198)
+le_grid/LE_Grid_Init: end
+meteo half level selection:
+  model layer   0 from   0
+  model layer   1 from   1
+  model layer   2 from   2
+  model layer   3 from   3
+  model layer   4 from   4
+  model layer   5 from   5
+  model layer   6 from   6
+  model layer   7 from   7
+  model layer   8 from   8
+  model layer   9 from   9
+  model layer  10 from  10
+  model layer  11 from  11
+  model layer  12 from  12
+  model layer  13 from  13
+  model layer  14 from  14
+  model layer  15 from  15
+  model layer  16 from  16
+  model layer  17 from  17
+  model layer  18 from  18
+  top layer    19 from  19
+  top layer    20 from  20
+  top layer    21 from  21
+  top layer    22 from  22
+  top layer    23 from  23
+  top layer    24 from  24
+  top layer    25 from  25
+  top layer    26 from  26
+  top layer    27 from  27
+  top layer    28 from  28
+  top layer    29 from  29
+  top layer    30 from  30
+  top layer    31 from  31
+  top layer    32 from  32
+  top layer    33 from  33
+  top layer    34 from  34
+  top layer    35 from  35
+  top layer    36 from  36
+  top layer    37 from  37
+  top layer    38 from  38
+  top layer    39 from  39
+  top layer    40 from  40
+  top layer    41 from  41
+  top layer    42 from  42
+LE_Data_Variable/Variable_Init: init variable `lon`
+LE_Data_Variable/Variable_Init: init variable `lat`
+LE_Data_Variable/Variable_Init: init variable `area`
+LE_Data_Variable/Variable_Init: init variable `unormal`
+LE_Data_Variable/Variable_Init: init variable `vnormal`
+LE_Data_Variable/Variable_Init: init variable `dxu`
+LE_Data_Variable/Variable_Init: init variable `dxv`
+LE_Data_Variable/Variable_Init: init variable `oro_crnr`
+LE_Data_Variable/Variable_Init: init variable `t_crnr_met`
+LE_Data_Variable/Variable_Init: init variable `q_crnr_met`
+LE_Data_Variable/Variable_Init: init variable `hp_crnr_met`
+LE_Data_Variable/Variable_Init: init variable `halt_crnr_met`
+LE_Data_Variable/Variable_Init: init variable `halt_met`
+LE_Data_Variable/Variable_Init: init variable `hp_crnr`
+LE_Data_Variable/Variable_Init: init variable `halt_crnr`
+LE_Data_Variable/Variable_Init: init variable `dh_crnr`
+LE_Data_Variable/Variable_Init: init variable `dh`
+LE_Data_Variable/Variable_Init: init variable `dhu`
+LE_Data_Variable/Variable_Init: init variable `dhv`
+LE_Data_Variable/Variable_Init: init variable `halt`
+LE_Data_Variable/Variable_Init: init variable `vol`
+LE_Data_Variable/Variable_Init: init variable `pvol`
+LE_Data_Variable/Variable_Init: init variable `nvol`
+LE_Data_Variable/Variable_Init: init variable `oro`
+LE_Data_Variable/Variable_Init: init variable `lsm`
+LE_Data_Variable/Variable_Init: init variable `hp`
+LE_Data_Variable/Variable_Init: init variable `p`
+LE_Data_Variable/Variable_Init: init variable `h`
+LE_Data_Variable/Variable_Init: init variable `airm`
+LE_Data_Variable/Variable_Init: init variable `dens`
+LE_Data_Variable/Variable_Init: init variable `uv_u_met`
+LE_Data_Variable/Variable_Init: init variable `uv_v_met`
+LE_Data_Variable/Variable_Init: init variable `uv_met`
+LE_Data_Variable/Variable_Init: init variable `w_met`
+LE_Data_Variable/Variable_Init: init variable `uflux`
+LE_Data_Variable/Variable_Init: init variable `vflux`
+LE_Data_Variable/Variable_Init: init variable `wflux`
+LE_Data_Variable/Variable_Init: init variable `hp_met`
+LE_Data_Variable/Variable_Init: init variable `t_met`
+LE_Data_Variable/Variable_Init: init variable `t`
+LE_Data_Variable/Variable_Init: init variable `q_met`
+LE_Data_Variable/Variable_Init: init variable `q`
+LE_Data_Variable/Variable_Init: init variable `rh`
+LE_Data_Variable/Variable_Init: init variable `cc_met`
+LE_Data_Variable/Variable_Init: init variable `clwc_met`
+LE_Data_Variable/Variable_Init: init variable `icc`
+LE_Data_Variable/Variable_Init: init variable `bcc`
+LE_Data_Variable/Variable_Init: init variable `occ`
+LE_Data_Variable/Variable_Init: init variable `tcc`
+LE_Data_Variable/Variable_Init: init variable `clwc`
+LE_Data_Variable/Variable_Init: init variable `iclwc`
+LE_Data_Variable/Variable_Init: init variable `praini`
+LE_Data_Variable/Variable_Init: init variable `raini`
+LE_Data_Variable/Variable_Init: init variable `blh`
+LE_Data_Variable/Variable_Init: init variable `tsurf`
+LE_Data_Variable/Variable_Init: init variable `dsurf`
+LE_Data_Variable/Variable_Init: init variable `srh`
+LE_Data_Variable/Variable_Init: init variable `uv10`
+LE_Data_Variable/Variable_Init: init variable `wspd_surf`
+LE_Data_Variable/Variable_Init: init variable `wdir_surf`
+LE_Data_Variable/Variable_Init: init variable `sstk`
+LE_Data_Variable/Variable_Init: init variable `zust`
+LE_Data_Variable/Variable_Init: init variable `sshf`
+LE_Data_Variable/Variable_Init: init variable `slhf`
+LE_Data_Variable/Variable_Init: init variable `slt`
+LE_Data_Variable/Variable_Init: init variable `swvl1`
+LE_Data_Variable/Variable_Init: init variable `swvl2`
+LE_Data_Variable/Variable_Init: init variable `swvl3`
+LE_Data_Variable/Variable_Init: init variable `swvl1t2`
+LE_Data_Variable/Variable_Init: init variable `swvl1t3`
+LE_Data_Variable/Variable_Init: init variable `swg`
+LE_Data_Variable/Variable_Init: init variable `smi2`
+LE_Data_Variable/Variable_Init: init variable `smi3`
+LE_Data_Variable/Variable_Init: init variable `cp`
+LE_Data_Variable/Variable_Init: init variable `lsp`
+LE_Data_Variable/Variable_Init: init variable `rain`
+LE_Data_Variable/Variable_Init: init variable `sf`
+LE_Data_Variable/Variable_Init: init variable `sd`
+LE_Data_Variable/Variable_Init: init variable `ssrd`
+LE_Data_Variable/Variable_Init: init variable `tsurf_ema`
+LE_Data_Variable/Variable_Init: init variable `ssrd_ema`
+LE_Data_Variable/Variable_Init: init variable `lai_lu`
+LE_Data_Variable/Variable_Init: init variable `sai_lu`
+LE_Data_Variable/Variable_Init: init variable `z0m_lu`
+LE_Data_Variable/Variable_Init: init variable `z0m`
+LE_Data_Variable/Variable_Init: init variable `z0h_lu`
+LE_Data_Variable/Variable_Init: init variable `z0h`
+LE_Data_Variable/Variable_Init: init variable `zcanopy_lu`
+LE_Data_Variable/Variable_Init: init variable `z0dust_lu`
+LE_Data_Variable/Variable_Init: init variable `ustar`
+LE_Data_Variable/Variable_Init: init variable `stabcls`
+LE_Data_Variable/Variable_Init: init variable `monin`
+LE_Data_Variable/Variable_Init: init variable `monin_inv`
+LE_Data_Variable/Variable_Init: init variable `dh_met`
+LE_Data_Variable/Variable_Init: init variable `sstar`
+LE_Data_Variable/Variable_Init: init variable `qstar`
+LE_Data_Variable/Variable_Init: init variable `duudz`
+LE_Data_Variable/Variable_Init: init variable `uu_ifs`
+LE_Data_Variable/Variable_Init: init variable `Q0v`
+LE_Data_Variable/Variable_Init: init variable `dse`
+LE_Data_Variable/Variable_Init: init variable `kz_ifs`
+LE_Data_Variable/Variable_Init: init variable `ri_ifs`
+LE_Data_Variable/Variable_Init: init variable `kz`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_hp`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_o3`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_o3`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_no`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_no`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_no2`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_no2`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_ch4`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_ch4`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_hno3`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_hno3`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_so2`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_so2`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_co`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_co`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_isop`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_isop`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_pan`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_pan`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_form`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_form`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_ethane`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_ethane`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_oh`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_oh`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_ss_u`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_ss_u`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_ss_f`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_ss_f`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_ss_c`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_ss_c`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_dust_u`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_dust_u`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_dust_f`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_dust_f`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_dust_c`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_dust_c`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_so4`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_so4`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_om`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_om`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_hom`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_hom`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_bc`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_bc`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_hbc`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_hbc`
+LE_Data_Variable/Variable_Init: init variable `__cams_nrt_ch4`
+LE_Data_Variable/Variable_Init: init variable `cams_nrt_ch4`
+LE_Data_Variable/Variable_Init: init variable `emis_amva_pm25_mobile`
+LE_Data_Variable/Variable_Init: init variable `emis_amva_pm10_mobile`
+LE_Data_Variable/Variable_Init: init variable `emis_amva_pm25_fixed`
+LE_Data_Variable/Variable_Init: init variable `emis_amva_pm10_fixed`
+---[accumulated species]---------------------------------------
+tracer     1 no2    1
+tracer     2 no    1
+tracer     3 o3    1
+tracer     4 co    1
+tracer     5 form    1
+tracer     6 ald    1
+tracer     7 pan    1
+tracer     8 mgly    1
+tracer     9 par    1
+tracer    10 ole    1
+tracer    11 eth    1
+tracer    12 tol    1
+tracer    13 cres    1
+tracer    14 xyl    1
+tracer    15 so4a_f    1
+tracer    16 so2    1
+tracer    17 hno2    1
+tracer    18 ch4    1
+tracer    19 nh3    1
+tracer    20 no3    1
+tracer    21 oh    1
+tracer    22 ho2    1
+tracer    23 n2o5    1
+tracer    24 so4a_c    1
+tracer    25 nh4a_f    1
+tracer    26 no3a_f    1
+tracer    27 no3a_c    1
+tracer    28 c2o3    1
+tracer    29 xo2    1
+tracer    30 xo2n    1
+tracer    31 cro    1
+tracer    32 hno3    1
+tracer    33 h2o2    1
+tracer    34 iso    1
+tracer    35 ispd    1
+tracer    36 to2    1
+tracer    37 open    1
+tracer    38 terp    1
+tracer    39 ec_f    1
+tracer    40 ec_c    1
+tracer    41 pom_f    1
+tracer    42 pom_c    1
+tracer    43 ppm_f    1
+tracer    44 ppm_c    1
+tracer    45 na_ff    1
+tracer    46 na_f    1
+tracer    47 na_ccc    1
+tracer    48 na_cc    1
+tracer    49 na_c    1
+tracer    50 dust_ff    1
+tracer    51 dust_f    1
+tracer    52 dust_c    1
+tracer    53 dust_cc    1
+tracer    54 dust_ccc    1
+tracer    55 tpm10_biascorr    1
+tracer    56 tpm25_biascorr    1
+tracer    57 o3_biascorr    1
+special   58 tpm10   21
+  comp    1  15 so4a_f  1.00
+  comp    2  24 so4a_c  1.00
+  comp    3  25 nh4a_f  1.00
+  comp    4  26 no3a_f  1.00
+  comp    5  27 no3a_c  1.00
+  comp    6  39 ec_f  1.00
+  comp    7  40 ec_c  1.00
+  comp    8  41 pom_f  1.00
+  comp    9  42 pom_c  1.00
+  comp   10  43 ppm_f  1.00
+  comp   11  44 ppm_c  1.00
+  comp   12  45 na_ff  3.26
+  comp   13  46 na_f  3.26
+  comp   14  47 na_ccc  3.26
+  comp   15  48 na_cc  3.26
+  comp   16  49 na_c  3.26
+  comp   17  50 dust_ff  1.00
+  comp   18  51 dust_f  1.00
+  comp   19  54 dust_ccc  1.00
+  comp   20  53 dust_cc  1.00
+  comp   21  52 dust_c  1.00
+special   59 tpm25   10
+  comp    1  15 so4a_f  1.00
+  comp    2  25 nh4a_f  1.00
+  comp    3  26 no3a_f  1.00
+  comp    4  39 ec_f  1.00
+  comp    5  41 pom_f  1.00
+  comp    6  43 ppm_f  1.00
+  comp    7  45 na_ff  3.26
+  comp    8  46 na_f  3.26
+  comp    9  50 dust_ff  1.00
+  comp   10  51 dust_f  1.00
+special   60 tss    5
+  comp    1  45 na_ff  3.26
+  comp    2  46 na_f  3.26
+  comp    3  47 na_ccc  3.26
+  comp    4  48 na_cc  3.26
+  comp    5  49 na_c  3.26
+special   61 tdust    5
+  comp    1  50 dust_ff  1.00
+  comp    2  51 dust_f  1.00
+  comp    3  54 dust_ccc  1.00
+  comp    4  53 dust_cc  1.00
+  comp    5  52 dust_c  1.00
+special   62 tc    4
+  comp    1  39 ec_f  1.00
+  comp    2  40 ec_c  1.00
+  comp    3  41 pom_f  1.00
+  comp    4  42 pom_c  1.00
+special   73 tnmvoc   11
+  comp    1   5 form  0.03
+  comp    2   6 ald  0.04
+  comp    3   8 mgly  0.07
+  comp    4   9 par  0.02
+  comp    5  10 ole  0.03
+  comp    6  11 eth  0.03
+  comp    7  12 tol  0.09
+  comp    8  13 cres  0.11
+  comp    9  14 xyl  0.11
+  comp   10  34 iso  0.07
+  comp   11  38 terp  0.14
+special   74 soxa    3
+  comp    1  16 so2  0.10
+  comp    2  15 so4a_f  1.00
+  comp    3  24 so4a_c  1.00
+special   75 noya    7
+  comp    1  32 hno3  0.06
+  comp    2   1 no2  0.06
+  comp    3   2 no  0.06
+  comp    4  20 no3  0.06
+  comp    5  23 n2o5  0.12
+  comp    6  26 no3a_f  1.00
+  comp    7  27 no3a_c  1.00
+special   76 nhxa    2
+  comp    1  19 nh3  0.02
+  comp    2  25 nh4a_f  1.00
+special   77 no2_obs    3
+  comp    1   1 no2  1.00
+  comp    2   7 pan  0.95
+  comp    3  32 hno3  0.35
+special   78 sia25    3
+  comp    1  15 so4a_f  1.00
+  comp    2  25 nh4a_f  1.00
+  comp    3  26 no3a_f  1.00
+---------------------------------------------------------------
+simulation will start at: 2019-02-01 00:00
+simulation will end at:      2019-02-04 00:00
+start date of the simulation at: 2019-02-01 00:00
+end date of the simulation at:   2019-02-04 00:00
+
+read landuse data base ...
+Merging LE Ensembles DC
