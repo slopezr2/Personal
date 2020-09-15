@@ -1,0 +1,431 @@
+Codigo,Estacion,Longitud,Latitud,Ciudad,Barrio,Comuna,Corregimiento,Vereda,Fecha_Instalacion,Estado
+1,Casa de Gobierno Altavista,-75.62820,6.22260,Medellin,,,70 Altavista,Altavista - Sector central,2009-11-19,Activa
+2,Escuela Rural La Verde,-75.64069,6.18686,Medellin,,,80 San Antonio de Prado,La Verde,2009-11-12,Activa
+3,Escuela Rural Yarumalito,-75.69397,6.23482,Medellin,,,80 San Antonio de Prado,Yarumalito,2009-11-12,Activa
+4,I.E Hector Rogelio Montoya,-75.69020,6.34310,Medellin,,,50 Palmitas,Palmitas - Sector Central,2009-11-26,Activa
+5,I.E Santa Elena,-75.49188,6.20622,Medellin,,,90 Santa Elena,Santa Elena Sector Central,2009-11-13,Activa
+6,Casa de Cultura Las Estancias,-75.53886,6.23405,Medellin,Villatina,08 Villa Hermosa,NULL,NULL,2009-11-17,Inactiva
+7,Escuela Republica de Cuba,-75.57721,6.29397,Medellin,La Esperanza,06 Doce Octubre,,,2009-11-17,Activa
+8,Escuela CEDEPRO,-75.63624,6.21959,Medellin,,,70 Altavista,Buga - Patio Bonito,2009-11-19,Activa
+9,Instituto Pedro Justo Berrio,-75.61199,6.23695,Medellin,Las Mercedes,16 Belen,,,2009-11-20,Activa
+10,Escuela Rural El Boqueron,-75.65763,6.31533,Medellin,,,60 San Cristobal,Boqueron,2009-11-20,Activa
+11,Escuela Rural Fabio Zuluaga,-75.65199,6.27301,Medellin,,,60 San Cristobal,La Palma,2009-11-20,Activa
+12,I.E Concejo de Medellin,-75.60050,6.25800,Medellin,La Floresta,12 La America,,,2009-11-23,Activa
+13,I.E Maria de los Angeles Cano,-75.54472,6.29231,Medellin,Granizal,01 Popular,NULL,NULL,2009-12-14,Inactiva
+14,Escuela El Triunfo ,-75.58469,6.30654,Medellin,El Triunfo,06 Doce Octubre,,,2009-11-23,Activa
+15,Colegio San Lucas ,-75.56556,6.18122,Medellin,San Lucas,14 El Poblado,,,2009-12-17,Activa
+16,I.E Ramon Munera Lopera,-75.54380,6.26932,Medellin,El Raizal,03 Manrique,,,2009-12-14,Activa
+17,Escuela El Corazon ,-75.62909,6.24753,Medellin,El Corazon,13 San Javier,,,2010-01-28,Activa
+18,Escuela El Salado,-75.67103,6.21113,Medellin,,,80 San Antonio de Prado,El Salado,2010-01-14,Activa
+19,Tecnologico Antioquia,-75.60374,6.17832,Itagui,Las Americas-Zona Industrial No. 1,,,,2010-01-14,Activa
+20,Fundacion Hogares Claret,-75.61075,6.29469,Medellin,,,60 San Cristobal,Pajarito,2010-01-18,Activa
+21,Escuela Rural San Jose de la Montana,-75.63913,6.30408,Medellin,,,60 San Cristobal,San Jose de la Montana,2010-01-18,Activa
+22,Escuela La Capilla del Rosario ,-75.60313,6.20603,Medellin,Belen Rincon,16 Belen,,,2010-01-28,Activa
+23,Instituto Jorge Robledo,-75.58161,6.25772,Medellin,Carlos E. Restrepo,11 Laureles - Estadio,,,2010-01-18,Activa
+24,I.E Republica de Uruguay,-75.57671,6.28427,Medellin,Alfonso Lopez,05 Castilla,,,2010-01-22,Activa
+25,Escuela Rural Astilleros,-75.66688,6.23977,Medellin,,,80 San Antonio de Prado,Astilleros,2010-03-12,Activa
+26,Escuela Rural El Plan,-75.51729,6.20526,Medellin,,,90 Santa Elena,El Plan,2010-01-22,Activa
+27,Centro de Salud San Javier La Loma,-75.63103,6.27178,Medellin,,,60 San Cristobal,La Loma,2010-01-25,Activa
+28,Liceo Salazar y Herrera,-75.60583,6.24867,Medellin,La America,12 La America,,,2010-01-25,Activa
+29,Escuela Marina Orth,-75.64377,6.23231,Medellin,,,70 Altavista,Aguas Frias,2010-01-25,Activa
+30,Salon Social Barbosa,-75.33045,6.43687,Barbosa,Centro,,,,2010-01-29,Activa
+31,Colegio Jose Manuel Sierra,-75.44583,6.37588,Girardota,Calle Bolivar,,,,2010-01-29,Activa
+32,Colegio Presbitero Bernardo Montoya ,-75.49858,6.35398,Copacabana,Maria,,,,2010-01-29,Activa
+33,Santa Maria Goretti,-75.63747,6.09446,Caldas,La Docena,,,,2010-02-01,Activa
+34,I.E La Doctora,-75.61315,6.14144,Sabaneta,Vegas de la Doctora,,,,2010-02-02,Activa
+35,I.E Joaquin Vallejo Arbelaez ,-75.54273,6.25513,Medellin,La Ladera,08 Villa Hermosa,,,2010-04-28,Activa
+36,Colegio Concejo de Itagui,-75.64460,6.16800,Itagui,Ditaires,Comuna 03,,,2010-03-27,Activa
+37,Liceo Fernando Velez,-75.56780,6.33755,Bello,El Carmelo,Comuna 05,,,2010-02-02,Activa
+38,Casa Cultura La Estrella,-75.64447,6.15553,La Estrella,La Chinca,,,,2010-02-05,Activa
+39,I.E Pedro Octavio Amado,-75.61056,6.22179,Medellin,Altavista,16 Belen,,,2010-04-30,Activa
+40,I.E Ciro Mendia,-75.55587,6.29009,Medellin,Moscu No1,02 Santa Cruz,,,2010-02-12,Activa
+41,Comisaria El Poblado,-75.56616,6.20661,Medellin,La Florida,14 El Poblado,,,2010-03-24,Activa
+42,Escuela Rural Piedras Gordas,-75.49844,6.23614,Medellin,,,90 Santa Elena,Piedras Gordas,2010-03-24,Activa
+43,Escuela Rural Quebrada Larga,-75.68567,6.20558,Medellin,,,80 San Antonio de Prado,Yarumalito,2010-05-03,Activa
+44,I.E Villa Turbay,-75.53024,6.23563,Medellin,Villa Turbay,08 Villa Hermosa,,,2010-04-28,Activa
+45,AMVA,-75.57414,6.24215,Medellin,Calle Nueva,10 La Candelaria,,,2010-08-31,Activa
+46,I.E La Milagrosa ,-75.55426,6.23506,Medellin,La Milagrosa,09 Buenos Aires,,,2010-04-30,Activa
+47,Villa Nueva Sede La Luz,-75.49659,6.38852,Copacabana,,,,Zarzal La Luz,2011-03-04,Activa
+48,Escuela Rural Santa Angela,-75.59467,6.30446,Medellin,,,60 San Cristobal,El Carmelo,2010-05-14,Activa
+49,Colegio Latino (Av. Las Palmas),-75.54590,6.21217,Medellin,,,90 Santa Elena,Las Palmas,2011-03-12,Activa
+50,Universidad CES (Sabaneta),-75.60475,6.15787,Sabaneta,Virgen del Carmen,,,,2011-03-12,Activa
+51,Represa La Garcia ,-75.60020,6.36190,Bello,,,,La Primavera,2011-03-04,Activa
+52,Centro Veterinario y de Zootecnia CES,-75.56175,6.14496,Envigado,,,,Perico,2011-03-10,Activa
+53,Colegio Eduardo Santos,-75.62938,6.25865,Medellin,Eduardo Santos,13 San Javier,,,2011-03-24,Activa
+54,I.E Juan Maria Cespedes,-75.59716,6.23529,Medellin,El Nogal - Los Almendros,16 Belen,,,2011-05-06,Activa
+55,I.E Reino de Belgica,-75.54001,6.28466,Medellin,Carambolas,03 Manrique,,,2011-03-23,Activa
+56,I.E Inem Jose Felix de Restrepo Sede Santa Catalina ,-75.56096,6.19978,Medellin,El Tesoro,14 El Poblado,,,2011-03-25,Activa
+57,Escuela la Clara,-75.61870,6.04200,Caldas,,,,La Clara,2012-03-23,Activa
+58,Escuela Luis Javier Garcia Isaza,-75.62430,6.04777,Caldas,,,,La Salada Parte Baja,2012-03-23,Activa
+59,ISAGEN,-75.55897,6.21394,Medellin,Las Lomas No2,14 El Poblado,,,2013-04-12,Activa
+60,Torre SIATA,-75.58890,6.25890,Medellin,Estadio,11 Laureles - Estadio,,,2012-03-07,Activa
+61,Planta de Agua Bocatoma,-75.64306,6.11986,La Estrella,,,,San Miguel,2012-03-20,Activa
+62,Gimnasio Cantabria,-75.64413,6.13718,La Estrella,Pueblo Viejo,,,,2012-03-03,Activa
+63,Las Flores,-75.45030,6.24800,Guarne,,,,San Jose,2012-04-07,Activa
+64,Ecoparque La Romera,-75.59756,6.12003,Sabaneta,,,,La Doctora,2012-08-29,Activa
+65,I.E Las Lomitas,-75.60128,6.14311,Sabaneta,,,,Las Lomitas,2012-03-09,Activa
+66,I.E San Andres (Sede El Socorro),-75.45212,6.41035,Girardota,,,,El Socorro,2012-05-09,Activa
+67,I.E Juan Echeverry Abad,-75.61478,6.18535,Itagui,,,,El Progreso,2012-03-16,Activa
+68,Jardin Botanico,-75.56270,6.26940,Medellin,Jardin Botanico,04 Aranjuez,,,2013-02-01,Activa
+69,Parque Biblioteca Espana,-75.54402,6.29499,Medellin,Santo Domingo Savio No. 1,01 Popular,NULL,NULL,2013-03-20,Inactiva
+70,Indural Km6 Medellin-Bogota,-75.52297,6.32645,Copacabana,,,,Rodas,2012-06-25,Activa
+71,CEFA,-75.56181,6.24641,Medellin,Boston,10 La Candelaria,,,2013-02-28,Activa
+72,Jose Miguel de Restrepo,-75.51014,6.37739,Copacabana,,,,La Veta,2012-06-25,Activa
+73,Ciudadela Educativa La Vida,-75.50475,6.34536,Copacabana,Cristo Rey,,,,2013-05-24,Activa
+74,Edificio Gaspar de Rodas - Bello,-75.55890,6.33610,Bello,Centro,Comuna 04,,,2013-05-27,Activa
+75,Institucion Educativa Rural El Tambo,-75.59311,6.43103,San Pedro,,,,El Tambo,2013-06-04,Activa
+76,I.E. Fontidueno,-75.53774,6.33411,Bello,Fontidueno,Comuna 10,,,2013-07-02,Activa
+77,Torre SIATA - Disdrometro,-75.58864,6.25922,Medellin,Estadio,11 Laureles - Estadio,,,2013-04-03,Activa
+78,Parque 3 Aguas - Disdrometro,-75.63536,6.09628,Caldas,,,,La Miel,2014-01-30,Activa
+79,Subestacion Santa Rosa de Osos - Disdrometro,-75.45786,6.63889,Santa Rosa de Osos,Avenida crespo,,,,2015-07-16,Activa
+80,Vivero EPM Piedras Blancas - Disdrometro,-75.49397,6.28328,Guarne,,,,Piedras Blancas,2013-07-23,Activa
+81,Bomberos Guayabal,-75.58697,6.21522,Medellin,Campo Amor,15 Guayabal,,,2013-06-28,Activa
+82,I.E Manuel Jose Caicedo,-75.32722,6.43498,Barbosa,Aguas Calientes,,,,2013-07-03,Activa
+83,Centro de salud San Javier la Loma,-75.63120,6.27200,Medellin,,,60 San Cristobal,La Loma,2013-07-11,Activa
+84,Escuela CEDEPRO,-75.63624,6.21959,Medellin,,,70 Altavista,Buga - Patio Bonito,2013-07-22,Inactiva
+86,Pajarito,-75.58864,6.25922,Medellin,Estadio,11 Laureles - Estadio,,,,Inactiva
+88,CUIDA Juan Cojo,-75.45098,6.35685,Girardota,,,,Juan Cojo,2013-11-07,Activa
+89,I.E Pedro Nel,-75.56784,6.31141,Medellin,Florencia,05 Castilla,,,2013-11-13,Activa
+90,Colegio Campestre el Encanto,-75.66133,6.19537,Medellin,,,80 San Antonio de Prado,El Salado,2013-12-03,Activa
+91,Estacion Metro Sabaneta,-75.61672,6.15753,Sabaneta,El Carmelo,,,,2014-03-14,Activa
+92,Altavista,-75.61586,6.22187,Medellin,,,70 Altavista,Altavista,2012-08-17,Activa
+93,Puente 33,-75.57750,6.23960,Medellin,Perpetuo Socorro,10 La Candelaria,,,2012-05-08,Activa
+94,Puente de la Aguacatala,-75.58156,6.19533,Medellin,Guayabal,15 Guayabal,,,2012-06-21,Activa
+95,Parque Lleras (Inmobiliaria Lleras),-75.56840,6.20740,Medellin,Parque Lleras,14 El Poblado,,,2012-06-21,Inactiva
+96,La Gomez,-75.59320,6.27390,Medellin,Robledo,07 Robledo,,,2011-11-03,Activa
+97,Parque de las Aguas-Nivel,-75.41860,6.40540,Barbosa,,,,Filo Verde,2011-10-19,Inactiva
+98,Estacion Metro Floresta,-75.59750,6.25850,Medellin,El Estadio,11 Laureles - Estadio,,,2011-09-30,Activa
+99,Aula Ambiental,-75.57253,6.26411,Medellin,El Chagualo,10 La Candelaria,,,2011-07-19,Activa
+100,Emergencia Metro,-75.58864,6.25922,,,,,,,Inactiva
+101,Parque lineal de la presidenta,-75.56911,6.20772,Medellin,El Poblado,14 El Poblado,,,2013-12-19,Activa
+102,Caldas-Unidad Deportiva,-75.63305,6.08825,Caldas,La Docena,,,,2013-12-23,Inactiva
+103,Parque del Artista  Itagui,-75.60361,6.17780,Itagui,,,,,2013-12-27,Inactiva
+104,Quebrada La Zuniga,-75.57951,6.18493,Medellin,Santa Maria de los Angeles,14 El Poblado,,,2013-12-27,Activa
+105,Parque 3 Aguas,-75.63536,6.09628,Caldas,,,,La Miel,2014-01-16,Activa
+106,3 Aguas - Nivel,-75.63526,6.09602,Caldas,La Inmaculada,,,,2014-01-16,Activa
+107,Fundacion Hogares Claret - Humedad,-75.61075,6.29469,Medellin,,,60 San Cristobal,Pajarito,2014-01-21,Activa
+108,Santa Rita - San Antonio de Prado,-75.65154,6.19057,Medellin,,,80 San Antonio de Prado,La Verde,2014-03-10,Activa
+109,La Doctora - Sabaneta,-75.61651,6.14556,Sabaneta,Vegas de la Doctora,,,,2014-03-11,Activa
+110,Q. La Iguana,-75.60525,6.27612,Medellin,Fuente Clara,07 Robledo,,,2014-04-11,Inactiva
+111,Q. Santa Elena,-75.55400,6.24350,Medellin,Sucre,08 Villa Hermosa,,,2014-04-08,Inactiva
+112,Cantera Cimax - Humedad,-75.54628,6.31123,Bello,Santa Rita,,,Granizal,,Inactiva
+115,Q. Ayura,-75.58061,6.17044,Envigado,Los Naranjos,,,,2014-07-10,Inactiva
+116,Q. Picacha,-75.58503,6.24214,Medellin,Conquistadores,11 Laureles - Estadio,,,2014-07-13,Activa
+117,Q. Chachafruto,-75.57370,6.37320,Bello,,,,Vereda Tierra Adentro,2015-08-26,Inactiva
+118,Colegio Waldorf Isolda Echavarria,-75.64743,6.15926,La Estrella,Bellavista,,,,2014-09-26,Activa
+120,Caldas-Unidad Deportiva,-75.63305,6.08825,Caldas,La Docena,,,,2014-11-24,Inactiva
+121,I.E Barrio Paris,-75.58156,6.31375,Bello,Paris,Comuna 01,,,2014-11-26,Activa
+122,Tasajera,-75.43522,6.42450,Barbosa,,,,El Tigre,2014-12-05,Activa
+123,Q. La Iguana,-75.60525,6.27612,Medellin,Fuente Clara,07 Robledo,,,2015-01-15,Inactiva
+124,Caldas-Unidad Deportiva,-75.63305,6.08825,Caldas,La Docena,,,,2015-01-28,Activa
+125,Cedro Verde - Humedad,-75.54473,6.15922,Medellin,,,,,,Inactiva
+126,Puente de Machado,-75.53783,6.33600,Bello,Machado,Comuna 10,,,2015-04-07,Inactiva
+127,I.E. Manuel Jose Sierra - Sede la Holanda,-75.48325,6.41933,Girardota,,,,La Holanda- parte alta,2015-04-07,Activa
+128,La Garcia,-75.56572,6.34378,Bello,Playa Rica,Comuna 06,,,2015-04-16,Activa
+129,Colegio Divino Salvador,-75.54839,6.23708,Medellin,Miraflores,09 Buenos Aires,,,2015-04-23,Activa
+130,El Hato,-75.55853,6.32950,Bello,Puerto Bello,,,,2015-04-23,Inactiva
+131,Parque de las aguas - Disdrometro,-75.41947,6.40626,Barbosa,,,,Filo Verde,2015-04-28,Inactiva
+132,Puente de Machado,-75.53783,6.33600,Bello,Fontidueno,Comuna 8,,,2015-04-28,Inactiva
+133,Vereda el perico - Humedad,-75.50711,6.19133,Envigado,,,,El Perico,2015-05-08,Inactiva
+134,Q. La Madera - Nivel,-75.56989,6.31108,Bello,Barrio Nuevo,Comuna 02,,,2015-05-08,Activa
+135,Q. La loca - Nivel,-75.56089,6.32369,Bello,San Jose Obrero,Comuna 03,,,2015-05-21,Activa
+136,Salgar Puente Hospital - Nivel,-75.98033,5.96486,Salgar,,,,,2015-05-22,Inactiva
+136,Salgar Puente Hospital,-75.98020,5.96480,Salgar,,,,,2015-05-22,Inactiva
+137,Vereda Liboriana - Nivel,-76.03139,5.95706,Salgar,,,,Vereda Liboriana,2015-05-23,Inactiva
+138,Vereda Liboriana,-76.03150,5.95706,Salgar,,,,Vereda Liboriana,2015-05-23,Inactiva
+139,Santa Rita Guatape - Disdrometro,-75.17269,6.31756,Guatape,,,,Santa Rita,2015-05-28,Activa
+140,Puente Fundadores Copacabana,-75.49881,6.35797,Copacabana,La Maria,,,,2015-06-12,Activa
+141,Finca El Canalon Deslizamiento,-75.60794,6.12931,Sabaneta,,,,,2015-06-23,Inactiva
+142,Finca El Canalon Corona,-75.60789,6.12917,Sabaneta,,,,,2015-06-23,Inactiva
+143,Q. La Doctora Aguas Arriba,-75.60903,6.13553,Sabaneta,,,,La Doctora,2015-06-24,Activa
+144,Q. El Canalon,-75.60778,6.13403,Sabaneta,,,,La Doctora,2015-06-24,Inactiva
+145,Q. La Sabanetica,-75.62281,6.14736,Sabaneta,Prados de Sabaneta,,,,2015-07-03,Activa
+146,Club del adulto mayor - Sabaneta,-75.62225,6.14731,Sabaneta,Prados de Sabaneta,,,,2015-07-21,Activa
+147,Bocatoma el viento - nivel,-75.31006,6.41392,Barbosa,,,,Ventanas,2015-07-22,Inactiva
+148,Bocatoma las despensas,-75.67608,6.19000,Medellin,NULL,,80 San Antonio de Prado,Montanita,2015-07-24,Inactiva
+150,Canada Negra - Nivel,-75.55056,6.30669,Bello,Santa Rita,Comuna 11,,,2015-08-05,Activa
+151,Seminario Redemptoris Mater,-75.53711,6.22417,Medellin,NULL,NULL,90 Santa Elena,Las Palmas,2015-08-18,Inactiva
+152,Q. Ana Diaz,-75.60944,6.24603,Medellin,Barrio Cristobal,12 La America,,,2015-08-24,Activa
+153,Bocatoma la Cascada,-75.51181,6.22706,Medellin,NULL,NULL,90 Santa Elena,Vereda Media Luna,2015-09-03,Inactiva
+154,Centro de desarrollo infantil pequenos exploradores,-75.54792,6.30964,Bello,Santa Rita,Comuna 11,,,2015-09-17,Activa
+155,El Hato,-75.55853,6.32950,Bello,Puerto Bello,Comuna 04,,,2015-09-23,Activa
+156,Carmen de Viboral - Disdrometro,-75.30506,6.08550,Carmen de Viboral,,,,Viboral,2015-09-24,Inactiva
+157,Aula Ambiental - Velocidad Superficial,-75.57253,6.26411,Medellin,El Chagualo,07 Robledo,,,2015-10-01,Inactiva
+158,Q. La Rosa,-75.55533,6.28919,Medellin,Villa Guadalupe,01 Popular,,,2015-10-07,Activa
+159,Samana - Disdrometro,-74.99511,5.44064,Samana,,,,La Palma,2015-09-24,Activa
+160,Samana - Pluviometro,-74.99511,5.44064,Samana,,,,La Palma,2015-10-16,Activa
+161,Q. La Chocha,-75.64380,6.15398,La Estrella,Caqueta,,,,2015-11-23,Activa
+162,Q. El Tablazo,-75.61275,6.18111,Itagui,El Progreso,,,,2015-11-23,Inactiva
+163,Q. La Munoz,-75.62545,6.16687,Itagui,,,,,2015-11-20,Inactiva
+164,Planta de potabilizacion de barbosa,-75.32492,6.43003,Barbosa,,,,,2016-01-07,Inactiva
+165,Santa Rosa de Osos - Pluvio,-75.45786,6.63889,Santa Rosa de Osos,Avenida crespo,,,,2016-03-01,Activa
+166,Q. El Chocho,-75.63162,6.22312,Medellin,,,70 Altavista,Altavista - Sector Central,2016-02-02,Activa
+167,Ancon Sur,-75.62672,6.15300,Medellin,Zona Industrial,,,,2016-01-10,Inactiva
+168,Santa Rita Guatape - Pluvio,-75.17269,6.31756,Guatape,,,,Santa Rita,2016-02-29,Activa
+169,Rio Medellin - La Clara,-75.61945,6.04997,Caldas,,,,La Clara,2016-02-11,Activa
+170,Metro Poblado - Nivel,-75.57810,6.21287,Medellin,Patio Bonito,14 El Poblado,,,2016-04-02,Inactiva
+171,Escombrera Mocatan - Pluvio,-75.62875,6.06063,Caldas,,,,La Clara,2016-02-29,Activa
+172,Escombrera Mocatan - Nivel,-75.62875,6.06063,Caldas,,,,La Clara,2016-04-01,Inactiva
+173,Q. Picacha - Aguas Frias,-75.63967,6.23148,Medellin,,,70 Altavista,Aguas Frias,2016-04-28,Activa
+174,Q. La Sanin,-75.54610,6.20300,Medellin,,,90 Santa Elena,Las Palmas,2016-05-11,Inactiva
+174,Q. La Sanin,-75.54610,6.20300,Medellin,,,90 Santa Elena,Las Palmas,2016-05-11,Inactiva
+175,Q. La Honda - C. Bravo M.,-75.55728,6.26610,Medellin,Manrique Central No. 1,4 Aranjuez,,,2016-05-13,Inactiva
+176,Altavista - Velocidad Superficial,-75.61586,6.22187,Medellin,,,70 Altavista,Altavista,2016-06-10,Inactiva
+177,3 Aguas - Velocidad Superficial,-75.63526,6.09602,Caldas,,,,La Miel,2016-06-10,Inactiva
+178,Q. La Honda - C. Bravo M.,-75.55728,6.26610,Medellin,Manrique Central No. 1,4 Aranjuez,,,2016-05-13,Inactiva
+179,La Inmaculada - Nivel,-75.63350,6.13668,La Estrella,,,,Pan de Azucar,2016-09-23,Activa
+181,Q. La grande - Vivero Ancon Sur,-75.63517,6.15052,La Estrella,,,,Pueblo Viejo,2016-11-23,Activa
+182,Q. Santa Elena,-75.55400,6.24350,Medellin,Sucre,08 Villa Hermosa,,,2016-11-25,Activa
+183,Q. la Ayura - Ecoparque el Salado,-75.56922,6.13868,Envigado,,,,Pantanillo,2016-12-20,Activa
+184,Miraflores,-75.54918,6.23002,Medellin,Cataluna,09 Buenos Aires,,,2017-01-17,Activa
+185,Puente de los Fundadores - Velocidad Superficial,-75.49882,6.35804,Copacabana,,,,,2017-02-10,Inactiva
+186,Q. La Gallinaza,-75.32771,6.43292,Barbosa,,,,Buenos Aires,2017-04-07,Activa
+187,Q. La Sanin - Nivel,-75.54610,6.20300,Medellin,,,90 Santa Elena,Las Palmas,2017-06-27,Activa
+188,Humedad La Sanin,-75.54610,6.20300,Medellin,,,90 Santa Elena,Las Palmas,2017-06-25,Activa
+189,Q. La Sanin - Pluviografica,-75.54610,6.20300,Medellin,,,90 Santa Elena,Las Palmas,2017-07-14,Activa
+190,El Santuario - Pluvio,-75.27438,6.13384,El Santuario,,,,El Saladito,2017-07-15,Activa
+191,El Santuario - Disdrometro,-75.27438,6.13384,El Santuario,,,,El Saladito,2017-07-15,Activa
+192,Q. dona Ana - Nivel,-75.61044,6.13909,Sabaneta,,,,La Doctora,2017-07-19,Activa
+193,Fuente Clara - Pluviometro,-75.61284,6.13266,Sabaneta,,,,La Doctora,2017-07-18,Activa
+194,Cocorna - Pluvio,-75.21106,6.07951,Cocorna,,,,Mediacuesta,2017-07-24,Activa
+195,La Ceja - Nivel,-75.42863,6.02940,La Ceja,Cabecera,,,,2017-08-01,Activa
+196,Rionegro - Nivel,-75.36133,6.17863,Rionegro,,,,La Laja,2017-08-30,Activa
+197,Universidad de Medellin - Meteorologia,-75.60996,6.23018,Medellin,Las Violetas,16 Belen,,,2017-08-16,Activa
+198,Politecnico Jaime Isaza Cadavid - Meteorologica,-75.57777,6.20897,Medellin,Patio Bonito,14 El Poblado,,,2017-08-10,Activa
+199,Rionegro - Thies,-75.37253,6.16906,Rionegro,,,,La Laja,2017-08-28,Activa
+201,Torre SIATA,-75.58864,6.25922,Medellin,Estadio,11 Laureles - Estadio,,,2012-12-28,Activa
+202,AMVA,-75.57430,6.24215,Medellin,Calle Nueva,10 La Candelaria,,,2012-10-30,Activa
+203,UNAL-Sede Agronomia,-75.57780,6.26075,Medellin,La Iguana,07 Robledo,,,2012-10-30,Activa
+204,Parque de las Aguas,-75.41947,6.40626,Barbosa,,,,Vereda Filo Verde,2012-11-23,Inactiva
+205,Santa Elena-Radar,-75.52760,6.19350,Medellin,,,90 Santa Elena,El Plan,2012-11-01,Activa
+206,Colegio Concejo de Itagui,-75.64410,6.16810,Itagui,Ditaires,,,,2012-11-06,Activa
+207,Vivero EPM Piedras Blancas,-75.49397,6.28328,Guarne,,,,Piedras Blancas,2013-02-25,Activa
+210,Telemedellin-Poblado,-75.57581,6.18699,Medellin,El Diamante No. 2,14 El Poblado,,,2012-12-07,Inactiva
+211,La Ladera,-75.55403,6.25119,Medellin,La Ladera,08 Villa Hermosa,,,2012-12-10,Activa
+213,Ciudadela del Valle Itagui,-75.60175,6.18697,Itagui,,,,,,Inactiva
+227,Sonson - Pluvio,-75.31297,5.71842,Sonson,Centro,,,,2017-08-29,Activa
+228,Sonson - Disdrometro,-75.31297,5.71842,Sonson,Centro,,,,2017-08-29,Activa
+229,Alcaldia La Estrella - Thies,-75.64162,6.15814,La Estrella,El Dorado,,,,2017-08-31,Activa
+230,Alcaldia La Estrella - Pluvio,-75.64162,6.15814,La Estrella,El Dorado,,,,2017-08-30,Activa
+231,Alcaldia La Estrella - Disdrometro,-75.64162,6.15814,La Estrella,El Dorado,,,,2017-08-30,Activa
+233,I.E Manuel Jose Caicedo - Disdrometro,-75.32722,6.43498,Barbosa,Aguas Calientes,,,,2017-09-18,Activa
+234,I.E Manuel Jose Caicedo - Pluviometro,-75.32722,6.43498,Barbosa,Aguas Calientes,,,,2017-09-18,Activa
+235,Quebrada Larga - Humedad,-75.68567,6.20558,Medellin,,,80 San Antonio de Prado,Yarumalito,2017-09-18,Activa
+236,Q. Dona Maria,-75.59789,6.18104,Itagui,Santa Maria No. 2,,,,2017-09-19,Activa
+237,Astilleros - Humedad,-75.66688,6.23977,Medellin,,,80 San Antonio de Prado,El Astillero,2017-09-21,Activa
+238,Q. La Iguana - Nivel,-75.60571,6.27596,Medellin,Blanquizal,13 San Javier,,,2017-09-25,Activa
+239,Piedras Blancas - Nivel,-75.51070,6.34629,Copacabana,Simon Bolivar,,,,2017-10-03,Activa
+240,Q. La Valeria - Nivel,-75.64491,6.09199,Caldas,,,,La Valeria,2017-10-05,Activa
+241,Sede Social Picacho Las Vegas,-75.58661,6.29803,Medellin,Picachito,06 Doce Octubre,,,2017-10-12,Activa
+242,IE Jesus Maria Valle,-75.58216,6.30065,Medellin,Picacho,06 Doce Octubre,,,2017-10-17,Activa
+243,Unisabaneta-Caequinos - Humedad,-75.60450,6.13773,Sabaneta,,,,La Doctora,2017-04-17,Inactiva
+244,Bomberos Envigado - Pluvio,-75.60088,6.16663,Envigado,Las Vegas,,,,2017-10-20,Activa
+245,Q. La miel - Nivel,-75.62083,6.10140,Caldas,,,,La Miel,2017-10-25,Activa
+246,Q. La Raya - Nivel,-75.64090,6.11194,La Estrella,,,,La Raya,2017-10-31,Activa
+247,Q. El Tablazo - Nivel,-75.61275,6.18111,Itagui,El Progreso,,,,2017-11-01,Activa
+248,Vivero EPM Piedras Blancas - Pluvio,-75.49397,6.28328,Guarne,,,,Piedras Blancas,2017-11-03,Activa
+249,Escuela CEDEPRO,-75.63624,6.21959,Medellin,,,70 Altavista,Buga - Patio Bonito,2017-11-17,Activa
+251,Q.  la Lopez - Nivel,-75.32500,6.42972,Barbosa,,,,Buenos Aires,2017-11-08,Activa
+252,Alcaldia Envigado - Meteorologica,-75.58830,6.16990,Envigado,Centro,,,,2017-04-24,Activa
+253,Parque 3 Aguas - Pluvio,-75.63536,6.09628,Caldas,,,,La Miel,2017-11-14,Activa
+254,SOS Aburra Norte - Girardota - Meteorologica,-75.45091,6.37904,Girardota,Juan XXIII,,,,2017-11-15,Activa
+256,Puerto Triunfo - Pluviometro,-74.64149,5.86831,Puerto Triunfo,Cabecera,,,,2017-11-22,Activa
+257,Puerto Triunfo - Disdrometro,-74.64149,5.86831,Puerto Triunfo,Cabecera,,,,2018-06-13,Activa
+259,Andalucia Caldas - Nivel,-75.62651,6.09259,Caldas,Andalucia,,,,2017-11-28,Activa
+260,Puente Gabino - Nivel,-75.20589,6.55962,Barbosa,,,,El Caney,2017-11-29,Activa
+261,Deslizamiento La raya - Pluviografica,-75.64810,6.11380,La Estrella,,,,La Raya,2017-11-30,Activa
+263,La clara digital- Pluviografica,-75.61976,6.04869,Caldas,,,,La Clara,2017-12-14,Inactiva
+265,Q. La loca El cafetal - Nivel,-75.58002,6.31582,Bello,Paris,Comuna 01,,,2017-12-14,Activa
+266,Himalaya - Pluvio,-75.63962,6.14716,La Estrella,,,,Pueblo Viejo,2017-12-18,Activa
+267,Colegio Canadiense - Pluviografica,-75.63836,6.13166,La Estrella,,,,Penas Blancas,2017-12-18,Activa
+268,Q La Bermejala - Nivel,-75.63570,6.13278,La Estrella,,,,La Tablaza,2017-12-20,Activa
+269,Parque de las aguas - Thies,-75.41947,6.40626,Barbosa,,,,Filo Verde,2018-01-04,Activa
+271,Jorge Eliecer Gaitan - Thies,-75.55866,6.33711,Bello,Centro,Comuna 04,,,2018-01-04,Activa
+272,Q. el salado - Vereda Jamundi - Nivel ,-75.43395,6.35790,Girardota,,,,Jamundi,2018-01-05,Activa
+273,Q. Mal Paso - Nivel,-75.58707,6.28231,Medellin,El Diamante,07 Robledo,,,2018-01-15,Activa
+274,Carpinelo amapolita - Pluvio,-75.53819,6.28710,Medellin,Carpinelo,01 Popular,,,2018-01-19,Activa
+275,Q. La loca El cafetal - Pluvio,-75.58002,6.31582,Bello,Paris,Comuna 01,,,2018-01-16,Activa
+278,Vereda Potrerito - Pluviografica,-75.32106,6.42525,Barbosa,,,,Potrerito,2018-01-31,Activa
+281,Megacolegio - Pluviografica,-75.58497,6.31016,Bello,Paris,Comuna 01,,,2018-02-15,Activa
+282,La isla - Pluviografica,-75.57313,6.31096,Bello,La Maruchenga,Comuna 01,,,2018-02-16,Activa
+283,Q. Montanita - Nivel,-75.57703,6.31202,Bello,Paris,Comuna 01,,,2018-02-19,Activa
+284,El remanso - Nivel,-75.57536,6.14485,Envigado,,,,Perico,2018-04-13,Activa
+286,Represa piedras blancas - Nivel,-75.50381,6.29692,Guarne,,,,Piedras Blancas,2018-02-28,Activa
+287,Represa piedras blancas - Pluvio,-75.50381,6.29692,Guarne,,,,Penas Blancas,2018-02-22,Activa
+288,Colegio Waldorf - Pluviografica,-75.64743,6.15926,La Estrella,Pueblo viejo,,,,2018-03-21,Activa
+289,Seminario Redemptoris - Pluviografica,-75.53711,6.22417,Medellin,,,90 Santa Elena,Las Palmas,2018-03-22,Activa
+290,Q Yerbabuena - Nivel,-75.56105,6.21154,Medellin,Las Lomas No.1,14 El Poblado,,,2018-04-05,Activa
+295,Laguna Quitasol - Pluviografica,-75.55572,6.35789,Bello,,,,Tierradentro,2018-04-23,Activa
+296,Laguna Quitasol - Humedad,-75.55572,6.35789,Bello,,,,laguna Quita sol,2018-04-23,Activa
+297,Q. La Valeria - Calidad del Agua,-75.64822,6.09492,Caldas,,,,La Valeria,2018-04-24,Inactiva
+298,Torre SIATA - Pluvio OTT,-75.58890,6.25890,Medellin,Estadio,11 Laureles - Estadio,,,2018-05-02,Inactiva
+302,Ituango - Nivel,-75.64523,7.13905,Ituango,,,,,2018-05-11,Activa
+303,Campamento Villa Luz - Meteorologica,-75.67957,7.12582,Ituango,,,,,2018-05-11,Inactiva
+305,Tunel vial (salida) - Thiess,-75.65615,7.13693,Ituango,,,,,2018-05-17,Inactiva
+306,Tunel vial (salida a presa) - Meteorologica,-75.67959,7.12582,Ituango,,,,,2018-05-18,Inactiva
+307,Tunel vial (acceso) - Meteorologica,-75.66176,7.12333,Ituango,,,,,2018-05-18,Inactiva
+308,Pozo de humos - Meteorologica,-75.67957,7.12582,Ituango,,,,,2018-05-19,Inactiva
+309,Pozo de aireacion de almaneras - Meteorologica,-75.67957,7.12582,Ituango,,,,,2018-05-19,Inactiva
+310,Subestacion Boxculvert - Meteorologica,-75.67957,7.12582,Ituango,,,,,2018-05-19,Inactiva
+311,Casa Siata - Pluviografica,-75.57971,6.19603,Medellin,Aguacatala,14 El Poblado,,,2018-06-05,Inactiva
+312,Pozo compuertas - Meteorologica,-75.65997,7.13147,Ituango,,,,,2018-05-24,Inactiva
+313,La Ye - Meteorologica,-75.55064,6.18254,Medellin,,,90 Santa Elena,Las Palmas,2018-05-29,Activa
+315,Casa Siata - Disdrometro,-75.57971,6.19603,Medellin,Aguacatala,14 El Poblado,,,2018-06-05,Inactiva
+316,Q. El Hato - Espiritu Santo,-75.56638,6.33244,Bello,Espiritu Santo,Comuna 04,,,2018-07-30,Activa
+317,Q. Avelina - Hato Viejo,-75.57277,6.33748,Bello,,,,Hato Viejo,2018-06-07,Activa
+318,Institucion Rafael J. Mejia - Thies,-75.62139,6.14564,Sabaneta,Tres Esquinas,,,,2018-06-14,Activa
+319,Institucion Educativa Colombia. Girardota - Thiess,-75.44399,6.37852,Girardota,Aurelio Mejia,,,,2018-06-19,Activa
+320,Palmitas potrera - Pluvio,-75.69977,6.35665,Medellin,,,50 Palmitas,Potrero - Miseranga,2018-06-27,Activa
+322,Metro la estrella - Meteorologica,-75.62749,6.15231,Sabaneta,Ancon Sur,,,,2018-06-29,Activa
+323,Acueducto Hatillo - Pluviografica,-75.39733,6.42214,Barbosa,,,,Hatillo,2018-07-17,Activa
+324,E.R Jamundi - Pluviografica,-75.43623,6.36452,Girardota,,,,Jamundi,2018-07-17,Activa
+326,Q. la guayabala - Nivel,-75.61354,6.20612,Medellin,,,70 Altavista,San Jose del Manzanillo,2018-08-01,Activa
+327,San Jose de las Vegas - Pluviografica,-75.53833,6.12000,El Retiro,,,,Carrizales,2018-08-08,Activa
+328,Escuela Ingenieros Envigado - Pluviografica,-75.51694,6.15667,Envigado,,,,Santa Catalina,2018-08-09,Activa
+329,Cascada Santa Elena  - Nivel,-75.51254,6.22664,Medellin,,,90 Santa Elena,La Ladera,2018-08-24,Activa
+331,Ancon Sur - Nivel,-75.62816,6.15296,La Estrella,Zona Industrial,,,,2018-09-03,Activa
+332,Presidenta Puente Peatonal Exito - Nivel,-75.57584,6.21095,Medellin,Patio Bonito,14 El Poblado,,,2018-09-12,Activa
+333,La presidenta Vizcaya - Nivel,-75.56574,6.20747,Medellin,El Poblado,14 El Poblado,,,2018-09-17,Activa
+334,Manuel Mejia Vallejo - pluviografica,-75.56505,6.16734,Envigado,Loma El Atravesado,,,,2018-09-18,Activa
+335,Q. La Ayura Las Vegas  - Nivel,-75.58297,6.18519,Envigado,Villagrande,,,,2018-10-23,Activa
+337,Bulerias - Alcantarillado,-75.59013,6.23911,Medellin,Belen,16 Belen,,,2018-10-30,Activa
+339,Ecoparque el Salado - Pluviografica,-75.56922,6.13868,Envigado,,,,Pantanillo,2018-11-23,Activa
+340,Q. Dona Maria - Temperatura,-75.59789,6.18104,Itagui,Santa Maria No. 3,,,,2018-12-12,Activa
+342,Hatillo - rio Medellin-Aburra,-75.39381,6.41249,Barbosa,,,,Hatillo,2018-12-04,Activa
+344,La harenala santa Maria - Nivel,-75.60391,6.18417,Itagui,Santa Maria No. 1,,,,2018-12-05,Activa
+345,Villa del Socorro - Meteorologica,-75.55392,6.29552,Medellin,Villa del Socorro,02 Santa Cruz,,,2019-01-18,Activa
+346,Puente machado  - Nivel,-75.53776,6.33590,Bello,Machado,Comuna 10,,,2019-01-23,Activa
+347,Monte Alvernia,-75.60539,6.31041,Bello,,,,El Carmelo,2019-02-05,Inactiva
+349,Institucion Educativa La Candelaria - Meteorologica,-75.54589,6.29647,Medellin,Santo Domingo Savio,01 Popular,,,2019-01-30,Activa
+351,Radar de Vientos -  Disdrometro,-75.58990,6.22930,Medellin,Belen Las Playas,16 Belen,,,2019-01-31,Activa
+352,Institucion Educativa La Candelaria - Pluviografica,-75.54589,6.29647,Medellin,Santo Domingo Savio,01 Popular,,,2019-02-01,Activa
+353,Villa del Socorro - Pluviografica,-75.55392,6.29552,Medellin,Villa del Socorro,02 Santa Cruz,,,2019-02-01,Activa
+354,Villa Niza - Meteorologica,-75.55678,6.29514,Medellin,Villa Niza,02 Santa Cruz,,,2019-02-08,Activa
+355,Escuela Piedras Gordas - Meteorologica,-75.49844,6.23614,Medellin,,,90 Santa Elena,Piedras Gordas,2019-02-12,Activa
+356,Villa Niza - Pluviografica,-75.55678,6.29514,Medellin,Villa Niza,02 Santa Cruz,,,2019-02-08,Activa
+357,Thies Concejo de Itagui - Meteorologica,-75.64410,6.16810,Itagui,Ditaires,,,,2019-02-26,Inactiva
+359,Puente Peatonal Acevedo- Nivel,-75.55682,6.30689,Medellin,La Frontera,02 Santa Cruz,,,2019-02-27,Activa
+360,Thies Miraflores- Meteorologica,-75.54919,6.22997,Medellin,Cataluna,09 Buenos Aires,,,2019-02-27,Activa
+362,Proyecto Amsterdam,-75.55743,6.20131,Medellin,El Tesoro,14 El Poblado,,,2019-03-05,Activa
+365,Escuela Rural Yarumalito - Disdrometro,-75.69397,6.23482,Medellin,,,80 San Antonio de Prado,Yarumalito,2019-03-07,Activa
+367,Joaquin Vallejo - Meteorologica,-75.54273,6.25513,Medellin,La Ladera,08 Villa Hermosa,,,2019-03-18,Activa
+368,Federico carrasquilla - Meteorologica,-75.54927,6.29722,Medellin,Popular,01 Popular,,,2019-03-29,Activa
+369,Metro la estrella - Pluviografica,-75.62749,6.15231,Sabaneta,Ancon Sur,,,,2019-04-08,Activa
+370,Metro la estrella - Disdrometro,-75.62749,6.15231,Sabaneta,Ancon Sur,,,,2019-04-08,Activa
+372,Comfama Copacabana - Extensometro,-75.48344,6.37659,Medellin,,,,,2019-05-03,Inactiva
+373,Comfama Copacabana - Pluviografica,-75.48344,6.37659,Copacabana,,,Ancon Norte,,2019-05-03,Activa
+374,Comfama copacabana - acelerometro,-75.48282,6.37647,Copacabana,,,,,2019-05-06,Inactiva
+375,Comfama copacabana - gnss,-75.48282,6.37647,Copacabana,,,,,2019-05-07,Inactiva
+376,Feria de Ganado - Pluviografica,-75.56123,6.30302,Medellin,Belalcazar,5 Castilla,,,2019-05-14,Activa
+377,Bulerias - Alcantarillado Lidar,-75.59290,6.23970,Medellin,,,,,2019-05-16,Activa
+378,Edificio camacol - Pluviografica,-75.57859,6.25393,Medellin,Naranjal,11 Laureles - Estadio,,,2019-06-04,Activa
+379,Ancon 2 Copacabana - acelerometro,0.00000,0.00000,Copacabana,,,,,2019-06-05,Activa
+381,Salinas Caldas - Acelerometro,0.00000,0.00000,Caldas,,,,,2019-06-14,Inactiva
+382,picacha las violetas- Nivel,-75.61252,6.23465,Medellin,Las Violetas,16 Belen,NULL,NULL,2019-06-14,Activa
+383,Salinas Caldas - Pluviografica,-75.66264,6.04833,Caldas,,,,Salinas,2019-06-14,Activa
+384,Salinas Caldas - Extensometro,-75.66264,6.04833,Caldas,,,,,2019-06-19,Inactiva
+385,Ancon 2 - Extensometro,-75.48245,6.37822,Copacabana,,,,,2019-07-11,Activa
+386,Ancon 2 - GNSS,-75.48250,6.37783,Copacabana,,,,,2019-07-11,Activa
+387,El Tesoro - Extensometro,-75.45892,6.35169,Girardota,,,,,2019-08-01,Activa
+388,Torre Siata Piso 2 - Meteorologica,-75.58864,6.25922,Medellin,Estadio,11 Laureles - Estadio,,,2019-08-06,Inactiva
+389,El Tesoro - Pluviografica,-75.45892,6.35169,Girardota,,,,Manga Arriba,2019-08-09,Activa
+390,El Tesoro - Acelerometro,-75.45892,6.35169,Girardota,,,,,2019-08-09,Activa
+391,PTAR Aguas Claras - Nivel,-75.53034,6.34183,Bello,Navarra,Comuna 9,,,2019-08-26,Inactiva
+392,Universidad San buenaventura - Pluviografica,-75.57011,6.33092,Bello,,Comuna 03,,,2019-09-09,Activa
+393,Deprimido terminal del norte - Pluviografica,-75.57275,6.27608,Medellin,,05 Castilla,,,2019-09-20,Activa
+394,Deprimido los musicos - Pluviografica,-75.58184,6.24745,Medellin,San Joaquin,11 Laureles - Estadio,,,2019-09-20,Activa
+395,La harenala santa Maria - Pluviografica,-75.60391,6.18417,Itagui,Santa Maria No. 1,,70 Altavista,El Progreso,2019-09-24,Activa
+396,Quebrada Larga Stevens,-75.68567,6.20558,Medellin,,,80 San Antonio de Prado,Yarumalito,2020-06-19,Activa
+397,Concejo de Itagui - Thiess,-75.64410,6.16810,Itagui,Ditares,,,,2019-09-27,Activa
+398,El tesoro 2 - Extensometro,-75.45892,6.35169,Girardota,,,,,2019-10-01,Activa
+399,Institucion Educativa Jesus Maria Valle - Meteorologica,-75.58223,6.30053,Medellin,Picacho,06 Doce de Octubre,,,2019-10-09,Activa
+401,Alcantarillado feria ganado - Nivel,-75.56230,6.30310,Medellin,Boyaca,05 Castilla,,,2019-10-11,Activa
+402,8 de marzo - Nivel,-75.52972,6.23017,Medellin,Juan Pablo II,09 Buenos Aires,NULL,NULL,2019-09-25,Activa
+403,Puerto Triunfo - Meteorologica,-74.64149,5.86831,Puerto Triunfo,,,,,2019-10-17,Activa
+404,Santa Elena Km11 - Nivel,-75.50208,6.21211,Medellin,,,90 Santa Elena,Santa Elena - Sector Central,2019-10-23,Activa
+405,Quebrada san Alejo - Nivel,-75.62004,6.14873,Sabaneta,,,,,2019-11-01,Activa
+406,El Plebiscito - Nivel,-75.62144,6.15227,Sabaneta,,,,,2019-11-01,Activa
+407,Jerico - Pluviografica,-75.78706,5.79349,Jerico,,,,,2019-11-05,Activa
+409,Extensometro Planta - Jerico,-75.78984,5.79312,Jerico,,,,,2019-11-12,Inactiva
+410,Acelerometro  Planta - Jerico,-75.78984,5.79312,Jerico,,,,,2019-11-12,Activa
+411,Extensometro Tanque - Jerico,-75.78935,5.79274,Jerico,,,,,2019-11-13,Inactiva
+412,Alcaldia Taraza - Meteorologica,-75.40034,7.58075,Taraza,,,,,2019-11-18,Activa
+413,Bomberos Caucasia - Meteorologica,-75.17956,7.96742,Caucasia,,,,,2019-11-28,Activa
+414,caucasia- Nivel,-75.18628,7.96989,Caucasia,,,,,2019-12-02,Activa
+416,Salada Parte Alta - Disdrometro,-75.61831,6.01689,Caldas,,,,Salada Parte Alta,2019-12-10,Activa
+417,Santa Elena Radar - Disdrometro,-75.52760,6.19350,Medellin,,,90 Santa Elena,El Plan,2019-12-11,Activa
+418,Montanita San Antonio - Pluviografica,-75.66603,6.19219,Medellin,,,80 San Antonio de Prado,Potrerito,2019-12-26,Activa
+419,SENA Ferrocarril - Meteorologica,-75.57444,6.25528,Medellin,San Benito,10 La Candelaria,,,2019-12-26,Activa
+420,Pan de azucar - Pluviografica,-75.63792,6.14023,La Estrella,,,,Pueblo Viejo,2019-12-26,Activa
+421,CC Viva Envigado - Pluviografica,-75.59237,6.17531,Envigado,Las Vegas,NULL,NULL,NULL,2020-01-14,Activa
+422,Laguna Quitasol Digital- Humedad,-75.55572,6.35789,Bello,NULL,NULL,NULL,Tierradentro,2019-12-23,Activa
+423,Q. La Ayura - Los Naranjos -  Nivel,-75.58061,6.17044,Envigado,Los Naranjos,,,,2020-02-05,Activa
+424,El tesoro 2 - Humedad,-75.45892,6.35169,Girardota,,,,,2020-02-07,Activa
+425,Montanita San Antonio - Disdrometro,-75.66603,6.19219,Medellin,,,80 San Antonio de Prado,Potrerito,2020-02-12,Activa
+426,Unicentro -  Nivel Lidar,-75.58662,6.23988,Medellin,Los Conquistadores,11 Laureles - Estadio,NULL,NULL,2019-12-23,Activa
+427,Thies ITM Castilla - Meteorologica,-75.56912,6.29391,Medellin,Girardot,05 Castilla,NULL,NULL,2019-02-20,Activa
+429,Perfilador de Viento - Pluviografica,-75.58990,6.22930,Medellin,Belen Las Playas,16 Belen,,,2020-02-21,Activa
+430,Deprimido de los musicos - Nivel Lidar,-75.58184,6.24745,Medellin,San Joaquin,11 Laureles - Estadio,NULL,NULL,2020-02-24,Activa
+431,Q. La Honda -  Sabaneta,-75.60628,6.15124,Sabaneta,NULL,NULL,NULL,NULL,2020-02-25,Activa
+432,Andalucia Caldas - Pluviografica,-75.62651,6.09259,Caldas,Andalucia,16 Belen,,,2020-02-27,Activa
+433,Salada Parte Alta - Pluviografica,-75.61831,6.01689,Caldas,,,,Salada Parte Alta,2020-02-28,Activa
+434,Museo de Antioquia - Pluviografica,-75.56891,6.25242,Medellin,La Candelaria,10 La Candelaria,,,2020-03-03,Activa
+435,Museo de Antioquia - Disdrometro,-75.56891,6.25242,Medellin,La Candelaria,10 La Candelaria,,,2020-03-03,Activa
+436,Comfama Copacabana - humedad_stevens,-75.48344,6.37659,Copacabana,,,,,2020-03-12,Activa
+437,Paradero Jalisco San Felix - Pluviografica,-75.59700,6.31433,Bello,El Carmelo,,San Felix,,2020-03-31,Activa
+438,La clara - Temp Pluviografica,-75.61870,6.04200,Caldas,,,,,2020-04-24,Inactiva
+439,La clara - Temp Lluvia,-75.61870,6.04200,Caldas,,,,La Clara,2019-12-23,Inactiva
+440,El 12 Taraza - Nivel,-75.30700,7.44800,Taraza,,,,,2020-04-28,Activa
+441,Temp de agua Torre Siata - Pluviografica,-75.61870,6.04200,Medellin,Estadio,11 Laureles - Estadio,,,2020-04-24,Inactiva
+442,Temp Quebrada larga - Pluviografica,-75.68567,6.20558,Medellin,,,80 San Antonio de Prado,Yarumalito,2020-05-07,Inactiva
+443,Temp Quebrada larga - Temp Lluvia,-75.68567,6.20558,Medellin,,,80 San Antonio de Prado,Yarumalito,2020-05-07,Inactiva
+444,Museo de Antioquia - Meteorologica,-75.56891,6.25242,Medellin,La Candelaria,10 La Candelaria,,,2020-05-07,Inactiva
+445,Deprimido San Juan Con La 80 - Pluviografica,-75.60224,6.25038,Medellin,Lorena,11 Laureles - Estadio,,,2020-05-08,Activa
+446,Deprimido Bulerias - Pluviografica,-75.58990,6.23950,Medellin,Laureles,11 Laureles - Estadio,,,2020-05-05,Activa
+447,Deprimido San Juan Con Av Ferrocarril - Pluviografica,-75.57498,6.24598,Medellin,Guayaquil,10 La Candelaria,,,2020-05-11,Activa
+448,Thies CASD - Meteorologica,-75.57523,6.29762,Medellin,La Candelaria,10 La Candelaria,,,2020-05-19,Activa
+449,Monterrey - Alcantarillado Lidar,-75.57565,6.21281,Medellin,Astorga,14 El Poblado,,,2020-05-20,Activa
+450,Universidad la Sallista - Meteorologica,-75.63879,6.09975,Caldas,,,,,2020-05-28,Activa
+451,Heliodora - Pluviografica ,-75.58767,6.16083,Medellin,El Dorado,,,,2020-07-03,Activa
+452,Puente Gabino - Pluviografica,-75.20589,6.55962,Barbosa,,,,El Caney,2020-07-22,Activa
+453,Montannita Extensometro,-75.66599,6.19204,Medellin,,,80 San Antonio de Prado,Montanita,2020-07-27,Activa
+454,Montannita Acelerometro,-75.66599,6.19204,Medellin,,,80 San Antonio de Prado,Montanita,2020-07-27,Activa
+455,Montannita - Humedad stevens,-75.66599,6.19204,Medellin,,,80 San Antonio de Prado,Montanita,2020-07-27,Activa
+456,Pluviometro Arenys de mar,-75.60666,6.27631,Medellin,Blanquizal,13 San Javier,,,2020-07-31,Activa
+457,Ajizal,-75.58864,6.25922,Medellin,,,,,2020-08-14,Activa
+1000,Thiess Movil 1,-75.57247,6.23980,Medellin,Calle Nueva,10 La Candelaria,,,2017-05-26,Inactiva
+1004,La clara digital- Humedad,-75.61877,6.04188,Caldas,,,,,2017-12-14,Activa
+1010,Vereda San Antonio - Pluvio,-76.67252,1.18356,Mocoa,,,,San Antonio,2017-04-12,Activa
+1011,Policia,-76.64860,1.14705,Mocoa,,,,,2017-04-13,Activa
+1012,Escuela el libano - Pluvio,-76.66859,1.14552,Mocoa,,,,,2017-04-12,Activa
+1013,Rio Sangoyaco - Nivel,-76.64685,1.14853,Mocoa,,,,,2017-04-13,Activa
+1014,Rio Mulato - Nivel,-76.64522,1.14378,Mocoa,,,,,2017-04-13,Activa
+1018,Santa Elena-Radar - Thies,-75.52760,6.19350,Medellin,NULL,NULL,90 Santa Elena,El Plan,2017-06-15,Inactiva
+1019,Torre SIATA - Thies,-75.58864,6.25922,Medellin,Estadio,11 Laureles - Estadio,,,2017-06-20,Activa
+1020,Thiess Movil 2,-75.57750,6.25705,Medellin,Carlos E. Restrepo,11 Laureles - Estadio,,,2017-09-07,Inactiva
+1021,San Luis de Chontayaco,-76.68571,1.14696,Mocoa,,,,San Luis de Chontayaco,2017-09-07,Activa
+6001,Piranometro Torre SIATA,-75.58864,6.25922,Medellin,Estadio,11 Laureles - Estadio,,,2016-03-08,Activa
+6002,Piranometro Concejo Itagui,-75.64410,6.16810,Itagui,Bariloche,,,,2016-03-10,Activa
+6003,Piranometro Joaquin Vallejo,-75.54270,6.25510,Medellin,La Ladera,08 Villa Hermosa,,,2016-04-13,Activa
+6004,Piranometro Parque de las Aguas,-75.41949,6.40671,Barbosa,,,,,2017-09-21,Activa
+6005,Piranometro AMVA,-75.57429,6.24219,Medellin,La Alpujarra,10 La Candelaria,,,2017-09-21,Activa
+100129,Antena - Tasajera - Nivel Hatillo,-75.39381,6.41249,Barbosa,,,,,2020-06-19,Activa
+100130,Antena - Radar Meteo - Amigo Policia,-75.52877,6.19074,Envigado,,,,,2020-06-19,Inactiva
+100131,Antena - Reino Belgica - La Candelaria,-75.54001,6.28466,Medellin,,,,,2020-06-19,Activa
+100132,Antena -  Acelero Solidaridad - None,-75.54600,6.23600,Medellin,,,,,2020-06-19,Activa
+100170,IRGASON Altavista CEDEPRO,-75.63624,6.21959,Medellin,,,,,2020-08-14,Activa
+100171,Antena - Irgason Jesus Maria Valle – La Candelaria,-75.58216,6.30065,Medellin,,,,,2020-08-10,Activa
+100172,Ceilometro Jesus Maria Valle,-75.58216,6.30065,Medellin,,,,,2020-08-10,Activa
+100272,Antena - Tasajera - Acelero Girardota,-75.43522,6.42450,Barbosa,,,,,2020-06-19,Activa
+100302,Camara - Deslizamiento Ancon Norte,-75.58864,6.25922,Medellin,,,,,2020-08-10,Activa
+100449,Antena - Tasajera - Thiess Parque de las Aguas,-75.43522,6.42450,Barbosa,,,,,2020-06-19,Activa
+100450,Antena - Ciudadela de la Vida - La Holanda,-75.50475,6.34536,Copacabana,,,,,2020-06-19,Activa
+100451,Antena -  Amigo Policia - Sectorial Centro,-75.61600,6.25300,Medellin,,,,,2020-06-19,Inactiva
+100455,Camara Nivel Hatillo,-75.39381,6.41249,Barbosa,,,,Hatillo,2020-07-21,Activa
+100456,Antena - Jesus Maria Valle – Acelero solidaridad,-75.58216,6.30065,Medellin,,,,,2020-08-10,Activa
+100457,TDR Manga arriba,-75.45708,6.35432,Girardota,,,,Manga Arriba,2020-08-04,Activa
+100458,Antena - Manga arriba – NONE,-75.45944,6.35156,Medellin,,,,,2020-08-10,Activa
+100459,Antena Escuela CEDEPRO I E Joaquin Vallejo Arbelaez,-75.63624,6.21959,Medellin,,,,,2020-08-14,Activa
+100460,Antena Ajizal Santa Elena,-75.58864,6.25922,Medellin,,,,,2020-08-14,Activa
+100461,Antena I E Joaquin Vallejo Arbelaez Escuela CEDEPRO,-75.54273,6.25513,Medellin,,,,,2020-08-14,Activa
+100464,Camara Ajizal,-75.58864,6.25922,Medellin,,,,,2020-08-14,Activa
