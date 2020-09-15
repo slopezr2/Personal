@@ -2,7 +2,7 @@
 #SBATCH --partition=longjobs
 #SBATCH --nodes=1
 #SBATCH --ntasks=32
-#SBATCH --time=1-1:00:00
+#SBATCH --time=3-10:00:00
 #SBATCH --job-name=LE_4DEnVar_32
 #SBATCH -o result_%x_%j.out      # File to which STDOUT will be written
 #SBATCH -e result_%x_%j.err      # File to which STDERR will be written
