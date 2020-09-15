@@ -79,11 +79,7 @@ rho=0.1
 echo ${rho}>${mydir}/DATA_4DEnVAR/rho.dat
 
 
-#===Remove all temporal files====
-if [ -d ${mydir}/temp ]
-then
-	rm ${mydir}/temp/*
-fi
+
 #===Path LOTOS-EUROS Ensemble Outputs===
 LE_Outputs='/scratch/ayarceb/projects/LOTOS-EUROS/projects/4DEnVAR/'${runid}'/output'
 LE_Run='/scratch/ayarceb/projects/LOTOS-EUROS/projects/4DEnVAR/'${runid}'/run'
