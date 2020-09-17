@@ -66,7 +66,7 @@ Nens=40
 
 
 #===Parameter rho====
-rho=0.01
+rho=0.1
 
 
 echo ${rho}>${mydir}/DATA_4DEnVAR/rho.in
