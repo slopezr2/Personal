@@ -37,7 +37,7 @@ NETCDF_FORTRAN_HOME='/usr/lib64'
 #NETCDF_HOME=${OPT}'/netcdf/4.4.0'
 NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
 #===Run ID====
-runid='SingleRUN_0.75_RETEST'
+runid='Experiment_Arjo_1_day'
 
 #===Date of simulations====
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
@@ -53,8 +53,8 @@ days_simulation=3   # Recordar modificar
 #===Recordar ver parametro de duracion de la vebtana de asimilacion, inicio de la ventana de asimilacion (./DATA_4DEnVAR/parameters.in)y fecha del archivo Lotos_euros_inner
 
 
-echo 'timerange.start     :  2019-01-15 15:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
-echo 'timerange.end       :  2019-02-01 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
+echo 'timerange.start     :  2019-01-15 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
+echo 'timerange.end       :  2019-01-17 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 
 echo ${start_date}>${mydir}/DATA_4DEnVAR/startdate.in
 echo ${days_simulation}>>${mydir}/DATA_4DEnVAR/startdate.in

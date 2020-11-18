@@ -16,14 +16,22 @@ echo 'run.id             : '${runid}>${LE}/proj/eafit/000/rc/runid.rc
 
 
 echo 'kf.nmodes             : '${Nens}> ${LE}/proj/eafit/000/rc/N_Ensembles.rc
-echo ${LE_Outputs}>> ${mydir}/temp/Ensembles.in
-echo ${Nens}>>${mydir}/temp/Ensembles.in
 
+#===Remove all temporal files====
+if [ -d ${mydir}/temp ]
+then
+	rm ${mydir}/temp/*
+fi
 
 if [ -f ${LE}/proj/eafit/000/rc/Restart.rc ]
 then
 	rm ${LE}/proj/eafit/000/rc/Restart.rc
 fi
+
+echo ${LE_Outputs}>> ${mydir}/temp/Ensembles.in
+echo ${Nens}>>${mydir}/temp/Ensembles.in
+
+
 	
 echo 'kf.restart.path               : /run/media/dirac/Datos/scratch/projects/4DEnVAR/'${runid}'/restart'>>${LE}/proj/eafit/000/rc/Restart.rc
 echo 'kf.restart.key                :  model=LEKF;expid='${runid}>>${LE}/proj/eafit/000/rc/Restart.rc

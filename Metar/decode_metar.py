@@ -1,7 +1,15 @@
 from metar import Metar
 import pandas as pd
 
+<<<<<<< HEAD
+a=['./CONSULTA METAR - IDEAM_SANTA_MARTA.csv','./CONSULTA METAR - IDEAM._Barranquilla.csv','./CONSULTA METAR - IDEAM_Barrancabermeja.csv','./CONSULTA METAR - IDEAM_BOGOTA.csv','./CONSULTA METAR - IDEAM_Cartagena.csv','./CONSULTA METAR - IDEAM_MEDELLIN.csv','./CONSULTA METAR - IDEAM_Monteria.csv','./CONSULTA METAR - IDEAM_Riohacha.csv','./CONSULTA METAR - IDEAM_Santiago_De_Cali.csv','./CONSULTA METAR - IDEAM_Valledupar.csv']
+
+j=9
+
+df=pd.read_csv(a[j], sep=',',header=0)
+=======
 df=pd.read_csv('./Metar_archivos/CONSULTA METAR - IDEAM_SANTA_MARTA.csv', sep=',',header=0)
+>>>>>>> 69e7ac40330c16eb9d735a946f883e3b5dcb17f0
 
 information = pd.DataFrame(columns=['D','T','P','DP'])
 for row in df.iterrows():
