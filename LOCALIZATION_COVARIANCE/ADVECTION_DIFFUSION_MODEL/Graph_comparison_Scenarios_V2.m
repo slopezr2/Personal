@@ -34,7 +34,7 @@ for Nm=[1 3]
            RMSE_Ledoid(Nm,freq,Nen)=nanmean(sqrt(sum(error_Ledoid(Nm,freq,Nen,:,:).^2,5)/1500));
            RMSE_Schur(Nm,freq,Nen)=nanmean(sqrt(sum(error_Schur(Nm,freq,Nen,:,:).^2,5)/1500));
 %             disp([titulo,' KA= ',num2str(RMSE_KA),' Ledoid= ',num2str(RMSE_Ledoid),' CL= ',num2str(RMSE_Schur)])
-              saveas(fig,figmat,'epsc')
+%               saveas(fig,figmat,'epsc')
         end
     end
 end

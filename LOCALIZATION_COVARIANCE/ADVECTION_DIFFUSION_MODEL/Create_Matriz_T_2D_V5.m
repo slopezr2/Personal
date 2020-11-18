@@ -2,8 +2,8 @@
 clear all
 load orog.mat
 
-ncolumn=20; %Number of columns
-nrow=20;
+ncolumn=110; %Number of columns
+nrow=100;
 n=nrow*ncolumn; %Number of states
 T=zeros(n);
 dist=[0:ncolumn-1];
@@ -20,14 +20,13 @@ r2 = (dist(ind2) / R) .^ 2;
 r3 = (dist(ind2) / R) .^ 3;
 coeffs(ind2) = r2 .* (r3 / 12 - r2 / 2) + r3 * (5 / 8) + r2 * (5 / 3) - r1 * 5 + 4 - (2 / 3) ./ r1;
 
-KA=0; %Include Knownledge
+KA=1; %Include Knownledge
 
 %===Physical restrictions====
 min_height_value=200;
 max_height_value=600;
 guardar=0;
 for i=1:n
-    i
     %===Detection of row and column
      [row,column]=ind2sub([nrow,ncolumn],i);
      row_radius=[max(1,row-nrow):1:min(nrow,row+nrow)];

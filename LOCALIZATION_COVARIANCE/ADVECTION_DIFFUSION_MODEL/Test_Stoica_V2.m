@@ -1,4 +1,4 @@
-% clear all
+clear all
  close all
  clc
 
@@ -25,34 +25,35 @@ H = H(randperm(n,m),:);
 
 Y=H*Xreal;
 %==Number of Ensembles==
-N=500;
+N=50;
 Xb=zeros(n,N,Tsim);
 Xa=Xb;
 
 
-% aux=tic;
-% for i=1:Tsim-1
-%      %===== Forecast Step=====
-%      [Xb(:,:,i+1)]=Function_Advection_Diffusion_2D(N,1,squeeze(Xa(:,:,i)),i);
-%      meanxb=mean(Xb(:,:,i),2);
-%      L=(Xb(:,:,i)-meanxb)/sqrt(N);
-%      P0=((L*L'));
-%       A=sort(diag(P0));
-%      T=T_advection_rho.*A(end-3)/n;  
-% %      T=T_advection_rho.*P0; 
-% %      T=T_advection_rho.*meanP0;
-%      alpha(i)=Alpha_CC_Stoica_V1(L,P0,T,N);
-%      B=alpha(i)*T+(1-alpha(i))*P0; 
-%      %===== Analysis Step=====
-%      K=B*H'*pinv(H*B*H'+R);
-%      for en=1:N
-%         Xa(:,en,i+1)=Xb(:,en,i+1)+K*(Y(:,i+1)+sigma*randn(m,1)-H*Xb(:,en,i+1));
-%      end
-% 
-%      meanxa_EnKF_KA(:,i+1)=mean(Xa(:,:,i+1),2);
-% end
-% t_EnKF_KA=toc(aux)
-% error_EnKF_KA=norm(abs(sum(meanxa_EnKF_KA(:,:)-Xreal(:,:))))
+aux=tic;
+for i=1:Tsim-1
+     %===== Forecast Step=====
+     [Xb(:,:,i+1)]=Function_Advection_Diffusion_2D(N,1,squeeze(Xa(:,:,i)),i);
+     meanxb=mean(Xb(:,:,i),2);
+     L=(Xb(:,:,i)-meanxb)/sqrt(N);
+     P0=((L*L'));
+      A=sort(diag(P0));
+     T=T_advection_rho.*A(end-3)/n;  
+%      T=T_advection_rho.*P0; 
+%      T=T_advection_rho.*meanP0;
+     alpha(i)=Alpha_CC_Stoica_V1(L,P0,T,N);
+     B=alpha(i)*T+(1-alpha(i))*P0; 
+     %===== Analysis Step=====
+     K=B*H'*pinv(H*B*H'+R);
+     for en=1:N
+        Xa(:,en,i+1)=Xb(:,en,i+1)+K*(Y(:,i+1)+sigma*randn(m,1)-H*Xb(:,en,i+1));
+     end
+
+     meanxa_EnKF_KA(:,i+1)=mean(Xa(:,:,i+1),2);
+     varxa_EnKF_KA(:,i+1)=var(Xa(:,:,i+1),1,2);
+end
+t_EnKF_KA=toc(aux)
+error_EnKF_KA=norm(abs(sum(meanxa_EnKF_KA(:,:)-Xreal(:,:))))
 
 
 % % 
@@ -87,6 +88,7 @@ for i=1:Tsim-1
         Xa(:,en,i+1)=Xb(:,en,i+1)+K*(Y(:,i+1)+sigma*randn(m,1)-H*Xb(:,en,i+1));
     end
     meanxa_ledoid(:,i+1)=mean(Xa(:,:,i+1),2);
+    varxa_ledoid(:,i+1)=var(Xa(:,:,i+1),1,2);
 end
 % % figure
 % % plot(meanxa_ledoid(6,:),'LineWidth',3)
@@ -119,6 +121,7 @@ for i=1:Tsim-1
      end
     Xa(:,:,i+1)=Xb(:,:,i+1);
     meanxa(:,i+1)=mean(Xa(:,:,i+1),2);
+    varxa(:,i+1)=var(Xa(:,:,i+1),1,2);
 end
 % figure
 % plot(meanxa(6,:),'LineWidth',3)
@@ -177,7 +180,13 @@ for i=1:Tsim-1
         Xa(:,en,i+1)=Xb(:,en,i+1)+K*(Y(:,i+1)+sigma*randn(m,1)-H*Xb(:,en,i+1));
     end
     meanxa_Schur(:,i+1)=mean(Xa(:,:,i+1),2);
+    varxa_Schur(:,i+1)=var(Xa(:,:,i+1),1,2);
 end
 t_Schur=toc(aux)
 
  error_Schur=norm(abs(sum(meanxa_Schur(:,:)-Xreal(:,:))))
+ 
+ save varxa varxa
+ save varxa_EnKF_KA varxa_EnKF_KA
+ save varxa_ledoid varxa_ledoid
+ save varxa_Schur varxa_Schur

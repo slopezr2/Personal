@@ -3,9 +3,10 @@ load T_no_AMVA.mat
 load lat_ecmwf.mat
 load lon_ecmwf.mat
 load orog.mat
-close all
-
-T_AMVA(T_AMVA==0)=NaN;
+% close all
+% T_AMVA=T_2;
+T_AMVA=T_SPD;
+T_AMVA(T_AMVA<0.05)=NaN;
 T_no_AMVA(T_no_AMVA==0)=NaN;
 
 %===Dimensions domain====
@@ -38,6 +39,7 @@ imagesc(lon_ecmwf,lat_ecmwf, matrix_1')
 imagesc(lon_ecmwf,lat_ecmwf, matrix_2','AlphaData',imAlpha')
 set(gca,'YDir','normal')
 colormap(flipud(hot))
+caxis([0 1])
 colorbar
 S=shaperead('/home/slopezr2/Documents/Municipios_AreaMetropolitana.shp');
 mapshow(S,'FaceColor',[0.2 0.2 0.2],'FaceAlpha',0.0, 'LineWidth',1)
