@@ -46,16 +46,48 @@ then
 	rm ${LE}/proj/eafit/000/rc/timerange.rc
 	
 fi	
+
+if [ -f ${LE}/proj/eafit/000/rc/timerange_inner.rc ]
+then
+	rm ${LE}/proj/eafit/000/rc/timerange_inner.rc
+	
+fi
+
+if [ -f ${mydir}/DATA_4DEnVAR/parameters.in ]
+then
+	rm ${mydir}/DATA_4DEnVAR/parameters.in
+	
+fi
+
+
 start_date=20190201 # Recordar modificar
 #=====Days to be simulated======
 
 days_simulation=3   # Recordar modificar
 
-#===Recordar ver parametro de duracion de la vebtana de asimilacion, inicio de la ventana de asimilacion (./DATA_4DEnVAR/parameters.in)y fecha del archivo Lotos_euros_inner
+
+#===== Data assimilation parameters=====
+
+dawindows=1    #Assimilation Window
+st_ass=1   #Assimilation window start
+inner=15     #Number of inner step
+eps=0.0002  #Tolerance Inner Loop
+sigma_obs=0.0001  #Sigma Observations
+
+echo ${dawindows}>>${mydir}/DATA_4DEnVAR/parameters.in
+echo ${st_ass}>>${mydir}/DATA_4DEnVAR/parameters.in
+echo ${inner}>>${mydir}/DATA_4DEnVAR/parameters.in
+echo ${eps}>>${mydir}/DATA_4DEnVAR/parameters.in
+echo ${sigma_obs}>>${mydir}/DATA_4DEnVAR/parameters.in
 
 
 echo 'timerange.start     :  2019-02-01 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 echo 'timerange.end       :  2019-02-04 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
+
+echo 'timerange.start     :  2019-02-02 00:00:00'>>${LE}/proj/eafit/000/rc/timerange_inner.rc
+echo 'timerange.end       :  2019-02-04 00:00:00'>>${LE}/proj/eafit/000/rc/timerange_inner.rc
+
+
 
 echo ${start_date}>${mydir}/DATA_4DEnVAR/startdate.in
 echo ${days_simulation}>>${mydir}/DATA_4DEnVAR/startdate.in
@@ -66,7 +98,7 @@ Nens=40
 
 
 #===Parameter rho====
-rho=0.1
+rho=0.5
 
 
 echo ${rho}>${mydir}/DATA_4DEnVAR/rho.in

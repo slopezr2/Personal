@@ -1,6 +1,6 @@
 121    !Number of states
 22    !Number of observations
-40    !Number of ensembles
+20    !Number of ensembles
 96    !Simulation time
 6    !Assimilation Window
 24   !Assimilation window start

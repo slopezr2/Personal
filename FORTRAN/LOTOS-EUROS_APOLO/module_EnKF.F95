@@ -214,8 +214,8 @@ subroutine ensmean(Xen,Xmean)
    integer :: nrens,j
    real*8,dimension(:,:), intent(in)  :: Xen
    real*8,dimension(size(Xen,1)),intent(out) :: Xmean
-   nrens=size(Xen,2)
-   
+   nrens=size(xen,2)
+   write(*,*) 'size xen', shape(Xen)
    Xmean(:)=Xen(:,1)
    do j=2,nrens
       Xmean(:)=Xmean(:)+Xen(:,j)

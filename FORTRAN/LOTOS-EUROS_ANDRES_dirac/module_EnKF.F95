@@ -197,7 +197,7 @@ subroutine create_DC_NC(Xk,n,n_cells_int,agrup,lat,lon,time,nx_int,ny_int,initia
   status =nf90_put_var(ncid, time_varid, time_var)
   DC=1
 		do i=1,n_cells_int
-			DC(nx_int(i),ny_int(i))=Xk(agrup(i))
+			DC(nx_int(i),ny_int(i))=max(Xk(agrup(i)),0.0)
 		enddo
   do i=1,time
 		DC_nc(:,:,1,1,i)=DC	

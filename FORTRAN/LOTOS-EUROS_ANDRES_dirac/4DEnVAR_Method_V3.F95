@@ -2,7 +2,7 @@ program LE_4DEnVAR_Method
   !USE modulo_distribucion_normal
   use module_EnKF
   use module_matrix
- 
+
   implicit none
 
   integer::n,m,tsim,Nen,dawindows,inner,fileidreal=1000
@@ -10,8 +10,9 @@ program LE_4DEnVAR_Method
   integer::lat,lon,time !Dimensions	
   real*8,parameter::F=8
   real*8::sigmaobs,rho
-  integer::k,i,j,l    ! i for states, j for time, k for ensembles,l for inner steps
-  integer::flaq,initial_day
+  integer::k,i,j,l,fileid     ! i for states, j for time, k for ensembles,l for inner steps
+  real*8::realaux  
+  integer::intaux,flaq,initial_day
   real*8,parameter :: dt=0.01
   real*8::tolerance,sparse
   real*8,allocatable,dimension(:,:,:):: xa,xb,Yb,xk
@@ -21,7 +22,7 @@ program LE_4DEnVAR_Method
   real*8,allocatable,dimension(:,:,:)::dY
   real*8,allocatable,dimension(:)::aux_vect,xbmean,xamean,ymean,aux_read,aux_read_y
   integer,allocatable,dimension(:) :: nx_int(:),ny_int(:),agrup(:)
-  character (len=500)::FILE_NAME,FILE_NAME2
+  character (len=500)::FILE_NAME,Path,FILE_NAME2
   
 
 !====Reading parameter rho ====
@@ -65,7 +66,6 @@ read(61,*) dawindows
 read(61,*) st_ass
 read(61,*) inner
 read(61,*) tolerance
-read(61,*) sparse
 read(61,*) sigmaobs
 close(61)
 
